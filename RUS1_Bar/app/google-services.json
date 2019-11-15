@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "943914018192",
+    "firebase_url": "https://rus1bar.firebaseio.com",
+    "project_id": "rus1bar",
+    "storage_bucket": "rus1bar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943914018192:android:02455ca88535ed4b747f15",
+        "android_client_info": {
+          "package_name": "com.example.rus1_bar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943914018192-8uovojm5isi4okseofq03ag8nm729i1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rus1_bar",
+            "certificate_hash": "67f4a398468ebc821c13cdd62e15baa64746d3ae"
+          }
+        },
+        {
+          "client_id": "943914018192-vllnhbd1d7pppq7ccnht9fvsg9tnqhpl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOuM3EIR6vrn_Ww4SrimARW0M01-DdLA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943914018192-vllnhbd1d7pppq7ccnht9fvsg9tnqhpl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
