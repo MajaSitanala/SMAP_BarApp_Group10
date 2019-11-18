@@ -1,14 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.Administrator.SettingsOverviewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/tutorSettingsBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginLeft="96dp"
+            android:layout_marginTop="88dp"
+            android:text="@string/tutorSettingsBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adminSettingsTitle" />
+
+        <Button
+            android:id="@+id/productSettingsBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginLeft="232dp"
+            android:layout_marginTop="88dp"
+            android:text="@string/productSettingsBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutorSettingsBtn" />
+
+        <Button
+            android:id="@+id/rusturSettingsBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginLeft="232dp"
+            android:layout_marginTop="88dp"
+            android:text="@string/rusturSettingsBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productSettingsBtn" />
+
+        <Button
+            android:id="@+id/billSettingsBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginLeft="232dp"
+            android:layout_marginTop="88dp"
+            android:text="@string/billSettingsBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rusturSettingsBtn" />
+
+        <TextView
+            android:id="@+id/adminSettingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="228dp"
+            android:layout_marginLeft="228dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/adminSettingTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logOffBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="232dp"
+            android:layout_marginLeft="232dp"
+            android:layout_marginBottom="144dp"
+            android:text="@string/logOffBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

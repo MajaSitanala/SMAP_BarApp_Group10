@@ -14,4 +14,40 @@
     <string name="Login">Login</string>
     <string name="RUS1_login_Text">RUS 1 - Bar</string>
 
+    <!-- Settings Overview Fragment -->
+    <string name="adminSettingTitle">Admin Settings</string>
+    <string name="tutorSettingsBtn">Tutor Settings</string>
+    <string name="logOffBtn">Log Off</string>
+    <string name="productSettingsBtn">Product Settings</string>
+    <string name="rusturSettingsBtn">Rustur Settings</string>
+    <string name="billSettingsBtn">Bill Settings</string>
+
+    <!-- Tutor Settings Fragment -->
+    <string name="tutorAddBtn">Add Tutor</string>
+    <string name="tutorEditBtn">Edit Tutor</string>
+    <string name="tutorlistTextView">Tutor List</string>
+
+    <!-- Product Settings Fragment -->
+    <string name="categoryAddButton">Add Category</string>
+    <string name="productAddBtn">Add Product</string>
+    <string name="categoryEditBtn">Edit Category</string>
+    <string name="productEditBtn">Edit Product</string>
+    <string name="productSettingsCancelBtn">Cancel</string>
+    <string name="productSettingsList">Product List</string>
+
+    <!-- Bill Settings Fragment -->
+    <string name="billSettingsViewBillBtn">View Bill</string>
+    <string name="billSettingsTitle">Bill Settings</string>
+    <string name="billSettingsSendBillBtn">Send Bill</string>
+    <string name="billSettingsExportBillBtn">Export Bill</string>
+    <string name="billSettingsCancelBtn">Cancel</string>
+
+    <!-- Rustur Settings Fragment -->
+    <string name="rusturSettingsAddRusturBtn">Add Rustur</string>
+    <string name="rusturSettingsEditRusturBtn">Edit Rustur</string>
+    <string name="rusturSettingsSetCurrentBtn">Set Rustur</string>
+    <string name="rusturSettingsEndRusturBtn">End Rustur</string>
+    <string name="rusturSettingsCancelBtn">Cancel</string>
+    <string name="rusturSettingsTitle">Rustur Settings</string>
+
 </resources>
