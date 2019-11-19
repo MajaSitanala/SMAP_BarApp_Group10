@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.Administrator.BillSettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/billSettingsViewBillBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="80dp"
+            android:text="@string/billSettingsViewBillBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/billSettingsTitle" />
+
+        <Button
+            android:id="@+id/billSettingsSendBillBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="80dp"
+            android:text="@string/billSettingsSendBillBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/billSettingsViewBillBtn" />
+
+        <Button
+            android:id="@+id/billSettingsExportBillsBtn"
+            android:layout_width="359dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="80dp"
+            android:text="@string/billSettingsExportBillBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/billSettingsSendBillBtn" />
+
+        <TextView
+            android:id="@+id/billSettingsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="52dp"
+            android:text="@string/billSettingsTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.413"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/billSettingsCancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="104dp"
+            android:text="@string/billSettingsCancelBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/billSettingsExportBillsBtn"
+            app:layout_constraintVertical_bias="0.375" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

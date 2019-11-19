@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RUS1_Bar</string>
+    <string name="Login">Login</string>
+    <string name="Password">Kodeord</string>
+    <string name="Username">Brugernavn</string>
+    <string name="hello_blank_fragment">Hej tomt Fragment</string>
+    <string name="Cancel">Annuler</string>
+    <string name="Buy">Køb</string>
+    <string name="RUS1_login_Text">RUS 1 - Bar</string>
+    <string name="adminSettingTitle">Admin Indstillinger</string>
+    <string name="tutorSettingsBtn">Tutor Indstillinger</string>
+    <string name="logOffBtn">Log Af</string>
+    <string name="productSettingsBtn">Produkt Indstillinger</string>
+    <string name="rusturSettingsBtn">Rustur Indstillinger</string>
+    <string name="billSettingsBtn">Regning Indstillinger</string>
+    <string name="tutorAddBtn">Tilføj Tutor</string>
+    <string name="tutorEditBtn">Ret Tutor</string>
+    <string name="tutorlistTextView">Tutor Liste</string>
+    <string name="categoryAddButton">Tilføj Kategori</string>
+    <string name="productAddBtn">Tilføj Produkt</string>
+    <string name="categoryEditBtn">Ret Kategori</string>
+    <string name="productEditBtn">Ret Produkt</string>
+    <string name="productSettingsCancelBtn">Annuller</string>
+    <string name="productSettingsList">Produkt Liste</string>
+    <string name="billSettingsViewBillBtn">Se Regning</string>
+    <string name="billSettingsTitle">Regning Indstillinger</string>
+    <string name="billSettingsSendBillBtn">Send Regning</string>
+    <string name="billSettingsExportBillBtn">Exporter Regning</string>
+    <string name="billSettingsCancelBtn">Annuller</string>
+    <string name="rusturSettingsAddRusturBtn">Tilføj Rustur</string>
+    <string name="rusturSettingsEditRusturBtn">Ret Rustur</string>
+    <string name="rusturSettingsSetCurrentBtn">Sæt Nuværende Rustur</string>
+    <string name="rusturSettingsEndRusturBtn">Slut Rustur</string>
+    <string name="rusturSettingsCancelBtn">Annuller</string>
+    <string name="rusturSettingsTitle">Rustur Indstillinger</string>
+
+
+</resources>
