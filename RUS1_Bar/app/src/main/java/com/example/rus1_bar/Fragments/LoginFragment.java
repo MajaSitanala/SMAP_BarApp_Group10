@@ -17,13 +17,25 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.rus1_bar.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
 
-
+    private FirebaseAuth mAuth;
+    Button buttonLogin;
+    Button buttonCancel;
+    TextInputEditText email;
+    TextInputEditText password;
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -33,7 +45,6 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_login, container, false);
 
     }
@@ -42,10 +53,45 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
-        Button button = view.findViewById(R.id.login_btn);
-        button.setOnClickListener(s);
+        buttonCancel = view.findViewById(R.id.cancel_btn);
+        buttonCancel.setOnClickListener(s);
+
+
+        email = view.findViewById(R.id.EmailEditText);
+        password = view.findViewById(R.id.PasswordEditText);
+        buttonLogin = view.findViewById(R.id.login_btn);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(email.getText() != null && password.getText() != null){
+                    //authenticate(email.getText().toString(),password.getText().toString());
+                }
+            }
+        });
+
     }
 
+    // private void authenticate(String email,String pass){
+    //     mAuth.signInWithEmailAndPassword(email,pass)
+    //             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    //                 @Override
+    //                 public void onComplete(@NonNull Task<AuthResult> task) {
+    //                     if(task.isSuccessful()){
+    //                         Toast.makeText(getContext(),"Authentication succeeded.",Toast.LENGTH_LONG).show();
+    //                         FirebaseUser user = mAuth.getCurrentUser();
+    //                         Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_settingsOverviewFragment);
+    //                    }else {
+    //                        Toast.makeText(getContext(),"Authentication failed.",Toast.LENGTH_LONG).show();
+    //                    }
+    //                    if (!task.isSuccessful()) {
+    //                        password.setHint("");
+    //                    }
+
+    //                }
+    //            });
+    //}
 }
