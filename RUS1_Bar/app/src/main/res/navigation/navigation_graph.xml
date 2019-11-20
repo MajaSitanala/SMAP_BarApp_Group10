@@ -23,27 +23,7 @@
         android:id="@+id/viewTutorsFragment"
         android:name="com.example.rus1_bar.Fragments.Bartender.ViewTutorsFragment"
         android:label="fragment_view_tutors"
-        tools:layout="@layout/fragment_view_tutors" >
-        <action
-            android:id="@+id/action_viewTutorsFragment_to_viewCategoriesFragment"
-            app:destination="@id/viewCategoriesFragment" />
-        <action
-            android:id="@+id/action_viewTutorsFragment_to_shoppingCardFragment"
-            app:destination="@id/shoppingCardFragment" />
-    </fragment>
-
-
-
-    <fragment
-        android:id="@+id/viewCategoriesFragment"
-        android:name="com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment"
-        android:label="fragment_view_categories"
-        tools:layout="@layout/fragment_view_categories" >
-        <action
-            android:id="@+id/action_viewCategoriesFragment_to_viewProductsFragment"
-            app:destination="@id/viewProductsFragment" />
-    </fragment>
-
+        tools:layout="@layout/fragment_view_tutors" />
 
 
     <fragment
@@ -85,20 +65,6 @@
             android:id="@+id/action_settingsOverviewFragment_to_tutorSettingsFragment"
             app:destination="@id/tutorSettingsFragment" />
     </fragment>
-
-
-    <fragment
-        android:id="@+id/shoppingCardFragment"
-        android:name="com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment"
-        android:label="fragment_shopping_card"
-        tools:layout="@layout/fragment_shopping_card" />
-
-
-    <fragment
-        android:id="@+id/viewProductsFragment"
-        android:name="com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment"
-        android:label="fragment_view_products"
-        tools:layout="@layout/fragment_view_products" />
 
 
     <fragment

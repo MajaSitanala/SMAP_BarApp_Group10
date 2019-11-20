@@ -8,13 +8,13 @@ import android.widget.Button;
 
 import com.example.rus1_bar.R;
 
-public class BarLogin extends AppCompatActivity {
+public class Shopping extends AppCompatActivity {
 
     Button loginbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar_login);
+        setContentView(R.layout.activity_shopping);
 
         loginbtn.findViewById(R.id.LoginBTN);
 

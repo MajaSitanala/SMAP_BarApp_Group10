@@ -45,19 +45,17 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation 'com.google.gms:google-services:4.3.3'
-}
 
-// Enables one to declare the datatype to be passed through bundels
-// https://developer.android.com/jetpack/androidx/releases/navigation#/declarintdependencies
-/*
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        def nav_version = "2.1.0"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-    }
-}
+    // Card view
+    def cardview_version = "1.0.0"
+    implementation "androidx.cardview:cardview:$cardview_version"
 
- */
+    // Recycler View                                                                            https://developer.android.com/jetpack/androidx/releases/recyclerview
+    def recyclerview_version = "1.0.0"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+        // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
+
+    //Implementing picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+}

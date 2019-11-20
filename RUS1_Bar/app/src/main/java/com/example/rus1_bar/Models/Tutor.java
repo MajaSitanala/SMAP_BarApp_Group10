@@ -6,10 +6,19 @@ package com.example.rus1_bar.Models;
 public class Tutor {
 
     private String tutorName;
-    private String nickname;
+    private String tutorNickname;
     private int phoneNr;
     private String mail;
     private int picture;
+
+    public Tutor(String Name, String Nickname, int PhoneNumber, String Mail, int Picture)
+    {
+        this.setTutorName(Name);
+        this.setNickname(Nickname);
+        this.setPhoneNr(PhoneNumber);
+        this.setMail(Mail);
+        this.setPicture(Picture);
+    }
 
     public void setTutorName(String name) {
         tutorName = name;
@@ -20,11 +29,11 @@ public class Tutor {
     }
 
     public void setNickname(String nickname) {
-        nickname = nickname;
+        tutorNickname = nickname;
     }
 
     public String getNickname() {
-        return nickname;
+        return tutorNickname;
     }
 
     public void setPhoneNr(int phoneNr) {

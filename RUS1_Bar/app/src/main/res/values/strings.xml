@@ -50,4 +50,7 @@
     <string name="rusturSettingsCancelBtn">Cancel</string>
     <string name="rusturSettingsTitle">Rustur Settings</string>
 
+    <!-- Tutor view Fragment -->
+    <string name="TutorName">TutorName</string>
+
 </resources>

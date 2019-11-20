@@ -34,6 +34,7 @@
     <string name="rusturSettingsEndRusturBtn">Slut Rustur</string>
     <string name="rusturSettingsCancelBtn">Annuller</string>
     <string name="rusturSettingsTitle">Rustur Indstillinger</string>
+    <string name="TutorName">TutorNavn</string>
 
 
 </resources>
