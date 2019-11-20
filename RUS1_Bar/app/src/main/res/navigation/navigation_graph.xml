@@ -23,7 +23,11 @@
         android:id="@+id/viewTutorsFragment"
         android:name="com.example.rus1_bar.Fragments.Bartender.ViewTutorsFragment"
         android:label="fragment_view_tutors"
-        tools:layout="@layout/fragment_view_tutors" />
+        tools:layout="@layout/fragment_view_tutors" >
+        <action
+            android:id="@+id/action_viewTutorsFragment_to_viewCategoriesFragment"
+            app:destination="@id/viewCategoriesFragment" />
+    </fragment>
 
 
     <fragment
@@ -72,6 +76,20 @@
         android:name="com.example.rus1_bar.Fragments.Administrator.TutorSettingsFragment"
         android:label="fragment_tutor_settings"
         tools:layout="@layout/fragment_tutor_settings" />
+    <fragment
+        android:id="@+id/viewCategoriesFragment"
+        android:name="com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment"
+        android:label="fragment_view_categories"
+        tools:layout="@layout/fragment_view_categories" >
+        <action
+            android:id="@+id/action_viewCategoriesFragment_to_viewProductsFragment"
+            app:destination="@id/viewProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewProductsFragment"
+        android:name="com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment"
+        android:label="fragment_view_products"
+        tools:layout="@layout/fragment_view_products" />
 
 
 </navigation>
