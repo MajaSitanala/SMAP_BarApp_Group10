@@ -67,7 +67,15 @@ public class ViewTutorsFragment extends Fragment {
         //Test data for the card view
         testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
         testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
-        testTutorList.add(new Tutor("Mikkel Bleeg", "Pambers", 12345678, "123@enmail.com", R.drawable.bleeg));
+        testTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
+        testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
+        testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
+        testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
+        testTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
+        testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
+        testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
+        testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
+        testTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
         testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
         testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
         testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
@@ -75,15 +83,7 @@ public class ViewTutorsFragment extends Fragment {
         testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
         testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
         testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
-        testTutorList.add(new Tutor("Mikkel Bleeg", "Pambers", 12345678, "123@enmail.com", R.drawable.bleeg));
-        testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
-        testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
-        testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
-        testTutorList.add(new Tutor("Mikkel Bleeg", "Pambers", 12345678, "123@enmail.com", R.drawable.bleeg));
-        testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
-        testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
-        testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
-        testTutorList.add(new Tutor("Mikkel Bleeg", "Pambers", 12345678, "123@enmail.com", R.drawable.bleeg));
+        testTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
         testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
     }
 
