@@ -54,9 +54,6 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
 
             }
         });
-
-
-
     }
 
     @Override
