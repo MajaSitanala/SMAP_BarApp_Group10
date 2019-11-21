@@ -14,11 +14,9 @@
             android:id="@+id/linearLayout3"
             android:layout_width="210dp"
             android:layout_height="610dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline70"
             app:layout_constraintTop_toBottomOf="@+id/tutorlistTextView">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -31,13 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
             android:layout_marginTop="220dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:text="@string/tutorAddBtn"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.216"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,13 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="120dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:text="@string/tutorEditBtn"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.196"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tutorAddBtn" />
 
@@ -76,12 +70,41 @@
             android:id="@+id/tutorlistTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginRight="156dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="144dp"
             android:text="@string/tutorlistTextView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline67" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline67"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline68"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.95"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline69"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05666667" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
