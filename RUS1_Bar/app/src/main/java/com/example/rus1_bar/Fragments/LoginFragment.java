@@ -91,7 +91,8 @@ public class LoginFragment extends Fragment {
                             Toast.makeText(getContext(),"Authentication failed.",Toast.LENGTH_LONG).show();
                         }
                         if (!task.isSuccessful()) {
-                            password.setHint("Wrong password");
+                            //password.setHint("Wrong password");
+                            //Toast.makeText(getContext(),"Something went wrong in the login.",Toast.LENGTH_LONG).show();
                         }
 
                     }

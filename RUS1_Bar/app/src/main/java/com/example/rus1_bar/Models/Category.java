@@ -5,10 +5,25 @@ import java.util.List;
 
 public class Category {
 
+    private int categoryID;
     private String categoryName;
     private List<Product> categoryProductList;
     private int picture;
 
+    public Category(int iD, String Name, int Picture)
+    {
+        this.setCategoryID(iD);
+        this.setCategoryName(Name);
+        this.setPicture(Picture);
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;

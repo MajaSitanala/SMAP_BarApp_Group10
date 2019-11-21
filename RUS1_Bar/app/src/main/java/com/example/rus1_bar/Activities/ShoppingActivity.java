@@ -8,21 +8,14 @@ import android.widget.Button;
 
 import com.example.rus1_bar.R;
 
-public class Shopping extends AppCompatActivity {
+public class ShoppingActivity extends AppCompatActivity {
 
-    Button loginbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        loginbtn.findViewById(R.id.LoginBTN);
 
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 }

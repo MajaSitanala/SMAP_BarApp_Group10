@@ -2,6 +2,7 @@ package com.example.rus1_bar.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +14,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rus1_bar.Activities.MainActivity;
+import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdapter.MyViewHolder> {
 
+    private static final String TUTOR_ID = "Tutor id";
+    private static final int REQUEST_TUTOR_PURCHASE = 101;
     private Context mContext;
     private List<Tutor> mTutorList;
 
@@ -58,6 +58,12 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
         holder.cardViewTutor.setOnClickListener(view -> {
             Tutor t = mTutorList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getNickname(), Toast.LENGTH_SHORT).show();
+
+            Intent listIntent = new Intent(mContext, ShoppingActivity.class);
+            listIntent.putExtra(TUTOR_ID, t.getID());
+            ((Activity)mContext).startActivityForResult(listIntent, REQUEST_TUTOR_PURCHASE);
+
+
             //navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
             //Navigation.createNavigateOnClickListener(R.id.action_viewTutorsFragment_to_viewCategoriesFragment);
         });

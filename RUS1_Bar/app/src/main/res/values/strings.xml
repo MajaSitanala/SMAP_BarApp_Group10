@@ -52,5 +52,10 @@
 
     <!-- Tutor view Fragment -->
     <string name="TutorName">TutorName</string>
+    <string name="categoryname">CategoryName</string>
+    <string name="productname">ProductName</string>
+    <string name="itemprice">ItemPrice</string>
+    <string name="ItemQuantity">ItemQuantity</string>
+    <string name="itemname">ItemName</string>
 
 </resources>

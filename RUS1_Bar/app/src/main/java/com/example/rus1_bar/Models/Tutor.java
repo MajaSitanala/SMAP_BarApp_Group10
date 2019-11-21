@@ -5,6 +5,7 @@ package com.example.rus1_bar.Models;
  */
 public class Tutor {
 
+    private int ID;
     private String tutorName;
     private String tutorNickname;
     private int phoneNr;
@@ -18,6 +19,14 @@ public class Tutor {
         this.setPhoneNr(PhoneNumber);
         this.setMail(Mail);
         this.setPicture(Picture);
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public void setTutorName(String name) {
