@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:cardview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview_shoppingcard"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical"
+xmlns:cardview="http://schemas.android.com/apk/res-auto"
+android:id="@+id/cardview_shoppingcard"
+android:layout_width="match_parent"
+android:layout_height="60dp"
+android:layout_marginEnd="8dp"
+android:layout_marginStart="8dp"
+android:layout_marginTop="8dp">
+
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_margin="5dp"
-    cardview:cardCornerRadius="4dp">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txt_itemQuantity"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:text="@string/ItemQuantity"
+        android:textColor="@color/cardViewColor"
+        android:textSize="12dp" />
 
-        <TextView
-            android:id="@+id/txt_itemQuantity"
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/ItemQuantity"
-            android:textColor="@color/cardViewColor"
-            android:textSize="12dp" />
+    <TextView
+        android:id="@+id/txt_itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/txt_itemPrice"
+        android:layout_toEndOf="@+id/txt_itemQuantity"
+        android:gravity="fill_vertical"
+        android:text="@string/itemname"
+        android:textColor="@color/cardViewColor"
+        android:textSize="12dp" />
 
-        <TextView
-            android:id="@+id/txt_itemName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/txt_itemPrice"
-            android:layout_toEndOf="@+id/txt_itemQuantity"
-            android:gravity="center"
-            android:text="@string/itemname"
-            android:textColor="@color/cardViewColor"
-            android:textSize="12dp" />
+    <TextView
+        android:id="@+id/txt_itemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/btn_deleteButton"
+        android:gravity="center"
+        android:text="itemprice"
+        android:textColor="@color/cardViewColor"
+        android:textSize="12dp" />
 
-        <TextView
-            android:id="@+id/txt_itemPrice"
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/btn_deleteButton"
-            android:gravity="center"
-            android:text="itemprice"
-            android:textColor="@color/cardViewColor"
-            android:textSize="12dp" />
-
-        <Button
-            android:id="@+id/btn_deleteButton"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="0dp" />
-
-    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/btn_deleteButton"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/trash_can"/>
 
 
+</RelativeLayout>
 </androidx.cardview.widget.CardView>

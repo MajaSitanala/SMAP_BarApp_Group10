@@ -6,11 +6,6 @@
     app:startDestination="@id/viewCategoriesFragment">
 
     <fragment
-        android:id="@+id/shoppingCardFragment"
-        android:name="com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment"
-        android:label="fragment_shopping_card"
-        tools:layout="@layout/fragment_shopping_card" />
-    <fragment
         android:id="@+id/viewCategoriesFragment"
         android:name="com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment"
         android:label="fragment_view_categories"

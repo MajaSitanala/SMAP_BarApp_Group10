@@ -8,12 +8,15 @@ public class Product {
     private int picture;
     private int quantity;
 
-    public Product(int iD, int Quantity, String Name, int Price)
+    public Product(int iD, int Quantity, String Name, int Price, int Picture)
     {
-        this.setProductID(iD);
         this.setQuantity(Quantity);
         this.setProductName(Name);
         this.setPrice(Price);
+
+        //To avoid null error in adapter in holder
+        this.setProductID(iD);
+        this.setPicture(Picture);
     }
 
     public void setProductID(int productID) {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,9 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
     private List<Product> mProductList;
 
 
-    public ShoppingCardRecyclerAdapter(Context mContext, List<Product> mTutorList) {
+    public ShoppingCardRecyclerAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
-        this.mProductList = mTutorList;
+        this.mProductList = mProductList;
     }
 
 
@@ -39,7 +40,7 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.cardview_item_tutor, parent, false);
+        view = mInflater.inflate(R.layout.cardview_item_shoppingcard, parent, false);
         //final NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
         return new ShoppingCardRecyclerAdapter.MyViewHolder(view);
     }
@@ -47,7 +48,7 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
     @Override
     public void onBindViewHolder(@NonNull ShoppingCardRecyclerAdapter.MyViewHolder holder, int position) {
 
-        holder.txt_itemQuantity.setText(mProductList.get(position).getQuantity());
+        holder.txt_itemQuantity.setText(String.valueOf(mProductList.get(position).getQuantity()));
         holder.txt_itemName.setText(mProductList.get(position).getProductName());
         holder.txt_itemPrice.setText(String.valueOf(mProductList.get(position).getPrice()));
 
@@ -73,7 +74,7 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
         TextView txt_itemQuantity;
         TextView txt_itemName;
         TextView txt_itemPrice;
-        Button btn_deleteButton;
+        ImageButton btn_deleteButton;
         CardView cardViewShoppingCard;
 
         public MyViewHolder(View itemView)
@@ -83,7 +84,7 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
             txt_itemQuantity = (TextView) itemView.findViewById(R.id.txt_itemQuantity);
             txt_itemName = (TextView) itemView.findViewById(R.id.txt_itemName);
             txt_itemPrice = (TextView) itemView.findViewById(R.id.txt_itemPrice);
-            btn_deleteButton = (Button) itemView.findViewById(R.id.btn_deleteButton);
+            btn_deleteButton = (ImageButton) itemView.findViewById(R.id.btn_deleteButton);
             cardViewShoppingCard = (CardView) itemView.findViewById(R.id.cardview_shoppingcard);
         }
     }

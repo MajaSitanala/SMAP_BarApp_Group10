@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -41,17 +42,17 @@ public class ShoppingCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // rootView is needed when using fingViewById because otherwise the views have not been created by the time the views are called.
-        View rootView = inflater.inflate(R.layout.fragment_view_tutors, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        View rootView = inflater.inflate(R.layout.fragment_shopping_card, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
 
 
         //Test data for the card view
         fillTestShoppingCardList();
 
         // Recycler View setup
-        shoppingCardRecyclerView = rootView.findViewById(R.id.tutorRecyclerView);
+        shoppingCardRecyclerView = rootView.findViewById(R.id.shoppingCardRecyclerView);
 
-        //Creates the grid layout
-        shoppingCardLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+        //Creates the linear layout
+        shoppingCardLayoutManager = new LinearLayoutManager(getActivity());                                                                //https://youtu.be/SD2t75T5RdY?t=1302
         shoppingCardRecyclerView.setLayoutManager(shoppingCardLayoutManager);
 
         //Recycler adapter setup
@@ -60,17 +61,21 @@ public class ShoppingCardFragment extends Fragment {
         shoppingCardRecyclerView.setAdapter(shoppingCardRecyclerAdapter);
 
 
+
+
+
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
     }
 
     private void fillTestShoppingCardList()
     {
-        for (int i = 0; i<12; i++)
+        for (int i = 0; i<4; i++)
         {
             //Test data for the card view
-            testProductList.add(new Product(i, i, "Gin Hass", 20));
+            testProductList.add(new Product(i,i, "Gin Hass", 20, R.drawable.ginhass));
+            testProductList.add(new Product(i,i, "Filur", 20, R.drawable.filur));
+            testProductList.add(new Product(i,i, "White Russian", 20, R.drawable.whiterussianlang));
         }
-
     }
 }
