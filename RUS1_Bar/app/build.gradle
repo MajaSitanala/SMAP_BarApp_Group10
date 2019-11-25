@@ -46,6 +46,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation 'com.google.gms:google-services:4.3.3'
+    apply plugin: "androidx.navigation.safeargs"
 
     // Card view
     def cardview_version = "1.0.0"

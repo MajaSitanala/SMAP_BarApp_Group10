@@ -57,5 +57,10 @@
     <string name="itemprice">ItemPrice</string>
     <string name="ItemQuantity">ItemQuantity</string>
     <string name="itemname">ItemName</string>
+    <string name="quantity">Qty:</string>
+    <string name="shopping_cart_product">Product:</string>
+    <string name="price_dkk">Price:</string>
+    <string name="button_shopping_cancle">Cancle</string>
+    <string name="button_shopping_buy">Buy</string>
 
 </resources>

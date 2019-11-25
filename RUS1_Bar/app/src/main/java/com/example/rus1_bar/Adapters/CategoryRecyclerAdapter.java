@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +42,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardwiev_item_category, parent, false);
-        //final NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+        //final NavController navController = Navigation.findNavController(ShoppingActivity.this, R.id.nav_host_fragment);
         return new CategoryRecyclerAdapter.MyViewHolder(view);
     }
 
@@ -53,13 +54,30 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
         //TODO: use this onclick listenter to go to another fragment or activity
+
+
+
+        //holder.cardViewCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_viewCategoriesFragment_to_viewProductsFragment));
+
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
 
-            //navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+
+
+            //Navigation.createNavigateOnClickListener(R.id.action_viewCategoriesFragment_to_viewProductsFragment);
+
+            //Navigation.findNavController(view).navigate(R.id.action_viewCategoriesFragment_to_viewProductsFragment);
+
+            //navController = Navigation.findNavController(this,R.id.nav_host_fragment);
             //Navigation.createNavigateOnClickListener(R.id.action_viewTutorsFragment_to_viewCategoriesFragment);
         });
+
+
+
+
+
+
     }
 
     @Override
