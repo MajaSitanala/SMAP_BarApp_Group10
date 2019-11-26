@@ -59,18 +59,15 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         //holder.cardViewCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_viewCategoriesFragment_to_viewProductsFragment));
 
+        //holder.cardViewCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.viewProductsFragment, null));
+
+
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
 
+            Navigation.findNavController(view).navigate(R.id.viewProductsFragment);
 
-
-            //Navigation.createNavigateOnClickListener(R.id.action_viewCategoriesFragment_to_viewProductsFragment);
-
-            //Navigation.findNavController(view).navigate(R.id.action_viewCategoriesFragment_to_viewProductsFragment);
-
-            //navController = Navigation.findNavController(this,R.id.nav_host_fragment);
-            //Navigation.createNavigateOnClickListener(R.id.action_viewTutorsFragment_to_viewCategoriesFragment);
         });
 
 

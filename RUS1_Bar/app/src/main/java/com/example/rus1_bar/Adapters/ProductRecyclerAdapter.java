@@ -30,9 +30,9 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
     private List<Product> mProductList;
 
 
-    public ProductRecyclerAdapter(Context mContext, List<Product> mCategoryList) {
+    public ProductRecyclerAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
-        this.mProductList = mCategoryList;
+        this.mProductList = mProductList;
     }
 
 

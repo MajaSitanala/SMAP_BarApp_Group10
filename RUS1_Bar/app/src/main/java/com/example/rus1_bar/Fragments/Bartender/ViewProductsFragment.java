@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
+
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
-import com.example.rus1_bar.Models.Category;
+
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 
@@ -47,7 +47,7 @@ public class ViewProductsFragment extends Fragment {
         fillTestProductList();
 
         // Recycler View setup
-        productRecyclerView = rootView.findViewById(R.id.categoryRecyclerView);
+        productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
 
         //Creates the grid layout
         productLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
