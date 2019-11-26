@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,8 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
         holder.img_tutorImage.setImageResource(mTutorList.get(position).getPicture());
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
+
+
         //TODO: use this onclick listenter to go to another fragment or activity
         holder.cardViewTutor.setOnClickListener(view -> {
             Tutor t = mTutorList.get(position);
@@ -80,13 +83,15 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
         ImageView  img_tutorImage;
         CardView cardViewTutor;
 
+
         public MyViewHolder(View itemView)
         {
             super(itemView);
 
-            txt_tutorName = (TextView) itemView.findViewById(R.id.txt_tutorName);
-            img_tutorImage = (ImageView) itemView.findViewById(R.id.img_tutorImage);
-            cardViewTutor = (CardView) itemView.findViewById(R.id.cardview_tutor);
+            txt_tutorName = itemView.findViewById(R.id.txt_tutorName);
+            img_tutorImage = itemView.findViewById(R.id.img_tutorImage);
+            cardViewTutor = itemView.findViewById(R.id.cardview_tutor);
+
         }
 
     }

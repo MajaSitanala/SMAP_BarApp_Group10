@@ -55,7 +55,8 @@ android:layout_marginTop="8dp">
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/trash_can"/>
+        android:src="@drawable/icons8trash512"
+        android:background="?android:attr/selectableItemBackground"/>
 
 
 </RelativeLayout>

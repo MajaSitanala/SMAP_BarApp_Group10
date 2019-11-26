@@ -21,13 +21,63 @@
             android:layout_height="120dp"
             android:scaleType="centerCrop"
             android:background="@color/cardViewColor"/>
-        <TextView
-            android:id="@+id/txt_productName"
-            android:textColor="@color/cardViewColor"
-            android:gravity="center"
-            android:textSize="12dp"
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/productname"/>
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btn_remove_product"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/img_productImage"
+                android:layout_alignBottom="@+id/txt_productName"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/minus"
+                android:scaleType="fitCenter"
+                android:background="?android:attr/selectableItemBackground"
+                />
+
+            <TextView
+                android:id="@+id/txt_productName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/img_productImage"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_toStartOf="@+id/btn_add_product"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="@string/productname"
+                android:textColor="@color/cardViewColor"
+                android:textSize="12dp" />
+
+
+
+            <ImageButton
+                android:id="@+id/btn_add_product"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/img_productImage"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/plus"
+                android:background="?android:attr/selectableItemBackground"/>
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -54,6 +54,12 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
 
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
+        holder.btn_deleteButton.setOnClickListener(view -> {
+            Product t = mProductList.get(position);
+            Toast.makeText(view.getContext(), "You tried to delete " + t.getProductName(), Toast.LENGTH_SHORT).show();
+
+        });
+
         //TODO: use this onclick listenter to go to another fragment or activity
         holder.cardViewShoppingCard.setOnClickListener(view -> {
             Product t = mProductList.get(position);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 
 import java.util.List;
@@ -54,7 +56,16 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         holder.img_productImage.setImageResource(mProductList.get(position).getPicture());
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
-        //TODO: use this onclick listenter to go to another fragment or activity
+        holder.btn_minus.setOnClickListener(view -> {
+            Product t = mProductList.get(position);
+            Toast.makeText(view.getContext(), "You tried to remove " + t.getProductName(), Toast.LENGTH_SHORT).show();
+        });
+
+        holder.btn_plus.setOnClickListener(view -> {
+            Product t = mProductList.get(position);
+            Toast.makeText(view.getContext(), "You tried to add " + t.getProductName(), Toast.LENGTH_SHORT).show();
+        });
+
         holder.cardViewProduct.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
@@ -73,6 +84,8 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         TextView txt_productName;
         ImageView img_productImage;
         CardView cardViewProduct;
+        ImageButton btn_minus;
+        ImageButton btn_plus;
 
         public MyViewHolder(View itemView)
         {
@@ -81,6 +94,8 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
             txt_productName = (TextView) itemView.findViewById(R.id.txt_productName);
             img_productImage = (ImageView) itemView.findViewById(R.id.img_productImage);
             cardViewProduct = (CardView) itemView.findViewById(R.id.cardview_product);
+            btn_minus = itemView.findViewById(R.id.btn_remove_product);
+            btn_plus = itemView.findViewById(R.id.btn_add_product);
         }
 
     }
