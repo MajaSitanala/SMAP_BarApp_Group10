@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,10 +39,14 @@ import java.util.concurrent.Executor;
 public class LoginFragment extends Fragment {
 
     private FirebaseAuth mAuth;
+
     Button buttonLogin;
     Button buttonCancel;
     TextInputEditText email;
     TextInputEditText password;
+
+    DatabaseReference databaseTutors;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -59,10 +64,9 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth & Db
         mAuth = FirebaseAuth.getInstance();
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference DBRef = database.getReference("message");
+        databaseTutors = FirebaseDatabase.getInstance().getReference("tutors");
 
         View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
         buttonCancel = view.findViewById(R.id.cancel_btn);
@@ -77,9 +81,20 @@ public class LoginFragment extends Fragment {
             if(email.getText() != null && password.getText() != null){
                 //mAuth.createUserWithEmailAndPassword("Christoffer.broberg@hotmail.com","Pass@word0");
                 authenticate(email.getText().toString(),password.getText().toString());
+                AddTutor(new Tutor("Chris","Prak10",30248747,"mail",R.drawable.praktikant));
             }
         });
 
+    }
+
+    private void AddTutor(Tutor tutor){
+        //Get unique Id from db
+        //https://www.youtube.com/watch?v=EM2x33g4syY   save entity
+
+        //https://www.youtube.com/watch?v=jEmq1B1gveM    get entity
+        String Id = databaseTutors.push().getKey();
+        databaseTutors.child(Id).setValue(tutor);
+        Toast.makeText(getContext(), "Added "+tutor.getNickname()+" to db",Toast.LENGTH_LONG).show();
     }
 
     private void authenticate(String email,String pass){
