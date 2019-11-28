@@ -62,5 +62,7 @@
     <string name="price_dkk">Price:</string>
     <string name="button_shopping_cancel">Cancel</string>
     <string name="button_shopping_buy">Buy</string>
+    <string name="action_login" translatable="false">action_login</string>
+    <string name="action_settings" translatable="false">action_settings</string>
 
 </resources>
