@@ -48,6 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/billSettingsTitle"
+            android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline19"
             app:layout_constraintEnd_toStartOf="@+id/guideline9"
             app:layout_constraintHorizontal_bias="0.0"
@@ -147,14 +148,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.89" />
+            app:layout_constraintGuide_percent="0.88" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.16875" />
+            app:layout_constraintGuide_percent="0.45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
