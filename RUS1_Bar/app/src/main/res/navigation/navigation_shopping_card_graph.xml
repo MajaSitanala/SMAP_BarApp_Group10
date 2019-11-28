@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_shoping_card_graph"
+    app:startDestination="@id/shoppingCardFragment">
+    <fragment
+        android:id="@+id/shoppingCardFragment"
+        android:name="com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment"
+        android:label="fragment_shopping_card"
+        tools:layout="@layout/fragment_shopping_card" />
+</navigation>
