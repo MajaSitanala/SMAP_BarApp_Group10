@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_settingsOverviewFragment_to_tutorSettingsFragment"
             app:destination="@id/tutorSettingsFragment" />
+        <action
+            android:id="@+id/action_settingsOverviewFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 

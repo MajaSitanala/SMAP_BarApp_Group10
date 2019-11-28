@@ -14,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.rus1_bar.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,11 +39,18 @@ public class SettingsOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        FirebaseAuth FAuth = FirebaseAuth.getInstance();
         tutorSettingsBtn = view.findViewById(R.id.tutorSettingsBtn);
         productSettingsBtn = view.findViewById(R.id.productSettingsBtn);
         rusturSettingsBtn = view.findViewById(R.id.rusturSettingsBtn);
         billSettingsBtn = view.findViewById(R.id.billSettingsBtn);
         logOffBtn = view.findViewById(R.id.logOffBtn);
+
+        logOffBtn.setOnClickListener(v -> {
+            FAuth.signOut();
+            Navigation.createNavigateOnClickListener(R.id.action_settingsOverviewFragment_to_loginFragment).onClick(v);
+            Toast.makeText(getContext(),"Succesfully logged out",Toast.LENGTH_LONG).show();
+        });
 
         View.OnClickListener tutorSettingsClick = Navigation.createNavigateOnClickListener(R.id.action_settingsOverviewFragment_to_tutorSettingsFragment);
         tutorSettingsBtn.setOnClickListener(tutorSettingsClick);

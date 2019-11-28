@@ -27,7 +27,8 @@ public class ShoppingActivity extends AppCompatActivity {
     // Service
     ShoppingService shoppingService;
     boolean isBound = false;
-
+    Button btn_cncl;
+    Button btn_buy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,16 @@ public class ShoppingActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()                                                      //Inspiration and solution found https://codinginflow.com/tutorials/android/fragment-to-fragment-communication-with-shared-viewmodel
                 .add(R.id.nav_shopping_cart_fragment, new ShoppingCardFragment())
                 .commit();
+
+        btn_cncl = findViewById(R.id.btn_shopping_cancle);
+        btn_cncl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        btn_buy = findViewById(R.id.btn_shopping_buy);
 
     }
 

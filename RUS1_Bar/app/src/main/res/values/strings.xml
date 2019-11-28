@@ -60,7 +60,7 @@
     <string name="quantity">Qty:</string>
     <string name="shopping_cart_product">Product:</string>
     <string name="price_dkk">Price:</string>
-    <string name="button_shopping_cancle">Cancle</string>
+    <string name="button_shopping_cancel">Cancel</string>
     <string name="button_shopping_buy">Buy</string>
 
 </resources>
