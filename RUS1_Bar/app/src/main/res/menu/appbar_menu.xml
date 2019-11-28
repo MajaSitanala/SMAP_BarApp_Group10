@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- https://developer.android.com/training/appbar/actions -->
+
+
+    <!-- item for login in appBar
+    ideas for icons;
+    messenger_bubble_large_white
+
+     -->
+
+    <item
+        android:id="@+id/action_login"
+        android:icon="@drawable/messenger_bubble_large_white"
+        android:title="@string/action_login"
+        app:showAsAction="ifRoom" />
+
+
+    <!-- item for settings in appBar -->
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+
+
+</menu>

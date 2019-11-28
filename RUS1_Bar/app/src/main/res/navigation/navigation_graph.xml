@@ -23,7 +23,11 @@
         android:id="@+id/viewTutorsFragment"
         android:name="com.example.rus1_bar.Fragments.Bartender.ViewTutorsFragment"
         android:label="fragment_view_tutors"
-        tools:layout="@layout/fragment_view_tutors" />
+        tools:layout="@layout/fragment_view_tutors" >
+        <action
+            android:id="@+id/action_viewTutorsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 
     <fragment

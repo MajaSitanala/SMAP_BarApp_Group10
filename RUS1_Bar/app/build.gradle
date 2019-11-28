@@ -40,6 +40,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:appcompat-v7:29.0.0'
+
 
     // Navigation dependencies
     def nav_version = "2.1.0"
