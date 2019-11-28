@@ -60,13 +60,9 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
 
         });
 
-        //TODO: use this onclick listenter to go to another fragment or activity
         holder.cardViewShoppingCard.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
-
-            //navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-            //Navigation.createNavigateOnClickListener(R.id.action_viewTutorsFragment_to_viewCategoriesFragment);
         });
     }
 
@@ -93,5 +89,16 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
             btn_deleteButton = (ImageButton) itemView.findViewById(R.id.btn_deleteButton);
             cardViewShoppingCard = (CardView) itemView.findViewById(R.id.cardview_shoppingcard);
         }
+    }
+
+    public void setProduct(List<Product> productList)
+    {
+        this.mProductList = productList;
+    }
+
+    public Product getProductPosition(int position)
+    {
+        return mProductList.get(position);
+
     }
 }

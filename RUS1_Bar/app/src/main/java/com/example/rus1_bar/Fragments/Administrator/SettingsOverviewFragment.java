@@ -3,10 +3,12 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +54,6 @@ public class SettingsOverviewFragment extends Fragment {
 
         View.OnClickListener billSettingsClick = Navigation.createNavigateOnClickListener(R.id.action_settingsOverviewFragment_to_billSettingsFragment);
         billSettingsBtn.setOnClickListener(billSettingsClick);
-
 
     }
 
