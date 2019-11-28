@@ -27,6 +27,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.Executor;
 
@@ -59,6 +61,8 @@ public class LoginFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference DBRef = database.getReference("message");
 
         View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
         buttonCancel = view.findViewById(R.id.cancel_btn);
@@ -69,6 +73,7 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.PasswordEditText);
         buttonLogin = view.findViewById(R.id.login_btn);
         buttonLogin.setOnClickListener(v -> {
+
             if(email.getText() != null && password.getText() != null){
                 //mAuth.createUserWithEmailAndPassword("Christoffer.broberg@hotmail.com","Pass@word0");
                 authenticate(email.getText().toString(),password.getText().toString());
