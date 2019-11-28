@@ -42,7 +42,6 @@ public class ViewCategoriesFragment extends Fragment {
         // rootView is needed when using fingViewById because otherwise the views have not been created by the time the views are called.
         View rootView = inflater.inflate(R.layout.fragment_view_categories, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
 
-
         //Test data for the card view
         fillTestCategoryList();
 
@@ -55,7 +54,6 @@ public class ViewCategoriesFragment extends Fragment {
 
         //Recycler adapter setup
         categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), testCategoryList);
-
         categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
 
 

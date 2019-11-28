@@ -53,28 +53,15 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         holder.img_categoryImage.setImageResource(mCategoryList.get(position).getPicture());
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
-        //TODO: use this onclick listenter to go to another fragment or activity
-
-
-
-        //holder.cardViewCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_viewCategoriesFragment_to_viewProductsFragment));
-
-        //holder.cardViewCategory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.viewProductsFragment, null));
-
 
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
 
+            // Navigation: navigates from ViewCategoriesFragment to ViewProducts fragment.
             Navigation.findNavController(view).navigate(R.id.viewProductsFragment);
 
         });
-
-
-
-
-
-
     }
 
     @Override
@@ -96,6 +83,5 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             img_categoryImage = (ImageView) itemView.findViewById(R.id.img_categoryImage);
             cardViewCategory = (CardView) itemView.findViewById(R.id.cardview_category);
         }
-
     }
 }
