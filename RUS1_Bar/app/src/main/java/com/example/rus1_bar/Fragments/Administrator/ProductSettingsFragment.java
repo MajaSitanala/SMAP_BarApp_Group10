@@ -74,9 +74,9 @@ public class ProductSettingsFragment extends Fragment {
         for (int i = 0; i<4; i++)
         {
             //Test data for the card view
-            testProductList.add(new Product(i,i, "Gin Hass", 20, R.drawable.ginhass));
-            testProductList.add(new Product(i,i, "Filur", 20, R.drawable.filur));
-            testProductList.add(new Product(i,i, "White Russian", 20, R.drawable.whiterussianlang));
+            testProductList.add(new Product("i",i, "Gin Hass", 20, R.drawable.ginhass));
+            testProductList.add(new Product("i",i, "Filur", 20, R.drawable.filur));
+            testProductList.add(new Product("i",i, "White Russian", 20, R.drawable.whiterussianlang));
         }
     }
 }

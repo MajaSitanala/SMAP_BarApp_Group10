@@ -1,16 +1,22 @@
 package com.example.rus1_bar.Models;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  */
 public class Tutor {
 
-    private int ID;
+    private String ID;
     private String tutorName;
     private String tutorNickname;
     private int phoneNr;
     private String mail;
     private int picture;
+    private List<Purchase> purchases;
 
     public Tutor(String Name, String Nickname, int PhoneNumber, String Mail, int Picture)
     {
@@ -19,13 +25,14 @@ public class Tutor {
         this.setPhoneNr(PhoneNumber);
         this.setMail(Mail);
         this.setPicture(Picture);
+        purchases = new ArrayList<Purchase>();
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
@@ -68,4 +75,8 @@ public class Tutor {
     public int getPicture() {
         return picture;
     }
+
+    public void addPurchase(Purchase purchase){ purchases.add(purchase); }
+
+    public List<Purchase> getPurchases() {return purchases;}
 }

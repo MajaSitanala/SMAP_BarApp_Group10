@@ -3,6 +3,7 @@ package com.example.rus1_bar.Fragments;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Models.Category;
+import com.example.rus1_bar.Models.Product;
+import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +35,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.concurrent.Executor;
 
 /**
@@ -46,6 +54,9 @@ public class LoginFragment extends Fragment {
     TextInputEditText password;
 
     DatabaseReference databaseTutors;
+    DatabaseReference databaseProducts;
+    DatabaseReference databaseCategory;
+    FirebaseDatabase FireDB;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -66,7 +77,10 @@ public class LoginFragment extends Fragment {
 
         // Initialize Firebase Auth & Db
         mAuth = FirebaseAuth.getInstance();
-        databaseTutors = FirebaseDatabase.getInstance().getReference("tutors");
+        FireDB = FirebaseDatabase.getInstance();
+        databaseTutors = FireDB.getReference("tutors");
+        databaseProducts = FireDB.getReference("products");
+        databaseCategory = FireDB.getReference("categories");
 
         View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
         buttonCancel = view.findViewById(R.id.cancel_btn);
@@ -78,10 +92,13 @@ public class LoginFragment extends Fragment {
         buttonLogin = view.findViewById(R.id.login_btn);
         buttonLogin.setOnClickListener(v -> {
 
+            //AddProduct(new Product("s",1,"Filur",30,R.drawable.filur));
+            //AddTutor(new Tutor("Chris","Prak10",30248747,"mail",R.drawable.praktikant));
+            //AddCategory(new Category(0,"Øl",R.drawable.drinks));
             if(email.getText() != null && password.getText() != null){
                 //mAuth.createUserWithEmailAndPassword("Christoffer.broberg@hotmail.com","Pass@word0");
                 authenticate(email.getText().toString(),password.getText().toString());
-                AddTutor(new Tutor("Chris","Prak10",30248747,"mail",R.drawable.praktikant));
+
             }
         });
 
@@ -93,8 +110,22 @@ public class LoginFragment extends Fragment {
 
         //https://www.youtube.com/watch?v=jEmq1B1gveM    get entity
         String Id = databaseTutors.push().getKey();
-        databaseTutors.child(Id).setValue(tutor);
+        tutor.setID(Id);
+        databaseTutors.child(tutor.getNickname()).setValue(tutor);
         Toast.makeText(getContext(), "Added "+tutor.getNickname()+" to db",Toast.LENGTH_LONG).show();
+    }
+
+    private void AddProduct(Product product){
+        String Id = databaseProducts.push().getKey();
+        product.setProductID(Id);
+        databaseProducts.child(product.getProductName()).setValue(product);
+        Toast.makeText(getContext(), "Added "+product.getProductName()+" to db",Toast.LENGTH_LONG).show();
+    }
+
+    private void AddCategory(Category category){
+        String Id = databaseCategory.push().getKey();
+        databaseCategory.child(category.getCategoryName()).setValue(category);
+        Toast.makeText(getContext(), "Added "+category.getCategoryName()+" to db",Toast.LENGTH_LONG).show();
     }
 
     private void authenticate(String email,String pass){
