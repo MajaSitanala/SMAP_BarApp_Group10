@@ -65,4 +65,17 @@
     <string name="action_login" translatable="false">action_login</string>
     <string name="action_settings" translatable="false">action_settings</string>
 
+    <!-- Add Tutor -->
+    <string name="addTutorTitle">Add Tutor</string>
+    <string name="addTutorRealName">Add Name</string>
+    <string name="addTutorEmail">Add Email</string>
+    <string name="addTutorNumber">Add Phone Number</string>
+    <string name="addTutorEditNick"></string>
+    <string name="addTutorEditName"></string>
+    <string name="addTutorEditEmail"></string>
+    <string name="addTutorEditNumber"></string>
+    <string name="addTutorCancelBtn">Cancel</string>
+    <string name="addTutorAddBtn">Add</string>
+    <string name="addTutorNickName">Add Nickname</string>
+
 </resources>

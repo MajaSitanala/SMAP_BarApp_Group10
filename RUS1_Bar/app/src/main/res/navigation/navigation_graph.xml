@@ -78,5 +78,14 @@
         android:id="@+id/tutorSettingsFragment"
         android:name="com.example.rus1_bar.Fragments.Administrator.TutorSettingsFragment"
         android:label="fragment_tutor_settings"
-        tools:layout="@layout/fragment_tutor_settings" />
+        tools:layout="@layout/fragment_tutor_settings" >
+        <action
+            android:id="@+id/action_tutorSettingsFragment_to_addTutorFragment"
+            app:destination="@id/addTutorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTutorFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.AddTutorFragment"
+        android:label="fragment_add_tutor"
+        tools:layout="@layout/fragment_add_tutor" />
 </navigation>

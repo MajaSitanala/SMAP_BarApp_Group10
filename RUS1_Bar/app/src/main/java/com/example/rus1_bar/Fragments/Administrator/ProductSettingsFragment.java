@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
@@ -60,7 +61,7 @@ public class ProductSettingsFragment extends Fragment {
         productRecyclerView.setLayoutManager(productLayoutManager);
 
         //Recycler adapter setup
-        productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList);
+        productRecyclerAdapter = new ProductDisplayAdapter(getActivity(), testProductList);
 
         productRecyclerView.setAdapter(productRecyclerAdapter);
 

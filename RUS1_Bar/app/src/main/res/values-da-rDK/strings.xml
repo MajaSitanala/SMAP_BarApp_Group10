@@ -37,7 +37,7 @@
     <string name="TutorName">TutorNavn</string>
     <string name="ItemQuantity">Antal</string>
     <string name="button_shopping_buy">Køb</string>
-    <string name="button_shopping_cancle">Annuler</string>
+    <string name="button_shopping_cancel">Annuller</string>
     <string name="categoryname">Kategori</string>
     <string name="itemname">Genstand</string>
     <string name="itemprice">Pris</string>
@@ -45,6 +45,17 @@
     <string name="productname">Produkt</string>
     <string name="quantity">Antal:</string>
     <string name="shopping_cart_product">Genstand:</string>
+    <string name="addTutorTitle">Tilføj Tutor</string>
+    <string name="addTutorRealName">Tilføj Navn</string>
+    <string name="addTutorEmail">Tilføj Email</string>
+    <string name="addTutorNumber">Tilføj Telefon Nummer</string>
+    <string name="addTutorEditNick"></string>
+    <string name="addTutorEditName"></string>
+    <string name="addTutorEditEmail"></string>
+    <string name="addTutorEditNumber"></string>
+    <string name="addTutorCancelBtn">Annuller</string>
+    <string name="addTutorAddBtn">Tilføj</string>
+    <string name="addTutorNickName">Tilføj Tutornavn</string>
 
 
 </resources>
