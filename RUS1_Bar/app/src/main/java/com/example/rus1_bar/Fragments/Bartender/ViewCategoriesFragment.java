@@ -3,6 +3,7 @@ package com.example.rus1_bar.Fragments.Bartender;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,12 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
 import com.example.rus1_bar.Adapters.TutorRecyclerAdapter;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +36,8 @@ public class ViewCategoriesFragment extends Fragment {
     RecyclerView categoryRecyclerView;
     RecyclerView.Adapter categoryRecyclerAdapter;
     RecyclerView.LayoutManager categoryLayoutManager;
+    private DatabaseReference databaseCategory;
+    private FirebaseDatabase FireDB;
 
     public ViewCategoriesFragment() {
         // Required empty public constructor
@@ -52,9 +61,32 @@ public class ViewCategoriesFragment extends Fragment {
         categoryLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
         categoryRecyclerView.setLayoutManager(categoryLayoutManager);
 
+        //Get categories from db
+        FireDB = FirebaseDatabase.getInstance();
+        databaseCategory = FireDB.getReference("categories");
+        databaseCategory.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                testCategoryList.clear();
+                for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()){
+                    Category cat = categorySnapshot.getValue(Category.class);
+                    testCategoryList.add(cat);
+                    categoryRecyclerAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         //Recycler adapter setup
         categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), testCategoryList);
         categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
+
 
 
         // Inflate the layout for this fragment

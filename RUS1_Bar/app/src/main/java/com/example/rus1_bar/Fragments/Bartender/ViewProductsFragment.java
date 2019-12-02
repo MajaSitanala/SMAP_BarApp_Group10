@@ -3,6 +3,7 @@ package com.example.rus1_bar.Fragments.Bartender;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,12 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 
+import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +37,9 @@ public class ViewProductsFragment extends Fragment {
     RecyclerView productRecyclerView;
     RecyclerView.Adapter productRecyclerAdapter;
     RecyclerView.LayoutManager productLayoutManager;
+    private DatabaseReference databaseProduct;
+    private FirebaseDatabase FireDB;
+
 
     public ViewProductsFragment() {
         // Required empty public constructor
@@ -53,9 +64,32 @@ public class ViewProductsFragment extends Fragment {
         productLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
         productRecyclerView.setLayoutManager(productLayoutManager);
 
+        //Chosen category
+        String cat = getArguments().getString("category");
+
+        //Init Database ref
+        FireDB = FirebaseDatabase.getInstance();
+        databaseProduct = FireDB.getReference("products");
+        databaseProduct.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                testProductList.clear();
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()){
+                    Product product = productSnapshot.getValue(Product.class);
+                    testProductList.add(product);
+                    productRecyclerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         //Recycler adapter setup
         productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList);
-
         productRecyclerView.setAdapter(productRecyclerAdapter);
 
 

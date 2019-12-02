@@ -28,6 +28,8 @@ public class Tutor {
         purchases = new ArrayList<Purchase>();
     }
 
+    public Tutor(){}
+
     public void setID(String ID) {
         this.ID = ID;
     }

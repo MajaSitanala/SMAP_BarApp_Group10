@@ -14,9 +14,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
 
@@ -29,6 +31,8 @@ public class ShoppingActivity extends AppCompatActivity {
     boolean isBound = false;
     Button btn_cncl;
     Button btn_buy;
+    TextView currentTutor;
+    private static final String TUTOR_NICK= "Tutor nickname";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,10 @@ public class ShoppingActivity extends AppCompatActivity {
                 .add(R.id.nav_shopping_cart_fragment, new ShoppingCardFragment())
                 .commit();
 
+        currentTutor = findViewById(R.id.tutorlabel_id);
+        Intent mainIntent = getIntent();
+        currentTutor.setText(mainIntent.getStringExtra(TUTOR_NICK));
+
         btn_cncl = findViewById(R.id.btn_shopping_cancle);
         btn_cncl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +57,12 @@ public class ShoppingActivity extends AppCompatActivity {
         });
 
         btn_buy = findViewById(R.id.btn_shopping_buy);
-
+        btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Køb her og tilføj til Cloud Firestore (service?)
+            }
+        });
     }
 
     @Override

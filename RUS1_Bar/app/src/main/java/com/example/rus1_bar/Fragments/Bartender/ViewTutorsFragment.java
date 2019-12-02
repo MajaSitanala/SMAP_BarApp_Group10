@@ -3,6 +3,7 @@ package com.example.rus1_bar.Fragments.Bartender;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rus1_bar.Adapters.TutorRecyclerAdapter;
+import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +35,9 @@ public class ViewTutorsFragment extends Fragment {
     RecyclerView tutorRecyclerView;
     RecyclerView.Adapter tutorRecyclerAdapter;
     RecyclerView.LayoutManager tutorLayoutManager;
+    private DatabaseReference databaseTutor;
+    private FirebaseDatabase FireDB;
+
 
     public ViewTutorsFragment() {
         // Required empty public constructor
@@ -51,6 +61,26 @@ public class ViewTutorsFragment extends Fragment {
         //Creates the grid layout
         tutorLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
         tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+
+        //Init Database ref
+        FireDB = FirebaseDatabase.getInstance();
+        databaseTutor = FireDB.getReference("tutors");
+        databaseTutor.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                testTutorList.clear();
+                for (DataSnapshot tutorSnapshot : dataSnapshot.getChildren()){
+                    Tutor tutor = tutorSnapshot.getValue(Tutor.class);
+                    testTutorList.add(tutor);
+                    tutorRecyclerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //Recycler adapter setup
         tutorRecyclerAdapter = new TutorRecyclerAdapter(getActivity(), testTutorList);

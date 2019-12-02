@@ -19,6 +19,8 @@ public class Product {
         this.setPicture(Picture);
     }
 
+    public Product(){}
+
     public void setProductID(String productID) {
         this.productID = productID;
     }
