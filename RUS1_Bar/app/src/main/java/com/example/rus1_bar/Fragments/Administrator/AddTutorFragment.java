@@ -17,7 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
 
 import java.net.URI;
 
@@ -33,6 +35,8 @@ public class AddTutorFragment extends Fragment {
     Button cancelBtn;
     Button addBtn;
 
+    FirebaseRepository firebaseRepo;
+    Tutor newTutor;
 
     private static final int PICK_IMAGE = 100;
     ImageView tutorImage;
@@ -59,7 +63,12 @@ public class AddTutorFragment extends Fragment {
         editName = rootView.findViewById(R.id.addTutorEditName);
         editEmail = rootView.findViewById(R.id.addTutorEditEmail);
         editPhone = rootView.findViewById(R.id.addTutorEditPhone);
+
         cancelBtn = rootView.findViewById(R.id.addTutorCancelBtn);
+        addBtn = rootView.findViewById(R.id.addTutorAddBtn);
+
+        newTutor = new Tutor();
+        firebaseRepo = new FirebaseRepository();
 
 
         View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
@@ -75,14 +84,19 @@ public class AddTutorFragment extends Fragment {
             }
         });
 
-        addBtn = rootView.findViewById(R.id.addTutorAddBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Error handling for empty fields.
+                if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    newTutor = new Tutor(editName.getText().toString(), editNick.toString(), Integer.parseInt(editPhone.toString()), editEmail.toString(), R.drawable.defaultimg);
+                    firebaseRepo.insertTutor(newTutor);
+                }
             }
         });
-
         return rootView;
     }
 

@@ -77,5 +77,13 @@
     <string name="addTutorCancelBtn">Cancel</string>
     <string name="addTutorAddBtn">Add</string>
     <string name="addTutorNickName">Add Nickname</string>
+    <string name="editTutorTitle">Edit Tutor</string>
+    <string name="editTutorName">Name</string>
+    <string name="editTutorNick">Nickname</string>
+    <string name="editTutorEmail">Email</string>
+    <string name="editTutorPhone">Phone Number</string>
+    <string name="editTutorCancelBtn">Cancel</string>
+    <string name="editTutorDeleteBtn">Delete Tutor</string>
+    <string name="editTutorEditBtn">Edit Tutor</string>
 
 </resources>
