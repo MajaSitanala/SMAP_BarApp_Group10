@@ -25,7 +25,7 @@ import java.util.List;
 
 public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdapter.MyViewHolder> {
 
-    private static final String TUTOR_ID = "Tutor id";
+    private static final String TUTOR_NICK= "Tutor nickname";
     private static final int REQUEST_TUTOR_PURCHASE = 101;
     private Context mContext;
     private List<Tutor> mTutorList;
@@ -57,13 +57,13 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
 
 
 
-        //TODO: use this onclick listenter to go to another fragment or activity
+        //TODO: use this onclick listener to go to another fragment or activity
         holder.cardViewTutor.setOnClickListener(view -> {
             Tutor t = mTutorList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getNickname(), Toast.LENGTH_SHORT).show();
 
             Intent listIntent = new Intent(mContext, ShoppingActivity.class);
-            listIntent.putExtra(TUTOR_ID, t.getID());
+            listIntent.putExtra(TUTOR_NICK, t.getNickname());
             ((Activity)mContext).startActivityForResult(listIntent, REQUEST_TUTOR_PURCHASE);
 
 

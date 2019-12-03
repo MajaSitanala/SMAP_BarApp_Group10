@@ -2,13 +2,13 @@ package com.example.rus1_bar.Models;
 
 public class Product {
 
-    private int productID;
+    private String productID;
     private String productName;
     private double price;
     private int picture;
     private int quantity;
 
-    public Product(int iD, int Quantity, String Name, int Price, int Picture)
+    public Product(String iD, int Quantity, String Name, int Price, int Picture)
     {
         this.setQuantity(Quantity);
         this.setProductName(Name);
@@ -19,11 +19,13 @@ public class Product {
         this.setPicture(Picture);
     }
 
-    public void setProductID(int productID) {
+    public Product(){}
+
+    public void setProductID(String productID) {
         this.productID = productID;
     }
 
-    public int getProductID() {
+    public String getProductID() {
         return productID;
     }
 

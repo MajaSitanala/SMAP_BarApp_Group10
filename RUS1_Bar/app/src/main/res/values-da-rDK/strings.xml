@@ -5,7 +5,7 @@
     <string name="Password">Kodeord</string>
     <string name="Username">Brugernavn</string>
     <string name="hello_blank_fragment">Hej tomt Fragment</string>
-    <string name="Cancel">Annuler</string>
+    <string name="Cancel">Annuller</string>
     <string name="Buy">Køb</string>
     <string name="RUS1_login_Text">RUS 1 - Bar</string>
     <string name="adminSettingTitle">Admin Indstillinger</string>
@@ -35,6 +35,27 @@
     <string name="rusturSettingsCancelBtn">Annuller</string>
     <string name="rusturSettingsTitle">Rustur Indstillinger</string>
     <string name="TutorName">TutorNavn</string>
+    <string name="ItemQuantity">Antal</string>
+    <string name="button_shopping_buy">Køb</string>
+    <string name="button_shopping_cancel">Annuller</string>
+    <string name="categoryname">Kategori</string>
+    <string name="itemname">Genstand</string>
+    <string name="itemprice">Pris</string>
+    <string name="price_dkk">Pris:</string>
+    <string name="productname">Produkt</string>
+    <string name="quantity">Antal:</string>
+    <string name="shopping_cart_product">Genstand:</string>
+    <string name="addTutorTitle">Tilføj Tutor</string>
+    <string name="addTutorRealName">Tilføj Navn</string>
+    <string name="addTutorEmail">Tilføj Email</string>
+    <string name="addTutorNumber">Tilføj Telefon Nummer</string>
+    <string name="addTutorEditNick"></string>
+    <string name="addTutorEditName"></string>
+    <string name="addTutorEditEmail"></string>
+    <string name="addTutorEditNumber"></string>
+    <string name="addTutorCancelBtn">Annuller</string>
+    <string name="addTutorAddBtn">Tilføj</string>
+    <string name="addTutorNickName">Tilføj Tutornavn</string>
 
 
 </resources>

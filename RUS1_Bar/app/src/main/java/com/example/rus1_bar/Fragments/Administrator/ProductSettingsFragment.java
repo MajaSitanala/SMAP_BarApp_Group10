@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
@@ -60,7 +61,7 @@ public class ProductSettingsFragment extends Fragment {
         productRecyclerView.setLayoutManager(productLayoutManager);
 
         //Recycler adapter setup
-        productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList);
+        productRecyclerAdapter = new ProductDisplayAdapter(getActivity(), testProductList);
 
         productRecyclerView.setAdapter(productRecyclerAdapter);
 
@@ -74,9 +75,9 @@ public class ProductSettingsFragment extends Fragment {
         for (int i = 0; i<4; i++)
         {
             //Test data for the card view
-            testProductList.add(new Product(i,i, "Gin Hass", 20, R.drawable.ginhass));
-            testProductList.add(new Product(i,i, "Filur", 20, R.drawable.filur));
-            testProductList.add(new Product(i,i, "White Russian", 20, R.drawable.whiterussianlang));
+            testProductList.add(new Product("i",i, "Gin Hass", 20, R.drawable.ginhass));
+            testProductList.add(new Product("i",i, "Filur", 20, R.drawable.filur));
+            testProductList.add(new Product("i",i, "White Russian", 20, R.drawable.whiterussianlang));
         }
     }
 }

@@ -4,6 +4,7 @@ package com.example.rus1_bar.Fragments.Administrator;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
+import com.example.rus1_bar.Adapters.TutorDisplayAdapter;
 import com.example.rus1_bar.Adapters.TutorRecyclerAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Tutor;
@@ -53,7 +55,8 @@ public class TutorSettingsFragment extends Fragment {
         editTutorBtn = rootView.findViewById(R.id.tutorEditBtn);
         cancelBtn = rootView.findViewById(R.id.tutorListCancel);
 
-
+        View.OnClickListener addTutorClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_addTutorFragment);
+        addTutorBtn.setOnClickListener(addTutorClick);
 
         //Test data for the card view
         fillTestTutorList();
@@ -66,7 +69,7 @@ public class TutorSettingsFragment extends Fragment {
         tutorRecyclerView.setLayoutManager(tutorLayoutManager);
 
         //Recycler adapter setup
-        tutorRecyclerAdapter = new TutorRecyclerAdapter(getActivity(), testTutorList);
+        tutorRecyclerAdapter = new TutorDisplayAdapter(getActivity(), testTutorList);
 
         tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
 

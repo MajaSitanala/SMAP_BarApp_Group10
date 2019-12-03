@@ -3,6 +3,7 @@ package com.example.rus1_bar.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +59,11 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             Category t = mCategoryList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
 
+            Bundle bundle = new Bundle();
+            bundle.putString("category",t.getCategoryName());
+
             // Navigation: navigates from ViewCategoriesFragment to ViewProducts fragment.
-            Navigation.findNavController(view).navigate(R.id.viewProductsFragment);
+            Navigation.findNavController(view).navigate(R.id.viewProductsFragment,bundle);
 
         });
     }

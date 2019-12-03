@@ -17,6 +17,8 @@ public class Category {
         this.setPicture(Picture);
     }
 
+    public Category(){}
+
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
