@@ -2,7 +2,9 @@ package com.example.rus1_bar.Repository;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +31,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +44,7 @@ public class FirebaseRepository {
     private FirebaseFirestore fireStore;
     private DatabaseReference databaseTutors;
     private DatabaseReference databaseCategory;
+    private StorageReference ImageDB;
 
     public FirebaseRepository()
     {
@@ -47,7 +52,7 @@ public class FirebaseRepository {
         databaseTutors = FireDB.getReference("tutors");
         databaseCategory = FireDB.getReference("categories");
         fireStore = FirebaseFirestore.getInstance();
-
+        ImageDB = FirebaseStorage.getInstance().getReference();
     }
 
     public void insertCategory(Category category) {
@@ -79,6 +84,29 @@ public class FirebaseRepository {
     public void insertPurchase(Rustur rustur, Tutor tutor, Purchase purchase){
         fireStore.collection(rustur.getRusturName()).document(tutor.getNickname())
                 .collection("Purchases").add(purchase);
+    }
+
+
+    public void saveTutorImage(Tutor tutor, Uri imageUri){
+        if(tutor.getImagename() != null){
+            StorageReference pic = ImageDB.child("tutors/"+tutor.getImagename()+".jpg");
+            pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("UPLOAD"," Completed for: "+taskSnapshot);
+                }
+            });
+        }
+    }
+
+    //Todo: Hent billeder fra storage
+    public StorageReference getTutorImage(String tutorImageName){
+
+        StorageReference jpg = ImageDB.child("tutors/"+tutorImageName+".jpg");
+        StorageReference png = ImageDB.child("tutors/"+tutorImageName+".png");
+        if(jpg != null){return jpg;
+        }else if(png != null){return png;}
+        else {return ImageDB.child("tutors/defaultimg.png");}
     }
 
     public void SaveAllPurchasesFromtutor(Rustur rustur, Tutor tutor){

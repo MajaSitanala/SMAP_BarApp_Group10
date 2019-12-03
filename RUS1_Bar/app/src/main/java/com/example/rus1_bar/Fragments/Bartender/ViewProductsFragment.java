@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,9 @@ import java.util.List;
 public class ViewProductsFragment extends Fragment {
 
     private List<Product> testProductList = new ArrayList<>();
-    RecyclerView productRecyclerView;
-    RecyclerView.Adapter productRecyclerAdapter;
-    RecyclerView.LayoutManager productLayoutManager;
+    private RecyclerView productRecyclerView;
+    private RecyclerView.Adapter productRecyclerAdapter;
+    private RecyclerView.LayoutManager productLayoutManager;
     private DatabaseReference databaseProduct;
     private FirebaseDatabase FireDB;
 

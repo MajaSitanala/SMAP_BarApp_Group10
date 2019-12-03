@@ -44,6 +44,10 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support:appcompat-v7:29.0.0'
 
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+
 
     // Navigation dependencies
     def nav_version = "2.1.0"
@@ -57,10 +61,9 @@ dependencies {
     implementation "androidx.cardview:cardview:$cardview_version"
 
     // Recycler View                                                                            https://developer.android.com/jetpack/androidx/releases/recyclerview
-    def recyclerview_version = "1.0.0"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
     // For control over item selection of both touch and mouse driven selection
-    implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_version"
+    implementation "androidx.recyclerview:recyclerview-selection:1.0.0"
 
     //Implementing picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
