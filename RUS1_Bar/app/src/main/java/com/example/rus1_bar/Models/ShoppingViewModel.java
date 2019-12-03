@@ -52,9 +52,4 @@ public class ShoppingViewModel extends AndroidViewModel {
             dummyAllCategories.add(new Category(i, "Drinks", R.drawable.drinks));
         }
     }
-
-
-
-
-
 }
