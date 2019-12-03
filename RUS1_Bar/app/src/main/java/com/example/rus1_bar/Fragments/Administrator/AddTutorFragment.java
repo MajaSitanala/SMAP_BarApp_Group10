@@ -22,6 +22,7 @@ import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 
 import java.net.URI;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -47,6 +48,8 @@ public class AddTutorFragment extends Fragment {
     EditText editEmail;
     EditText editPhone;
 
+    String guid;
+
 
     public AddTutorFragment() {
         // Required empty public constructor
@@ -67,6 +70,7 @@ public class AddTutorFragment extends Fragment {
         cancelBtn = rootView.findViewById(R.id.addTutorCancelBtn);
         addBtn = rootView.findViewById(R.id.addTutorAddBtn);
 
+        guid  = UUID.randomUUID().toString();
         newTutor = new Tutor();
         firebaseRepo = new FirebaseRepository();
 
@@ -81,6 +85,7 @@ public class AddTutorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openGallery();
+
             }
         });
 
@@ -92,8 +97,13 @@ public class AddTutorFragment extends Fragment {
                     Toast.makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    newTutor = new Tutor(editName.getText().toString(), editNick.toString(), Integer.parseInt(editPhone.toString()), editEmail.toString(), R.drawable.defaultimg);
+                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString(), R.drawable.defaultimg);
+                    newTutor.setImagename(guid);
+                    if (imageUri != null){
+                        firebaseRepo.saveTutorImage(newTutor, imageUri);
+                    }
                     firebaseRepo.insertTutor(newTutor);
+                    //TODO: Need to exit add tutor after clicking add
                 }
             }
         });
