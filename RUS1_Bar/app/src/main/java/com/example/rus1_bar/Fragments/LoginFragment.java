@@ -23,8 +23,10 @@ import android.widget.Toast;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
+import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.net.PortUnreachableException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -96,7 +99,9 @@ public class LoginFragment extends Fragment {
 
         buttonLogin.setOnClickListener(v -> {
             //dummyDataInit();
-
+            //Todo:Repotest:
+            //FirebaseRepository repo = new FirebaseRepository();
+            //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
             if(email.getText() != null && password.getText() != null){
                 authenticate(email.getText().toString(),password.getText().toString());
 
