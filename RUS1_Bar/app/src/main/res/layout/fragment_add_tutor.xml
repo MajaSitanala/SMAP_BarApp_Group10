@@ -93,7 +93,7 @@
             android:inputType="textPersonName"
             android:text="@string/addTutorEditNick"
             app:layout_constraintBottom_toTopOf="@+id/guideline92"
-            app:layout_constraintEnd_toStartOf="@+id/guideline96"
+            app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/addTutorNickName"
             app:layout_constraintTop_toTopOf="@+id/guideline93"
@@ -108,7 +108,7 @@
             android:inputType="textPersonName"
             android:text="@string/addTutorEditName"
             app:layout_constraintBottom_toTopOf="@+id/guideline95"
-            app:layout_constraintEnd_toStartOf="@+id/guideline96"
+            app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintStart_toStartOf="@+id/guideline89"
             app:layout_constraintTop_toTopOf="@+id/guideline94" />
 
@@ -120,7 +120,7 @@
             android:ems="10"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/guideline98"
-            app:layout_constraintEnd_toStartOf="@+id/guideline96"
+            app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintStart_toStartOf="@+id/guideline89"
             app:layout_constraintTop_toTopOf="@+id/guideline97"
             tools:text="@string/addTutorEditEmail" />
@@ -133,7 +133,7 @@
             android:ems="10"
             android:inputType="phone"
             app:layout_constraintBottom_toTopOf="@+id/guideline101"
-            app:layout_constraintEnd_toStartOf="@+id/guideline96"
+            app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintStart_toStartOf="@+id/guideline89"
             app:layout_constraintTop_toTopOf="@+id/guideline100"
             tools:text="@string/addTutorNumber" />
@@ -288,7 +288,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline96"
             app:layout_constraintTop_toTopOf="@+id/guideline86"
             app:layout_constraintVertical_bias="1.0"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@drawable/defaultimg"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline96"

@@ -95,7 +95,7 @@ public class LoginFragment extends Fragment {
 
 
         buttonLogin.setOnClickListener(v -> {
-            dummyDataInit();
+            //dummyDataInit();
 
             if(email.getText() != null && password.getText() != null){
                 authenticate(email.getText().toString(),password.getText().toString());
