@@ -94,6 +94,7 @@ public class AddTutorFragment extends Fragment {
                 else {
                     newTutor = new Tutor(editName.getText().toString(), editNick.toString(), Integer.parseInt(editPhone.toString()), editEmail.toString(), R.drawable.defaultimg);
                     firebaseRepo.insertTutor(newTutor);
+
                 }
             }
         });

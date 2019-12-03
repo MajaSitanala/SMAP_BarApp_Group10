@@ -33,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +111,7 @@ public class FirebaseRepository {
         else {return ImageDB.child("tutors/defaultimg.png");}
     }
 
-    public void SaveAllPurchasesFromtutor(Rustur rustur, Tutor tutor){
+    public void SaveAllPurchasesFromtutor(Rustur rustur, Tutor tutor, Context context){
         CollectionReference currentTutor = fireStore.collection(rustur.getRusturName()).document(tutor.getNickname()).collection("Purchases");
         List<Purchase> purchases = new ArrayList<>();
         currentTutor.get().addOnCompleteListener(task -> {
@@ -118,7 +120,26 @@ public class FirebaseRepository {
                     purchases.add(doc.toObject(Purchase.class));
                 }
                 //Purchases er listen med alle køb
-
+                List<Product> productList= GetAllProducts();
+                for(Purchase p : purchases){
+                    List<Product> boughtProducts = p.getBoughtProducts();
+                    for(Product product : boughtProducts){
+                        for(Product prod : productList){
+                            if(prod.getProductName().equals(product.getProductName())){
+                                prod.setQuantity(prod.getQuantity()+product.getQuantity());
+                            }
+                        }
+                    }
+                }
+                //Take all Purchases and append to file
+                WriteLineToFile(tutor.getNickname(),context,tutor.getNickname());
+                WriteLineToFile("Produkt;Antal;Pris;",context,tutor.getNickname());
+                double finalSum = 0;
+                for(Product finalprod : productList){
+                    WriteLineToFile(finalprod.getProductName()+";"+finalprod.getQuantity()+";"+(finalprod.getPrice()*finalprod.getQuantity())+";",context,tutor.getNickname());
+                    finalSum +=(finalprod.getPrice()*finalprod.getQuantity());
+                }
+                WriteLineToFile("SUM IALT: "+Double.toString(finalSum),context,tutor.getNickname());
             }
         });
     }
@@ -162,5 +183,14 @@ public class FirebaseRepository {
         return products;
     }
 
-    
+    private void WriteLineToFile(String data,Context context,String Filename){
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(Filename+".csv", Context.MODE_PRIVATE));
+            outputStreamWriter.append(data+"\r\n");
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 }
