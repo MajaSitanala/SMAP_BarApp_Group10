@@ -1,33 +1,49 @@
 package com.example.rus1_bar.Repository;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
+import com.example.rus1_bar.Models.Purchase;
+import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirebaseRepository {
 
-    private MutableLiveData<List<Category>> allCategories;
-    private MutableLiveData<List<Product>> allProducts;
+
     private FirebaseDatabase FireDB;
+    private FirebaseFirestore fireStore;
     private DatabaseReference databaseTutors;
     private DatabaseReference databaseCategory;
 
-    public FirebaseRepository(Application application)
+    public FirebaseRepository()
     {
         FireDB = FirebaseDatabase.getInstance();
         databaseTutors = FireDB.getReference("tutors");
         databaseCategory = FireDB.getReference("categories");
+        fireStore = FirebaseFirestore.getInstance();
 
     }
 
@@ -57,6 +73,23 @@ public class FirebaseRepository {
         databaseTutors.child(tutor.getNickname()).removeValue();
     }
 
+    public void insertPurchase(Rustur rustur, Tutor tutor, Purchase purchase){
+        fireStore.collection(rustur.getRusturName()).document(tutor.getNickname())
+                .collection("Purchases").add(purchase);
+    }
 
+    public void SaveAllPurchasesFromtutor(Rustur rustur, Tutor tutor){
+        CollectionReference currentTutor = fireStore.collection(rustur.getRusturName()).document(tutor.getNickname()).collection("Purchases");
+        List<Purchase> purchases = new ArrayList<>();
+        currentTutor.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot doc : task.getResult()){
+                    purchases.add(doc.toObject(Purchase.class));
+                }
+                //Purchases er listen med alle køb
+
+            }
+        });
+    }
 
 }

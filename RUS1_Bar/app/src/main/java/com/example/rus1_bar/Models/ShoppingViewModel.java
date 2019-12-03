@@ -24,7 +24,7 @@ public class ShoppingViewModel extends AndroidViewModel {
     public ShoppingViewModel(@NonNull Application application)
     {
         super(application);
-        firebaseRepository = new FirebaseRepository(application);
+        firebaseRepository = new FirebaseRepository();
     }
 
     /**

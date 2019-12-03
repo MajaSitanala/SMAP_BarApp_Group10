@@ -12,6 +12,10 @@ public class Rustur {
     private String season;
     private int picture;
 
+    public Rustur(String name){
+        this.rusturName = name;
+    }
+
     public void setRusturName(String rusturName) {
         this.rusturName = rusturName;
     }
