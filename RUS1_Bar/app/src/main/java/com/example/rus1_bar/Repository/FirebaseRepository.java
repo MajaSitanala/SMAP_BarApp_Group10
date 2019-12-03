@@ -17,8 +17,11 @@ import com.example.rus1_bar.Models.Tutor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -92,4 +95,44 @@ public class FirebaseRepository {
         });
     }
 
+    private List<Product> GetAllProducts(){
+        List<Product> products = new ArrayList<>();
+        List<String> categories = new ArrayList<>();
+        databaseCategory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()){
+                    Category category = categorySnapshot.getValue(Category.class);
+                    categories.add(category.getCategoryName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        for (String cat:categories ){
+            databaseCategory.child(cat).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot prodSnap : dataSnapshot.getChildren()){
+                        Product product = prodSnap.getValue(Product.class);
+                        product.setQuantity(0);
+                        products.add(product);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        return products;
+    }
+
+    
 }
