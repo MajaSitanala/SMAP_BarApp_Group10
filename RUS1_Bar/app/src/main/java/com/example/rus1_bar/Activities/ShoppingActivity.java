@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
 import com.example.rus1_bar.Models.Tutor;
@@ -24,7 +25,7 @@ import com.example.rus1_bar.Service.ShoppingService;
 
 
 
-public class ShoppingActivity extends AppCompatActivity {
+public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner {
 
     // Service
     ShoppingService shoppingService;
@@ -61,6 +62,7 @@ public class ShoppingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Køb her og tilføj til Cloud Firestore (service?)
+
             }
         });
     }
@@ -127,5 +129,15 @@ public class ShoppingActivity extends AppCompatActivity {
     public void stopService() {
         Intent serviceIntent = new Intent(this, ShoppingService.class);
         stopService(serviceIntent);
+    }
+
+    @Override
+    public void onclickAddProduct(String productName) {
+
+    }
+
+    @Override
+    public void onClickRemoveProduct(String ProductName) {
+
     }
 }

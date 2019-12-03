@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -55,7 +57,7 @@ public class ViewProductsFragment extends Fragment {
 
 
         //Test data for the card view
-        fillTestProductList();
+        //fillTestProductList();
 
         // Recycler View setup
         productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
@@ -69,14 +71,24 @@ public class ViewProductsFragment extends Fragment {
 
         //Init Database ref
         FireDB = FirebaseDatabase.getInstance();
-        databaseProduct = FireDB.getReference("products");
+        databaseProduct = FireDB.getReference("categories").child(cat);
         databaseProduct.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 testProductList.clear();
-                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()){
-                    Product product = productSnapshot.getValue(Product.class);
-                    testProductList.add(product);
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren())
+                {
+                    try {
+                        Product product = productSnapshot.getValue(Product.class);
+                        testProductList.add(product);
+                    }
+                    catch (DatabaseException E)
+                    {
+                        Log.e("DB x: " + E, "Error fom try catch.");
+                    }
+
+
+
                     productRecyclerAdapter.notifyDataSetChanged();
                 }
             }

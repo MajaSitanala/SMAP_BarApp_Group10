@@ -52,7 +52,7 @@ public class ViewCategoriesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_view_categories, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
 
         //Test data for the card view
-        fillTestCategoryList();
+        //fillTestCategoryList();
 
         // Recycler View setup
         categoryRecyclerView = rootView.findViewById(R.id.categoryRecyclerView);
@@ -74,7 +74,6 @@ public class ViewCategoriesFragment extends Fragment {
                     testCategoryList.add(cat);
                     categoryRecyclerAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -87,8 +86,6 @@ public class ViewCategoriesFragment extends Fragment {
         categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), testCategoryList);
         categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
 
-
-
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
     }
@@ -100,9 +97,7 @@ public class ViewCategoriesFragment extends Fragment {
             //Test data for the card view
             testCategoryList.add(new Category(i, "Drinks", R.drawable.drinks));
         }
-
     }
-
 }
 
 

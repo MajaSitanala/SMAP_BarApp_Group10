@@ -26,8 +26,12 @@ import com.example.rus1_bar.R;
 import java.util.List;
 
 public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecyclerAdapter.MyViewHolder> {
+
+    private AdapterProductListner listner;
+
     private static final String CATEGORY_ID = "Category id";
     private static final int REQUEST_CATEGORY_ACTION = 102;
+
     private Context mContext;
     private List<Product> mProductList;
 
@@ -59,18 +63,19 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         holder.btn_minus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You tried to remove " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            listner.onClickRemoveProduct(t.getProductName());
         });
 
         holder.btn_plus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You tried to add " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            listner.onclickAddProduct(t.getProductName());
         });
 
         holder.cardViewProduct.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
-
-
+            listner.onclickAddProduct(t.getProductName());
         });
     }
 
@@ -98,5 +103,16 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
             btn_plus = itemView.findViewById(R.id.btn_add_product);
         }
 
+    }
+
+    /**
+     * Interface to comunicate with Shopping Activity
+     *
+     * Inspiration found at YouTube from Coding in Flow: https://youtu.be/i22INe14JUc?t=278
+     */
+    public interface AdapterProductListner
+    {
+        void onclickAddProduct(String productName);
+        void onClickRemoveProduct(String ProductName);
     }
 }

@@ -53,7 +53,7 @@ public class ViewTutorsFragment extends Fragment {
 
 
         //Test data for the card view
-        fillTestTutorList();
+        //fillTestTutorList();
 
         // Recycler View setup
         tutorRecyclerView = rootView.findViewById(R.id.tutorRecyclerView);
@@ -68,7 +68,7 @@ public class ViewTutorsFragment extends Fragment {
         databaseTutor.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                testTutorList.clear();
+                //testTutorList.clear();
                 for (DataSnapshot tutorSnapshot : dataSnapshot.getChildren()){
                     Tutor tutor = tutorSnapshot.getValue(Tutor.class);
                     testTutorList.add(tutor);
