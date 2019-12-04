@@ -75,7 +75,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
         holder.btn_minus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            Toast.makeText(view.getContext(), "You tried to remove " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You tried to remove " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onClickRemoveProduct(t);
             this.notifyDataSetChanged();
 
@@ -83,14 +83,14 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
         holder.btn_plus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            Toast.makeText(view.getContext(), "You tried to add " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You tried to add " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onclickAddProduct(t);
             this.notifyDataSetChanged();
         });
 
         holder.cardViewProduct.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onclickAddProduct(t);
             this.notifyDataSetChanged();
         });

@@ -15,11 +15,11 @@ import java.util.ListIterator;
 public class Purchase {
 
     private String purchaseId;
-    private List<Product> boughtProducts;
+    private List<Product> boughtProducts = new ArrayList<>();
     private double purchaseSum;
 
-    public Purchase(){
-        boughtProducts = new ArrayList<>();
+    public Purchase()
+    {
     }
 
     public void setBoughtProducts(List<Product> boughtProducts) {
@@ -36,7 +36,6 @@ public class Purchase {
 
     public void addProductToPurchace(Product product)
     {
-
         if(boughtProducts.size()!=0)
         {
             for(int i = 0; i<boughtProducts.size(); i++)
@@ -62,7 +61,7 @@ public class Purchase {
 
     public void removeProductToPurchace(Product product)
     {
-
+/*
 
         for(int i = 0; i<boughtProducts.size(); i++)
         {
@@ -83,6 +82,8 @@ public class Purchase {
                 Log.e("PURCHACE removeproduct:", "Nothing to remove");
             }
         }
+
+ */
     }
 
     public List<Product> getBoughtProducts() {

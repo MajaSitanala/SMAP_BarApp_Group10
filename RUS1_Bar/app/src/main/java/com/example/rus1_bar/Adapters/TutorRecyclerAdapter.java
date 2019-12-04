@@ -35,6 +35,7 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
 
     private static final String TUTOR_NICK= "Tutor nickname";
     private static final int REQUEST_TUTOR_PURCHASE = 101;
+    private static final String TUTOR_OBJECT = "Current Tutor Object";
     private Context mContext;
     private List<Tutor> mTutorList;
     private FirebaseRepository repository;
@@ -69,16 +70,14 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
         }
 
 
-
-
-
         //TODO: use this onclick listener to go to another fragment or activity
         holder.cardViewTutor.setOnClickListener(view -> {
             Tutor t = mTutorList.get(position);
-            Toast.makeText(view.getContext(), "You clicked " + t.getNickname(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You clicked " + t.getNickname(), Toast.LENGTH_SHORT).show();
 
             Intent listIntent = new Intent(mContext, ShoppingActivity.class);
-            listIntent.putExtra(TUTOR_NICK, t.getNickname());
+            //listIntent.putExtra(TUTOR_NICK, t.getNickname());
+            listIntent.putExtra(TUTOR_OBJECT, t);
             ((Activity)mContext).startActivityForResult(listIntent, REQUEST_TUTOR_PURCHASE);
 
 

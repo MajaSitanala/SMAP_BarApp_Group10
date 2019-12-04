@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Repository.PurchaseRoomRepository;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class ShoppingViewModel extends AndroidViewModel
 {
     // Firebase database
     private FirebaseRepository firebaseRepository;
+    private FirebaseFirestore firebaseFirestore;
+    private DatabaseReference databaseRustur;
 
     // Room database
     private PurchaseRoomRepository purchaseRoomRepository;
@@ -29,6 +33,7 @@ public class ShoppingViewModel extends AndroidViewModel
     {
         super(application);
         firebaseRepository = new FirebaseRepository();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         purchaseRoomRepository = new PurchaseRoomRepository(application);
     }
 
@@ -47,7 +52,7 @@ public class ShoppingViewModel extends AndroidViewModel
         purchaseRoomRepository.deleteProduct(product);
     }
 
-    public void deleteAllProductsInPurchase(Product product)
+    public void deleteAllProductsInPurchase()
     {
         purchaseRoomRepository.deleteAllProducts();
     }
@@ -62,24 +67,12 @@ public class ShoppingViewModel extends AndroidViewModel
         return allProductsinPurchase;
     }
 
-
-
-/*
-
-    MutableLiveData<List<CountryOnRankingList>> changedRankings = new MutableLiveData();
-
-    public LiveData<List<CountryOnRankingList>> getCountries() {
-
-
-                        List<CountryOnRankingList> localChangedRankings = new ArrayList<>();
-
-
-                            changedRankings.postValue(localChangedRankings);
-
-        return changedRankings;
+    public void insertPurchace_CloudFirestore(Tutor tutor, Purchase purchase)
+    {
+        //TODO: Get the rustur object from somewhere else!!!!!!
+        Rustur testRustur = new Rustur("Test_RUSTUR_From_Shopping");
+        firebaseRepository.insertPurchase(testRustur, tutor, purchase);
     }
-
- */
 }
 
 

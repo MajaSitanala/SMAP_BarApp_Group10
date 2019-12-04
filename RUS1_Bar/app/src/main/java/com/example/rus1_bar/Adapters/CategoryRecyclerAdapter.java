@@ -57,7 +57,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
-            Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
 
             Bundle bundle = new Bundle();
             bundle.putString("category",t.getCategoryName());

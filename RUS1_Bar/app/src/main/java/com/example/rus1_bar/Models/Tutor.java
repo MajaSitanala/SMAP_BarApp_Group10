@@ -2,13 +2,14 @@ package com.example.rus1_bar.Models;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  */
-public class Tutor {
+public class Tutor implements Serializable {
 
     private String ID;
     private String tutorName;

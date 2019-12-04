@@ -29,6 +29,7 @@ import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
+import com.facebook.stetho.Stetho;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ import java.util.List;
 
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
         ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner {
+
 
     private ShoppingViewModel shoppingViewModel;
 
@@ -48,13 +50,18 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     Button btn_cncl;
     Button btn_buy;
     TextView currentTutor;
-    private static final String TUTOR_NICK= "Tutor nickname";
+    private static final String TUTOR_OBJECT = "Current Tutor Object";
+    private String currentTutorName;
+    private Tutor currentTutorClicked;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
+
+        //for debugging/viewing database
+        enableStethos();
 
         ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
 
@@ -65,8 +72,9 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
         currentTutor = findViewById(R.id.tutorlabel_id);
         Intent mainIntent = getIntent();
-        currentTutor.setText(mainIntent.getStringExtra(TUTOR_NICK));
-
+        currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
+        currentTutorName = currentTutorClicked.getNickname();
+        currentTutor.setText(currentTutorName);
         shoppingViewModel = new ShoppingViewModel(this.getApplication());
 
         // Dummy Data
@@ -80,6 +88,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         btn_cncl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                shoppingViewModel.deleteAllProductsInPurchase();
                 finish();
             }
         });
@@ -87,9 +96,25 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         btn_buy = findViewById(R.id.btn_shopping_buy);
         btn_buy.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Køb her og tilføj til Cloud Firestore (service?)
+            public void onClick(View v)
+            {
 
+                if (shoppingViewModel.getAllProductsinPurchase().getValue().size()!=0)
+                {
+                    for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
+                    {
+                        mPurchace.addProductToPurchace(p);
+                    }
+
+                    shoppingViewModel.insertPurchace_CloudFirestore(currentTutorClicked, mPurchace);
+                    shoppingViewModel.deleteAllProductsInPurchase();
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(v.getContext(), R.string.noProductsInBasket,Toast.LENGTH_SHORT).show();
+                }
+                //Køb her og tilføj til Cloud Firestore (service?)
             }
         });
     }
@@ -162,7 +187,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     public void onclickAddProduct(Product product)
     {
         //mPurchace.addProductToPurchace(product);
-        Toast.makeText(this,"FromonClickADD",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"FromonClickADD",Toast.LENGTH_SHORT).show();
 
         for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
         {
@@ -219,4 +244,28 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     {
         shoppingViewModel.deleteProductInPurchase(product);
     }
+
+
+    //enable stethos tool for inspecting database on device / emulator through chrome
+    private void enableStethos()
+    {
+
+           /* Stetho initialization - allows for debugging features in Chrome browser
+           See http://facebook.github.io/stetho/ for details
+           1) Open chrome://inspect/ in a Chrome browse
+           2) select 'inspect' on your app under the specific device/emulator
+           3) select resources tab
+           4) browse database tables under Web SQL
+         */
+
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(
+                        Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(
+                        Stetho.defaultInspectorModulesProvider(this))
+                .build());
+
+        /* end Stethos */
+    }
+
 }

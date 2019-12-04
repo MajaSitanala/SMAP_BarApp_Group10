@@ -85,5 +85,6 @@
     <string name="editTutorCancelBtn">Cancel</string>
     <string name="editTutorDeleteBtn">Delete Tutor</string>
     <string name="editTutorEditBtn">Edit Tutor</string>
+    <string name="noProductsInBasket">No products to buy, press cancel!</string>
 
 </resources>

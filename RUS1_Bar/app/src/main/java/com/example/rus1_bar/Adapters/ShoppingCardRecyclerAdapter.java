@@ -68,14 +68,14 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
 
         holder.btn_deleteButton.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            Toast.makeText(view.getContext(), "You tried to delete " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You tried to delete " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listener.onclickTrashRemoveProduct(t);
 
         });
 
         holder.cardViewShoppingCard.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
         });
     }
 
