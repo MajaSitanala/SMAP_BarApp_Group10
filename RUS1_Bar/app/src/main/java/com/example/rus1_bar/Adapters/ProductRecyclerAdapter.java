@@ -1,6 +1,7 @@
 package com.example.rus1_bar.Adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,11 @@ import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -36,11 +42,16 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
     private Context mContext;
     private List<Product> mProductList;
+    private FirebaseRepository repository;
+
+    private String categoryID;
 
 
-    public ProductRecyclerAdapter(Context mContext, List<Product> mProductList) {
+    public ProductRecyclerAdapter(Context mContext, List<Product> mProductList,String CategoryId) {
         this.mContext = mContext;
         this.mProductList = mProductList;
+        this.repository = new FirebaseRepository();
+        this.categoryID = CategoryId;
 
         if (mContext instanceof AdapterProductListner)
         {
@@ -69,6 +80,15 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
         holder.txt_productName.setText(mProductList.get(position).getProductName());
         holder.img_productImage.setImageResource(mProductList.get(position).getPicture());
+        if(mProductList.get(position).getImageName() != null && categoryID !=  null){
+            repository.getProductImage(mProductList.get(position).getImageName(), categoryID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.with(mContext).load(uri).resize(600,600).centerInside().into(holder.img_productImage);
+                }
+            });
+
+        }
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
 

@@ -103,7 +103,24 @@ public class FirebaseRepository {
         }
     }
 
-    //Todo: Hent billeder fra storage
+    //TODO: Handle Exceptions when loading pictures
+    public StorageReference getCategoryImage(String categoryName){
+        StorageReference jpg = ImageDB.child("categories/"+categoryName+".jpg");
+        StorageReference png = ImageDB.child("categories/"+categoryName+".png");
+        if(jpg != null){return jpg;
+        }else if(png != null){return png;}
+        else {return ImageDB.child("categories/defaultprod.jpg");}
+    }
+
+    public StorageReference getProductImage(String productImageName, String categoryName){
+        StorageReference jpg = ImageDB.child("categories/"+categoryName+"/"+productImageName+".jpg");
+        StorageReference png = ImageDB.child("categories/"+categoryName+"/"+productImageName+".png");
+        Log.e("PRODUCT:",productImageName);
+        if(jpg != null){return jpg;
+        }else if(png != null){return png;}
+        else {return ImageDB.child("categories/defaultprod.jpg");}
+    }
+
     public StorageReference getTutorImage(String tutorImageName){
 
         StorageReference jpg = ImageDB.child("tutors/"+tutorImageName+".jpg");

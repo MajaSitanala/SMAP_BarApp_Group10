@@ -3,6 +3,7 @@ package com.example.rus1_bar.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -28,11 +32,13 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     private static final int REQUEST_CATEGORY_ACTION = 102;
     private Context mContext;
     private List<Category> mCategoryList;
+    private FirebaseRepository repository;
 
 
     public CategoryRecyclerAdapter(Context mContext, List<Category> mCategoryList) {
         this.mContext = mContext;
         this.mCategoryList = mCategoryList;
+        this.repository = new FirebaseRepository();
     }
 
 
@@ -52,6 +58,15 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         holder.txt_categoryName.setText(mCategoryList.get(position).getCategoryName());
         holder.img_categoryImage.setImageResource(mCategoryList.get(position).getPicture());
+        if(mCategoryList.get(position).getImageName() != null){
+            repository.getCategoryImage(mCategoryList.get(position).getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.with(mContext).load(uri).resize(600,600).centerInside().into(holder.img_categoryImage);
+                }
+            });
+
+        }
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
 

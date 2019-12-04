@@ -71,7 +71,7 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
             repository.getTutorImage(mTutorList.get(position).getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Picasso.with(mContext).load(uri).fit().centerInside().into(holder.img_tutorImage);
+                    Picasso.with(mContext).load(uri).resize(600,600).centerInside().into(holder.img_tutorImage);
                 }
             });
 

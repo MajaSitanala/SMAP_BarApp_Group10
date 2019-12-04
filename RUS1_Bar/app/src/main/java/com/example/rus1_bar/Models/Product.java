@@ -24,6 +24,9 @@ public class Product {
     @ColumnInfo(name = "quantity")
     private int quantity;
 
+    @ColumnInfo(name = "imagename")
+    private String imageName;
+
     public Product(String iD, int Quantity, String Name, int Price, int Picture)
     {
         this.setQuantity(Quantity);
@@ -76,4 +79,8 @@ public class Product {
     public int getQuantity() {
         return quantity;
     }
+
+    public String getImageName() { return imageName; }
+
+    public void setImageName(String imageName) { this.imageName = imageName; }
 }
