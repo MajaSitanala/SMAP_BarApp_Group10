@@ -3,6 +3,7 @@ package com.example.rus1_bar.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.ShoppingActivity;
@@ -47,6 +49,19 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
     public void onBindViewHolder(@NonNull TutorDisplayAdapter.MyViewHolder holder, int position) {
         holder.txt_tutorName.setText(mTutorList.get(position).getNickname());
         holder.img_tutorImage.setImageResource(mTutorList.get(position).getPicture());
+
+        holder.cardView_tutorDisplay.setOnClickListener(view ->
+        {
+            Tutor t = mTutorList.get(position);
+
+
+            Bundle bundle = new Bundle();
+            bundle.putString("Tutor",t.getNickname());
+
+            Navigation.findNavController(view).navigate(R.id.editTutorFragment,bundle);
+        });
+
+
     }
 
     @Override
@@ -58,7 +73,7 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
     {
         TextView txt_tutorName;
         ImageView img_tutorImage;
-
+        CardView cardView_tutorDisplay;
 
         public MyViewHolder(View itemView)
         {
@@ -66,6 +81,7 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
 
             txt_tutorName = itemView.findViewById(R.id.txt_tutorName);
             img_tutorImage = itemView.findViewById(R.id.img_tutorImage);
+            cardView_tutorDisplay = itemView.findViewById(R.id.cardview_tutor);
         }
 
     }

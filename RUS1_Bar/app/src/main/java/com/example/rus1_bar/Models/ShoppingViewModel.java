@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Repository.PurchaseRoomRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,6 +29,9 @@ public class ShoppingViewModel extends AndroidViewModel
     private PurchaseRoomRepository purchaseRoomRepository;
     private LiveData<List<Product>> allProductsinPurchase;
     private MutableLiveData<List<Product>> changedProductList = new MutableLiveData();
+
+    // Service
+    private ShoppingService shoppingService;
 
     public ShoppingViewModel(@NonNull Application application)
     {

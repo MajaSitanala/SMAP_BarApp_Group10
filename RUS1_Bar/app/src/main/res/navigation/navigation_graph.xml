@@ -29,10 +29,6 @@
             app:destination="@id/settingsOverviewFragment" />
     </fragment>
 
-
-
-
-
     <fragment
         android:id="@+id/productSettingsFragment"
         android:name="com.example.rus1_bar.Fragments.Administrator.ProductSettingsFragment"
