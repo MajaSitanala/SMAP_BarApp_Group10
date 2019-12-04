@@ -1,10 +1,14 @@
 package com.example.rus1_bar.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.rus1_bar.R;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.MAtoolbar);
         setSupportActionBar(myToolbar);
+
         // Initialize Firebase Auth
        mAuth = FirebaseAuth.getInstance();
     }
@@ -39,10 +44,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_login:
+
+                //Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+
+                // Two versions of shifting from tutorViewFragment to Loginfragment - couldnt workaround the first one - next one works.
+                //Navigation.findNavController(findViewById(R.id.MainActivity)).navigate(R.id.action_viewTutorsFragment_to_loginFragment);
+
+                final NavController navController = Navigation.findNavController((this), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_viewTutorsFragment_to_loginFragment);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //Toast toast = Toast.makeText(getApplicationContext(),currentUser.getDisplayName(),Toast.LENGTH_LONG);
     }
+
+
 }

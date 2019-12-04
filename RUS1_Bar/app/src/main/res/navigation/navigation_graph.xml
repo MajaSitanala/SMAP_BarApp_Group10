@@ -3,7 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/viewTutorsFragment">
+
+    <fragment
+        android:id="@+id/viewTutorsFragment"
+        android:name="com.example.rus1_bar.Fragments.Bartender.ViewTutorsFragment"
+        android:label="fragment_view_tutors"
+        tools:layout="@layout/fragment_view_tutors" >
+        <action
+            android:id="@+id/action_viewTutorsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/loginFragment"
@@ -19,15 +30,7 @@
     </fragment>
 
 
-    <fragment
-        android:id="@+id/viewTutorsFragment"
-        android:name="com.example.rus1_bar.Fragments.Bartender.ViewTutorsFragment"
-        android:label="fragment_view_tutors"
-        tools:layout="@layout/fragment_view_tutors" >
-        <action
-            android:id="@+id/action_viewTutorsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+
 
 
     <fragment
