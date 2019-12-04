@@ -3,6 +3,7 @@ package com.example.rus1_bar.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
@@ -65,8 +67,14 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
 
         holder.txt_tutorName.setText(mTutorList.get(position).getNickname());
         holder.img_tutorImage.setImageResource(mTutorList.get(position).getPicture());
-        if(mTutorList.get(position).getImageUrl() != null){
-            //Picasso.with(mContext).load("gs://rus1bar.appspot.com/tutors/praktikant.jpg").fit().centerInside().into(holder.img_tutorImage);
+        if(mTutorList.get(position).getImagename() != null){
+            repository.getTutorImage(mTutorList.get(position).getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.with(mContext).load(uri).fit().centerInside().into(holder.img_tutorImage);
+                }
+            });
+
         }
 
 
