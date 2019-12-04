@@ -3,10 +3,12 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,12 @@ import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -36,7 +44,6 @@ public class ProductSettingsFragment extends Fragment {
     RecyclerView productRecyclerView;
     RecyclerView.Adapter productRecyclerAdapter;
     RecyclerView.LayoutManager productLayoutManager;
-
 
     public ProductSettingsFragment() {
         // Required empty public constructor

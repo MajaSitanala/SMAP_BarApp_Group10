@@ -3,6 +3,7 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,9 +17,15 @@ import android.widget.Button;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.TutorDisplayAdapter;
 import com.example.rus1_bar.Adapters.TutorRecyclerAdapter;
+import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +36,7 @@ import java.util.List;
 public class TutorSettingsFragment extends Fragment {
 
 
-    private List<Tutor> testTutorList = new ArrayList<>();
+    private List<Tutor> mTutorList = new ArrayList<>();
 
     Button addTutorBtn;
     Button editTutorBtn;
@@ -38,6 +45,10 @@ public class TutorSettingsFragment extends Fragment {
     RecyclerView tutorRecyclerView;
     RecyclerView.Adapter tutorRecyclerAdapter;
     RecyclerView.LayoutManager tutorLayoutManager;
+
+    // Database
+    private DatabaseReference databaseTutorDisplay;
+    private FirebaseDatabase FireDB;
 
 
     public TutorSettingsFragment() {
@@ -62,7 +73,7 @@ public class TutorSettingsFragment extends Fragment {
         editTutorBtn.setOnClickListener(editTutorClick);
 
         //Test data for the card view
-        fillTestTutorList();
+        //fillTestTutorList();
 
         // Recycler View setup
         tutorRecyclerView = rootView.findViewById(R.id.tutorSettingsRecycleView);
@@ -72,12 +83,34 @@ public class TutorSettingsFragment extends Fragment {
         tutorRecyclerView.setLayoutManager(tutorLayoutManager);
 
         //Recycler adapter setup
-        tutorRecyclerAdapter = new TutorDisplayAdapter(getActivity(), testTutorList);
+        tutorRecyclerAdapter = new TutorDisplayAdapter(getActivity(), mTutorList);
 
         tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
 
+        //Get categories from db
+        FireDB = FirebaseDatabase.getInstance();
+        databaseTutorDisplay = FireDB.getReference("tutors");
+        databaseTutorDisplay.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        // Inflate the layout for this fragment
+                mTutorList.clear();
+                for (DataSnapshot tutorSnapshot : dataSnapshot.getChildren()){
+                    Tutor t = tutorSnapshot.getValue(Tutor.class);
+                    mTutorList.add(t);
+                    tutorRecyclerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+            // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
     }
 
@@ -86,10 +119,10 @@ public class TutorSettingsFragment extends Fragment {
         for (int i = 0; i<4; i++)
         {
             //Test data for the card view
-            testTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
-            testTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
-            testTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
-            testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
+            mTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
+            mTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
+            mTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
+            mTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
         }
     }
 }
