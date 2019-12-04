@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_tutorSettingsFragment_to_addTutorFragment"
             app:destination="@id/addTutorFragment" />
+        <action
+            android:id="@+id/action_tutorSettingsFragment_to_editTutorFragment"
+            app:destination="@id/editTutorFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTutorFragment"
@@ -93,6 +96,15 @@
         tools:layout="@layout/fragment_add_tutor" >
         <action
             android:id="@+id/action_addTutorFragment_to_tutorSettingsFragment"
+            app:destination="@id/tutorSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTutorFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.EditTutorFragment"
+        android:label="fragment_edit_tutor"
+        tools:layout="@layout/fragment_edit_tutor" >
+        <action
+            android:id="@+id/action_editTutorFragment_to_tutorSettingsFragment"
             app:destination="@id/tutorSettingsFragment" />
     </fragment>
 </navigation>

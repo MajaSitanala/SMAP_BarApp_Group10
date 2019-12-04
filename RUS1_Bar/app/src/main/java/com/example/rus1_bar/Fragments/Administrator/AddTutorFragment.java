@@ -17,9 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
 
 import java.net.URI;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -33,6 +36,8 @@ public class AddTutorFragment extends Fragment {
     Button cancelBtn;
     Button addBtn;
 
+    FirebaseRepository firebaseRepo;
+    Tutor newTutor;
 
     private static final int PICK_IMAGE = 100;
     ImageView tutorImage;
@@ -42,6 +47,8 @@ public class AddTutorFragment extends Fragment {
     EditText editName;
     EditText editEmail;
     EditText editPhone;
+
+    String guid;
 
 
     public AddTutorFragment() {
@@ -59,7 +66,13 @@ public class AddTutorFragment extends Fragment {
         editName = rootView.findViewById(R.id.addTutorEditName);
         editEmail = rootView.findViewById(R.id.addTutorEditEmail);
         editPhone = rootView.findViewById(R.id.addTutorEditPhone);
+
         cancelBtn = rootView.findViewById(R.id.addTutorCancelBtn);
+        addBtn = rootView.findViewById(R.id.addTutorAddBtn);
+
+        guid  = UUID.randomUUID().toString();
+        newTutor = new Tutor();
+        firebaseRepo = new FirebaseRepository();
 
 
         View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
@@ -72,17 +85,28 @@ public class AddTutorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openGallery();
+
             }
         });
 
-        addBtn = rootView.findViewById(R.id.addTutorAddBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Error handling for empty fields.
+                if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString(), R.drawable.defaultimg);
+                    newTutor.setImagename(guid);
+                    if (imageUri != null){
+                        firebaseRepo.saveTutorImage(newTutor, imageUri);
+                    }
+                    firebaseRepo.insertTutor(newTutor);
+                    //TODO: Need to exit add tutor after clicking add
+                }
             }
         });
-
         return rootView;
     }
 

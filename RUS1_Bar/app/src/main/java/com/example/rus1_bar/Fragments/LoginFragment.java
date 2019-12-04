@@ -98,7 +98,7 @@ public class LoginFragment extends Fragment {
 
 
         buttonLogin.setOnClickListener(v -> {
-            //dummyDataInit();
+            dummyDataInit();
             //Todo:Repotest:
             //FirebaseRepository repo = new FirebaseRepository();
             //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
@@ -163,17 +163,28 @@ public class LoginFragment extends Fragment {
     private void dummyDataInit()
     {
 
-        AddTutor(new Tutor("Chris Broberg","Prak10",30248747,"mail",R.drawable.praktikant));
-        AddTutor(new Tutor("Maja Andersen","Crystal",12341234,"mail",R.drawable.crystal));
-        AddTutor(new Tutor("Mikkel Bleeg","Pampers",1234234,"mail",R.drawable.bleeg));
-        AddTutor(new Tutor("Andreas Blaabjerg","Flobber",1234234,"mail",R.drawable.flobber));
+        Tutor c = new Tutor("Chris Broberg","Prak10",30248747,"mail",R.drawable.praktikant);
+        c.setImageUrl("p");
 
+        Tutor ma = new Tutor("Maja Andersen","Crystal",12341234,"mail",R.drawable.crystal);
+        ma.setImageUrl("crystal");
+
+        Tutor mi = new Tutor("Mikkel Bleeg","Pampers",1234234,"mail",R.drawable.bleeg);
+        mi.setImagename("ble");
+
+        Tutor a = new Tutor("Andreas Blaabjerg","Flobber",1234234,"mail",R.drawable.flobber);
+        a.setImagename("flobber");
+
+        AddTutor(c);
+        AddTutor(new Tutor("Maja Andersen","Crystal",12341234,"mail",R.drawable.crystal));
+        AddTutor(new Tutor("Mikkel Bleeg","Pampers",1234234,"mail",R.drawable.ble));
+        AddTutor(new Tutor("Andreas Blaabjerg","Flobber",1234234,"mail",R.drawable.defaultimg));
 
         AddCategory(new Category(1,"Drinks",R.drawable.drinks));
         AddCategory(new Category(2,"Snacks",R.drawable.snacks));
         AddCategory(new Category(3,"Shots",R.drawable.shots));
         AddCategory(new Category(4,"Sodavand",R.drawable.soda));
-        AddCategory(new Category(5,"Kaffe",R.drawable.coffe));
+        AddCategory(new Category(5,"Kaffe",R.drawable.coffee));
         AddCategory(new Category(6,"Øl",R.drawable.tuborg));
         AddCategory(new Category(6,"RTD",R.drawable.breezer));
 
@@ -181,12 +192,12 @@ public class LoginFragment extends Fragment {
         AddProduct(new Product("1",1,"Gin Hass",30,R.drawable.ginhass),new Category(1,"Drinks",R.drawable.drinks));
         AddProduct(new Product("2",1,"White Russian",30,R.drawable.whiterussianlang),new Category(1,"Drinks",R.drawable.drinks));
 
-        AddProduct(new Product("3",1,"Sort kaffe",5,R.drawable.coffe),new Category(5,"Kaffe",R.drawable.coffe));
-        AddProduct(new Product("4",1,"Latte",5,R.drawable.latte),new Category(5,"Kaffe",R.drawable.coffe));
-        AddProduct(new Product("5",1,"Espresso",5,R.drawable.espresso),new Category(5,"Kaffe",R.drawable.coffe));
-        AddProduct(new Product("6",1,"Cappuccino",5,R.drawable.cappuccino),new Category(5,"Kaffe",R.drawable.coffe));
-        AddProduct(new Product("7",1,"Choko-cino",5,R.drawable.chococino),new Category(5,"Kaffe",R.drawable.coffe));
-        AddProduct(new Product("8",1,"Alm kaffe",5,R.drawable.blackcoffee),new Category(5,"Kaffe",R.drawable.coffe));
+        AddProduct(new Product("3",1,"Sort kaffe",5,R.drawable.coffee),new Category(5,"Kaffe",R.drawable.coffee));
+        AddProduct(new Product("4",1,"Latte",5,R.drawable.latte),new Category(5,"Kaffe",R.drawable.coffee));
+        AddProduct(new Product("5",1,"Espresso",5,R.drawable.espresso),new Category(5,"Kaffe",R.drawable.coffee));
+        AddProduct(new Product("6",1,"Cappuccino",5,R.drawable.cappuccino),new Category(5,"Kaffe",R.drawable.coffee));
+        AddProduct(new Product("7",1,"Choko-cino",5,R.drawable.chococino),new Category(5,"Kaffe",R.drawable.coffee));
+        AddProduct(new Product("8",1,"Alm kaffe",5,R.drawable.blackcoffee),new Category(5,"Kaffe",R.drawable.coffee));
 
         AddProduct(new Product("9",1,"Cashews",5,R.drawable.cashews),new Category(2,"Snacks",R.drawable.snacks));
         AddProduct(new Product("10",1,"Kims HavSalt",5,R.drawable.havsalt),new Category(2,"Snacks",R.drawable.snacks));

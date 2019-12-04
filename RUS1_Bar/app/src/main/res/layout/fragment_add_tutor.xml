@@ -28,21 +28,21 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addTutorNickName"
-            app:layout_constraintBottom_toTopOf="@+id/guideline94"
+            app:layout_constraintBottom_toTopOf="@+id/guideline97"
             app:layout_constraintEnd_toStartOf="@+id/guideline89"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline73"
-            app:layout_constraintTop_toTopOf="@+id/guideline90" />
+            app:layout_constraintTop_toTopOf="@+id/guideline108" />
 
         <TextView
             android:id="@+id/addTutorRealName"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addTutorRealName"
-            app:layout_constraintBottom_toTopOf="@+id/guideline97"
+            app:layout_constraintBottom_toTopOf="@+id/guideline94"
             app:layout_constraintEnd_toStartOf="@+id/guideline89"
             app:layout_constraintStart_toStartOf="@+id/guideline73"
-            app:layout_constraintTop_toTopOf="@+id/guideline108" />
+            app:layout_constraintTop_toTopOf="@+id/guideline90" />
 
         <TextView
             android:id="@+id/addTutorEmail"
@@ -92,12 +92,11 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/addTutorEditNick"
-            app:layout_constraintBottom_toTopOf="@+id/guideline92"
+            app:layout_constraintBottom_toTopOf="@+id/guideline95"
             app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/addTutorNickName"
-            app:layout_constraintTop_toTopOf="@+id/guideline93"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="@+id/guideline94" />
 
         <EditText
             android:id="@+id/addTutorEditName"
@@ -107,10 +106,10 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/addTutorEditName"
-            app:layout_constraintBottom_toTopOf="@+id/guideline95"
+            app:layout_constraintBottom_toTopOf="@+id/guideline92"
             app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintStart_toStartOf="@+id/guideline89"
-            app:layout_constraintTop_toTopOf="@+id/guideline94" />
+            app:layout_constraintTop_toTopOf="@+id/guideline93" />
 
         <EditText
             android:id="@+id/addTutorEditEmail"
@@ -285,10 +284,10 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline93"
             app:layout_constraintEnd_toStartOf="@+id/guideline106"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline96"
+            app:layout_constraintStart_toStartOf="@+id/guideline107"
             app:layout_constraintTop_toTopOf="@+id/guideline86"
             app:layout_constraintVertical_bias="1.0"
-            tools:src="@drawable/defaultimg"/>
+            tools:src="@drawable/defaultimg" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline96"

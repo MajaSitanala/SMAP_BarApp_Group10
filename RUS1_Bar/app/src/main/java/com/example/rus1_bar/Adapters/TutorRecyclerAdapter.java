@@ -17,10 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.util.List;
 
 public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdapter.MyViewHolder> {
@@ -29,11 +37,14 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
     private static final int REQUEST_TUTOR_PURCHASE = 101;
     private Context mContext;
     private List<Tutor> mTutorList;
+    private FirebaseRepository repository;
+
 
 
     public TutorRecyclerAdapter(Context mContext, List<Tutor> mTutorList) {
         this.mContext = mContext;
         this.mTutorList = mTutorList;
+        this.repository = new FirebaseRepository();
     }
 
 
@@ -53,7 +64,11 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
 
         holder.txt_tutorName.setText(mTutorList.get(position).getNickname());
         holder.img_tutorImage.setImageResource(mTutorList.get(position).getPicture());
-        //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
+        if(mTutorList.get(position).getImageUrl() != null){
+            //Picasso.with(mContext).load("gs://rus1bar.appspot.com/tutors/praktikant.jpg").fit().centerInside().into(holder.img_tutorImage);
+        }
+
+
 
 
 
@@ -82,7 +97,6 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
         TextView txt_tutorName;
         ImageView  img_tutorImage;
         CardView cardViewTutor;
-
 
         public MyViewHolder(View itemView)
         {

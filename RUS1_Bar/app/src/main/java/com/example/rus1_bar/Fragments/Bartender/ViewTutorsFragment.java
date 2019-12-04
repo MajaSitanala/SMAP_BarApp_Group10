@@ -68,7 +68,7 @@ public class ViewTutorsFragment extends Fragment {
         databaseTutor.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //testTutorList.clear();
+                testTutorList.clear();
                 for (DataSnapshot tutorSnapshot : dataSnapshot.getChildren()){
                     Tutor tutor = tutorSnapshot.getValue(Tutor.class);
                     testTutorList.add(tutor);

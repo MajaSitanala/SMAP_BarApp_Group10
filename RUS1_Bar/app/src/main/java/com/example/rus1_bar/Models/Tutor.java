@@ -17,6 +17,8 @@ public class Tutor {
     private String mail;
     private int picture;
     private List<Purchase> purchases;
+    private String ImageUrl;
+    private String imagename;
 
     public Tutor(String Name, String Nickname, int PhoneNumber, String Mail, int Picture)
     {
@@ -27,8 +29,24 @@ public class Tutor {
         this.setPicture(Picture);
         purchases = new ArrayList<Purchase>();
     }
-
+    public Tutor(String Name, String Nickname, int PhoneNumber, String Mail, String imgname)
+    {
+        this.setTutorName(Name);
+        this.setNickname(Nickname);
+        this.setPhoneNr(PhoneNumber);
+        this.setMail(Mail);
+        this.setImagename(imgname);
+        purchases = new ArrayList<Purchase>();
+    }
     public Tutor(){}
+
+    public void setImagename(String imagename){this.imagename = imagename;}
+
+    public String getImagename(){return this.imagename;}
+
+    public void setImageUrl(String imageUrl){this.ImageUrl = imageUrl;}
+
+    public String getImageUrl(){return this.ImageUrl;}
 
     public void setID(String ID) {
         this.ID = ID;
