@@ -20,9 +20,12 @@ import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCardRecyclerAdapter.MyViewHolder> {
+
+    private AdapterShoppingCardListner listener;
 
     private Context mContext;
     private List<Product> mProductList;
@@ -31,6 +34,15 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
     public ShoppingCardRecyclerAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
+
+        if (mContext instanceof AdapterShoppingCardListner)
+        {
+            listener = (AdapterShoppingCardListner) mContext;
+        }
+        else
+        {
+            throw new RuntimeException(mContext.toString() + ": must implement AdapterShoppingCardListner!");
+        }
     }
 
 
@@ -57,6 +69,7 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
         holder.btn_deleteButton.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You tried to delete " + t.getProductName(), Toast.LENGTH_SHORT).show();
+            listener.onclickTrashRemoveProduct(t);
 
         });
 
@@ -70,6 +83,12 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
     public int getItemCount() {
         return mProductList.size();
     }
+
+    public Product getProductAt(int position)
+    {
+        return mProductList.get(position);
+    }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder
     {
@@ -96,9 +115,8 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
         this.mProductList = productList;
     }
 
-    public Product getProductPosition(int position)
+    public interface AdapterShoppingCardListner
     {
-        return mProductList.get(position);
-
+        void onclickTrashRemoveProduct(Product product);
     }
 }

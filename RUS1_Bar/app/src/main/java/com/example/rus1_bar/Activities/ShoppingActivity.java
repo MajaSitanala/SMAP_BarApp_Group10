@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Notification;
 import android.content.ComponentName;
@@ -15,39 +17,64 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
+import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
+import com.example.rus1_bar.Models.Product;
+import com.example.rus1_bar.Models.Purchase;
+import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner {
+public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
+        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner {
+
+    private ShoppingViewModel shoppingViewModel;
 
     // Service
     ShoppingService shoppingService;
     boolean isBound = false;
+
+    Purchase mPurchace = new Purchase();
+
     Button btn_cncl;
     Button btn_buy;
     TextView currentTutor;
     private static final String TUTOR_NICK= "Tutor nickname";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
+        ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
+
         // Shopping card fragment (not navigation componment)
         getSupportFragmentManager().beginTransaction()                                                      //Inspiration and solution found https://codinginflow.com/tutorials/android/fragment-to-fragment-communication-with-shared-viewmodel
-                .add(R.id.nav_shopping_cart_fragment, new ShoppingCardFragment())
+                .add(R.id.nav_shopping_cart_fragment, shoppingCardFragment)// new ShoppingCardFragment())
                 .commit();
 
         currentTutor = findViewById(R.id.tutorlabel_id);
         Intent mainIntent = getIntent();
         currentTutor.setText(mainIntent.getStringExtra(TUTOR_NICK));
+
+        shoppingViewModel = new ShoppingViewModel(this.getApplication());
+
+        // Dummy Data
+        //Product dummyProduct = (new Product("0",0, "Gin Hass", 20, R.drawable.ginhass));
+        //onclickAddProduct(dummyProduct);
+        //mPurchace.addProductToPurchace(dummyProduct);
+
+        Context sCcontext =  shoppingCardFragment.getContext();
 
         btn_cncl = findViewById(R.id.btn_shopping_cancle);
         btn_cncl.setOnClickListener(new View.OnClickListener() {
@@ -132,12 +159,64 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
 
     @Override
-    public void onclickAddProduct(String productName) {
+    public void onclickAddProduct(Product product)
+    {
+        //mPurchace.addProductToPurchace(product);
+        Toast.makeText(this,"FromonClickADD",Toast.LENGTH_SHORT).show();
 
+        for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
+        {
+            if (p.getProductName().equals(product.getProductName()))
+            {
+                p.setQuantity(p.getQuantity()+1);
+                p.setPrice(product.getPrice()*p.getQuantity());
+                shoppingViewModel.updateProductInPurchase(p);
+                return;
+            }
+        }
+        shoppingViewModel.insertProductInPurchase(product);
     }
 
     @Override
-    public void onClickRemoveProduct(String ProductName) {
+    public void onClickRemoveProduct(Product product)
+    {
+        //mPurchace.removeProductToPurchace(product);
 
+
+        for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
+        {
+            if (p.getProductName().equals(product.getProductName()) && p.getQuantity()>=2)
+            {
+                p.setQuantity(p.getQuantity()-1);
+                p.setPrice(product.getPrice()*p.getQuantity());
+                shoppingViewModel.updateProductInPurchase(p);
+                return;
+            }
+        }
+        shoppingViewModel.deleteProductInPurchase(product);
+    }
+
+    @Override
+    public List<Product> fromActivity_getShoppingProducts() {
+
+        //List<Product> mProductdummy = mPurchace.getBoughtProducts();
+        return null;
+    }
+
+    @Override
+    public ShoppingViewModel fromActivity_GetShoppingViewModel() {
+        return shoppingViewModel;
+    }
+
+    @Override
+    public void swipeToDelete(Product product) {
+        shoppingViewModel.deleteProductInPurchase(product);
+    }
+
+
+    @Override
+    public void onclickTrashRemoveProduct(Product product)
+    {
+        shoppingViewModel.deleteProductInPurchase(product);
     }
 }

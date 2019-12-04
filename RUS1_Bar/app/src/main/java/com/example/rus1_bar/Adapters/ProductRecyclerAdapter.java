@@ -1,6 +1,7 @@
 package com.example.rus1_bar.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.ShoppingActivity;
+import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
@@ -39,6 +41,15 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
     public ProductRecyclerAdapter(Context mContext, List<Product> mProductList) {
         this.mContext = mContext;
         this.mProductList = mProductList;
+
+        if (mContext instanceof AdapterProductListner)
+        {
+            listner = (AdapterProductListner) mContext;
+        }
+        else
+        {
+            throw new RuntimeException(mContext.toString() + ": must implement AdapterProductListner!");
+        }
     }
 
 
@@ -60,22 +71,28 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         holder.img_productImage.setImageResource(mProductList.get(position).getPicture());
         //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
+
+
         holder.btn_minus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You tried to remove " + t.getProductName(), Toast.LENGTH_SHORT).show();
-            listner.onClickRemoveProduct(t.getProductName());
+            listner.onClickRemoveProduct(t);
+            this.notifyDataSetChanged();
+
         });
 
         holder.btn_plus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You tried to add " + t.getProductName(), Toast.LENGTH_SHORT).show();
-            listner.onclickAddProduct(t.getProductName());
+            listner.onclickAddProduct(t);
+            this.notifyDataSetChanged();
         });
 
         holder.cardViewProduct.setOnClickListener(view -> {
             Product t = mProductList.get(position);
             Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
-            listner.onclickAddProduct(t.getProductName());
+            listner.onclickAddProduct(t);
+            this.notifyDataSetChanged();
         });
     }
 
@@ -112,7 +129,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
      */
     public interface AdapterProductListner
     {
-        void onclickAddProduct(String productName);
-        void onClickRemoveProduct(String ProductName);
+        void onclickAddProduct(Product product);
+        void onClickRemoveProduct(Product product);
     }
 }

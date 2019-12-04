@@ -28,6 +28,21 @@ public class ShoppingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        // Notification intent
+        Intent notificationIntent = new Intent(this, ShoppingActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0, notificationIntent, 0);
+
+        //Notification creation
+        Notification notification = new NotificationCompat.Builder(this, TEST_CHANNEL_ID)
+                .setContentTitle("Test Service Running")
+                .setContentText("Yo yo yo yo")
+                .setSmallIcon(R.drawable.rusicon)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        //Notification starts in the forground
+        startForeground(1, notification);
 
     }
 
@@ -39,25 +54,6 @@ public class ShoppingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        String input = intent.getStringExtra("inputExtra");
-
-
-        // Notification intent
-        Intent notificationIntent = new Intent(this, ShoppingActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-
-        //Notification creation
-        Notification notification = new NotificationCompat.Builder(this, TEST_CHANNEL_ID)
-                .setContentTitle("Test Service Running")
-                .setContentText(input)
-                .setSmallIcon(R.drawable.rusicon)
-                .setContentIntent(pendingIntent)
-                .build();
-
-        //Notification starts in the forground
-        startForeground(1, notification);
 
         return super.onStartCommand(intent, flags, startId);
     }

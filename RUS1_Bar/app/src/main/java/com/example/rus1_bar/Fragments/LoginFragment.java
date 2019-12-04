@@ -98,7 +98,7 @@ public class LoginFragment extends Fragment {
 
 
         buttonLogin.setOnClickListener(v -> {
-            dummyDataInit();
+            //dummyDataInit();
             //Todo:Repotest:
             //FirebaseRepository repo = new FirebaseRepository();
             //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));

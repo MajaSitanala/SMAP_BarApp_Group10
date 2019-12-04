@@ -87,9 +87,6 @@ public class ViewProductsFragment extends Fragment {
                     {
                         Log.e("DB x: " + E, "Error fom try catch.");
                     }
-
-
-
                     productRecyclerAdapter.notifyDataSetChanged();
                 }
             }

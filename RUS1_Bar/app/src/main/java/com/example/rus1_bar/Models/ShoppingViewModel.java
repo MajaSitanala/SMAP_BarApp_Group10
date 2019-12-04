@@ -9,47 +9,79 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Repository.PurchaseRoomRepository;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingViewModel extends AndroidViewModel {
-
+public class ShoppingViewModel extends AndroidViewModel
+{
+    // Firebase database
     private FirebaseRepository firebaseRepository;
-    private MutableLiveData<List<Category>> allCategories;
-    private List<Category> dummyAllCategories;
-    private MutableLiveData<List<Product>> allProductsInCart;
+
+    // Room database
+    private PurchaseRoomRepository purchaseRoomRepository;
+    private LiveData<List<Product>> allProductsinPurchase;
+    private MutableLiveData<List<Product>> changedProductList = new MutableLiveData();
 
     public ShoppingViewModel(@NonNull Application application)
     {
         super(application);
         firebaseRepository = new FirebaseRepository();
+        purchaseRoomRepository = new PurchaseRoomRepository(application);
     }
 
-    /**
-     * TODO: Fill this with a call to the database.
-     * getAllCategories gets the categories from the database.
-     */
-    public void getAllCategories()
+    public void insertProductInPurchase(Product product)
     {
-        //allCategories = firebaseRepository.getAllCategories();
-
-
+        purchaseRoomRepository.insertProduct(product);
     }
 
-    public void getAllProducts()
-    {}
-
-
-
-    public void dummyAllCategory()
+    public void updateProductInPurchase(Product product)
     {
-        //DUMMY DATA
-        for (int i = 0; i<12; i++)
-        {
-            //Test data for the card view
-            dummyAllCategories.add(new Category(i, "Drinks", R.drawable.drinks));
-        }
+        purchaseRoomRepository.updateProduct(product);
     }
+
+    public void deleteProductInPurchase(Product product)
+    {
+        purchaseRoomRepository.deleteProduct(product);
+    }
+
+    public void deleteAllProductsInPurchase(Product product)
+    {
+        purchaseRoomRepository.deleteAllProducts();
+    }
+
+    public LiveData<List<Product>> getAllProductsinPurchase()
+    {
+
+        allProductsinPurchase = purchaseRoomRepository.getAllPurchases();
+        List<Product> localChangedProduct = new ArrayList<>();
+        changedProductList.postValue(localChangedProduct);
+
+        return allProductsinPurchase;
+    }
+
+
+
+/*
+
+    MutableLiveData<List<CountryOnRankingList>> changedRankings = new MutableLiveData();
+
+    public LiveData<List<CountryOnRankingList>> getCountries() {
+
+
+                        List<CountryOnRankingList> localChangedRankings = new ArrayList<>();
+
+
+                            changedRankings.postValue(localChangedRankings);
+
+        return changedRankings;
+    }
+
+ */
 }
+
+
+
+

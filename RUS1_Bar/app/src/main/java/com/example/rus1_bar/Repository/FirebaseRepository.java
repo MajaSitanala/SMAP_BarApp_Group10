@@ -41,6 +41,8 @@ import java.util.List;
 
 public class FirebaseRepository {
 
+    private MutableLiveData<List<Category>> allCategories;
+    private MutableLiveData<List<Product>> allProducts;
 
     private FirebaseDatabase FireDB;
     private FirebaseFirestore fireStore;
