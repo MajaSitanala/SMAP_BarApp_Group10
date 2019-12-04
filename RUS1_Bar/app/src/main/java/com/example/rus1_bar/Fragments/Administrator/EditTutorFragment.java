@@ -70,6 +70,8 @@ public class EditTutorFragment extends Fragment {
         View.OnClickListener editTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editTutorFragment_to_tutorSettingsFragment);
         cancelBtn.setOnClickListener(editTutorCancelClick);
 
+
+
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

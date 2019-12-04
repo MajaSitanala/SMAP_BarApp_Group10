@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_tutorSettingsFragment_to_editTutorFragment"
             app:destination="@id/editTutorFragment" />
+        <action
+            android:id="@+id/action_tutorSettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTutorFragment"

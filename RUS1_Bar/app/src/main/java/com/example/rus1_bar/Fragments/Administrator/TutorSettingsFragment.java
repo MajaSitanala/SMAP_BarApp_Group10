@@ -72,6 +72,9 @@ public class TutorSettingsFragment extends Fragment {
         View.OnClickListener editTutorClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_editTutorFragment);
         editTutorBtn.setOnClickListener(editTutorClick);
 
+        View.OnClickListener cancelBtnClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_settingsOverviewFragment);
+        cancelBtn.setOnClickListener(cancelBtnClick);
+
         //Test data for the card view
         //fillTestTutorList();
 

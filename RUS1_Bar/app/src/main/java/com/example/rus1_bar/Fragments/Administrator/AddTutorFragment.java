@@ -2,6 +2,7 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -85,7 +86,6 @@ public class AddTutorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openGallery();
-
             }
         });
 
