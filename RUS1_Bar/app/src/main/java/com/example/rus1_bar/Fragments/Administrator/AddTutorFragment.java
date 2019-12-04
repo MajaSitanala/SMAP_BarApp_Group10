@@ -104,6 +104,7 @@ public class AddTutorFragment extends Fragment {
                     }
                     firebaseRepo.insertTutor(newTutor);
                     //TODO: Need to exit add tutor after clicking add
+                    Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment); 
                 }
             }
         });
