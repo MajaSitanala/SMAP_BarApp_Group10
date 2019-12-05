@@ -12,13 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/RUS1_login_Text"
+        android:textColor="@color/DarkPurple"
         android:textSize="50dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/layout_username"
         app:layout_constraintEnd_toEndOf="@+id/login_btn"
         app:layout_constraintStart_toStartOf="@+id/cancel_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+
         android:id="@+id/layout_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +36,7 @@
         app:layout_constraintVertical_bias="0.405">
 
         <com.google.android.material.textfield.TextInputLayout
+
             android:id="@+id/input_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,23 +44,26 @@
             app:errorEnabled="true"
             app:helperText=""
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
 
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+
                 android:id="@+id/EmailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/fui_email_hint"
                 android:inputType="textEmailAddress"
-                android:maxLines="1" />
+                android:maxLines="1">
+
+            </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
     <LinearLayout
+
         android:id="@+id/layout_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +76,9 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_username"
         app:layout_constraintVertical_bias="0.076">
 
+
         <com.google.android.material.textfield.TextInputLayout
+
             android:id="@+id/input_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -82,18 +91,21 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+
                 android:id="@+id/PasswordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/Password"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
     <Button
+        style="@style/btnGoTheme"
         android:id="@+id/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,9 +117,12 @@
 
     <Button
         android:id="@+id/cancel_btn"
+        style="@style/btnBackTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Cancel"
+        android:textColorHighlight="@color/LightPurple"
+        android:textColorLink="@color/LightPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/login_btn"
         app:layout_constraintStart_toStartOf="parent"
