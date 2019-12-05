@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Fragments.LoginFragment;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
@@ -32,8 +33,9 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
 
+    // Firebase authentication
+    private FirebaseAuth mAuth;
 
     // View Model
     private ShoppingViewModel shoppingViewModel;
@@ -49,20 +51,27 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.MAtoolbar);
         setSupportActionBar(myToolbar);
 
+        // Starting the service
+        startService();
+
         // Initialize Firebase Auth
-       mAuth = FirebaseAuth.getInstance();
+       //mAuth = shoppingService.getFirebaseAuth_fromService();// FirebaseAuth.getInstance();
     }
 
+    /*
+    public ShoppingService test()
+    {
+        return  this.shoppingService;
+    }
+
+     */
 
     @Override
     public void onStart() {
         super.onStart();
 
-        // Starting the service
-        startService();
-
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
         //Toast toast = Toast.makeText(getApplicationContext(),currentUser.getDisplayName(),Toast.LENGTH_LONG);
 
         Intent intent = new Intent(this, ShoppingService.class);
@@ -90,12 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 final NavController navController = Navigation.findNavController((this), R.id.nav_host_fragment);
                 navController.navigate(R.id.action_viewTutorsFragment_to_loginFragment);
         }
-
-
         return super.onOptionsItemSelected(item);
     }
-
-
 
     /**
      * ServiceConnection that makes the ListActivity subscribe to the FourgroundService.
@@ -107,8 +112,7 @@ public class MainActivity extends AppCompatActivity {
             shoppingService = binder.getService();
             isBound = true;
 
-            initViewModel();
-
+            initWhenServiceIsUp();
         }
 
         @Override
@@ -117,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private void initWhenServiceIsUp()
+    {
+        // Initialize Firebase Auth
+        mAuth = shoppingService.getFirebaseAuth_fromService();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
+    }
+
     public void startService()
     {
         Intent serviceIntent = new Intent(this, ShoppingService.class);
@@ -124,8 +137,9 @@ public class MainActivity extends AppCompatActivity {
         startService(serviceIntent);
     }
 
-    private void initViewModel()
+    public ShoppingService getShoppingService_fromMainActivity()
     {
-        shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
+        //Toast.makeText(this,"inside fromMainActivity_getShoppingService",Toast.LENGTH_SHORT).show();
+        return this.shoppingService;
     }
 }

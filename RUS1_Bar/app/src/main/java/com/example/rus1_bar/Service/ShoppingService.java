@@ -21,6 +21,8 @@ import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Repository.PurchaseRoomRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Inspiration found from Code in flow at https://codinginflow.com/tutorials/android/foreground-service for the test notification.
@@ -36,6 +38,8 @@ public class ShoppingService extends Service {
 
     private FirebaseRepository firebaseRepository;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
     private PurchaseRoomRepository purchaseRoomRepository;
 
     private ShoppingViewModel shoppingViewModel;
@@ -44,9 +48,10 @@ public class ShoppingService extends Service {
     public void onCreate() {
         super.onCreate();
 
-
         firebaseRepository = new FirebaseRepository();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore = firebaseRepository.getFireStore_fromRepository();//FirebaseFirestore.getInstance();
+        firebaseDatabase = firebaseRepository.getFireDB_fromRepository();
+        firebaseAuth = FirebaseAuth.getInstance();
         purchaseRoomRepository = new PurchaseRoomRepository(this.getApplication());
 
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
@@ -125,6 +130,26 @@ public class ShoppingService extends Service {
     public void setFirebaseFirestore_inService(FirebaseFirestore firebaseFirestore)
     {
         this.firebaseFirestore = firebaseFirestore;
+    }
+
+    public void setFirebaseDatabase_inService(FirebaseDatabase firebaseDatabase)
+    {
+        this.firebaseDatabase = firebaseDatabase;
+    }
+
+    public FirebaseDatabase getFirebaseDatabase_fromService()
+    {
+        return this.firebaseDatabase;
+    }
+
+    public FirebaseAuth getFirebaseAuth_fromService()
+    {
+        return this.firebaseAuth;
+    }
+
+    public void setFirebaseAuth_inService(FirebaseAuth firebaseAuth)
+    {
+        this.firebaseAuth = firebaseAuth;
     }
 
     public PurchaseRoomRepository getPurchaseRoomRepository_fromService()

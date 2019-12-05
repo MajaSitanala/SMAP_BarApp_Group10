@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
@@ -29,6 +30,7 @@ import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -63,6 +65,8 @@ public class LoginFragment extends Fragment {
     DatabaseReference databaseCategory;
     FirebaseDatabase FireDB;
 
+    ShoppingService shoppingService;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -80,24 +84,24 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+
         // Initialize Firebase Auth & Db
-        mAuth = FirebaseAuth.getInstance();
-        FireDB = FirebaseDatabase.getInstance();
+            //mAuth = FirebaseAuth.getInstance();
+            //FireDB = FirebaseDatabase.getInstance();
+        mAuth = shoppingService.getFirebaseAuth_fromService();
+        FireDB = shoppingService.getFirebaseDatabase_fromService();
         databaseTutors = FireDB.getReference("tutors");
         databaseProducts = FireDB.getReference("products");
         databaseCategory = FireDB.getReference("categories");
-
 
         View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
         buttonCancel = view.findViewById(R.id.cancel_btn);
         buttonCancel.setOnClickListener(s);
 
-
         email = view.findViewById(R.id.EmailEditText);
         password = view.findViewById(R.id.PasswordEditText);
         buttonLogin = view.findViewById(R.id.login_btn);
-
-
 
         buttonLogin.setOnClickListener(v -> {
             //dummyDataInit();
@@ -105,11 +109,8 @@ public class LoginFragment extends Fragment {
             //FirebaseRepository repo = new FirebaseRepository();
             //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
 
-
-
             if(email.getText() != null && password.getText() != null){
                 authenticate(email.getText().toString(),password.getText().toString(),view);
-
             }
         });
 
@@ -162,14 +163,12 @@ public class LoginFragment extends Fragment {
                             //password.setHint("Wrong password");
                             //Toast.makeText(getContext(),"Something went wrong in the login.",Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
         }catch (Exception e){
             Snackbar.make(getActivity().findViewById(android.R.id.content),
                 e.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();}
     }
-
 
     private void dummyDataInit()
     {

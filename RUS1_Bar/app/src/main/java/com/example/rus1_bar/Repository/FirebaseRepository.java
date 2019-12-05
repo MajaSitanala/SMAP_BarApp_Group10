@@ -212,4 +212,14 @@ public class FirebaseRepository {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+
+    public FirebaseDatabase getFireDB_fromRepository()
+    {
+        return this.FireDB;
+    }
+
+    public FirebaseFirestore getFireStore_fromRepository()
+    {
+        return this.fireStore;
+    }
 }
