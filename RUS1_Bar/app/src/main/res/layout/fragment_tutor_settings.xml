@@ -37,16 +37,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline81" />
 
         <Button
-            android:id="@+id/tutorEditBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="@string/tutorEditBtn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline84"
-            app:layout_constraintEnd_toStartOf="@+id/guideline77"
-            app:layout_constraintStart_toStartOf="@+id/guideline69"
-            app:layout_constraintTop_toTopOf="@+id/guideline83" />
-
-        <Button
             android:id="@+id/tutorListCancel"
             android:layout_width="0dp"
             android:layout_height="0dp"

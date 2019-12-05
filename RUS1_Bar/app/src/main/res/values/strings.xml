@@ -24,7 +24,6 @@
 
     <!-- Tutor Settings Fragment -->
     <string name="tutorAddBtn">Add Tutor</string>
-    <string name="tutorEditBtn">Edit Tutor</string>
     <string name="tutorlistTextView">Tutor List</string>
 
     <!-- Product Settings Fragment -->

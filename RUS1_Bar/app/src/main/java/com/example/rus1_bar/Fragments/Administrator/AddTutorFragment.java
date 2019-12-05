@@ -112,7 +112,7 @@ public class AddTutorFragment extends Fragment {
                     makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString(), R.drawable.defaultimg);
+                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
                     newTutor.setImagename(guid);
                     if (imageUri != null){
                         firebaseRepo.saveTutorImage(newTutor, cropResult.getUri());
@@ -136,13 +136,12 @@ public class AddTutorFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE && data!=null){
             imageUri = data.getData();
+            //Source: https://www.youtube.com/watch?v=buwyfcN1pLk
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setMaxCropResultSize(1920, 1080)
                     .setAspectRatio(1,1)
                     .start(getContext(), this);
-
-            //tutorImage.setImageURI(imageUri);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);

@@ -63,14 +63,10 @@ public class TutorSettingsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tutor_settings, container, false);
 
         addTutorBtn = rootView.findViewById(R.id.tutorAddBtn);
-        editTutorBtn = rootView.findViewById(R.id.tutorEditBtn);
         cancelBtn = rootView.findViewById(R.id.tutorListCancel);
 
         View.OnClickListener addTutorClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_addTutorFragment);
         addTutorBtn.setOnClickListener(addTutorClick);
-
-        View.OnClickListener editTutorClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_editTutorFragment);
-        editTutorBtn.setOnClickListener(editTutorClick);
 
         View.OnClickListener cancelBtnClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_settingsOverviewFragment);
         cancelBtn.setOnClickListener(cancelBtnClick);
