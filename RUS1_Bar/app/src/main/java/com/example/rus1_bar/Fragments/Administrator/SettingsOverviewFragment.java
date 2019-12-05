@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SettingsOverviewFragment extends Fragment {
 
     Button tutorSettingsBtn;
+    Button categorySettingsBtn;
     Button productSettingsBtn;
     Button rusturSettingsBtn;
     Button billSettingsBtn;
@@ -41,6 +42,7 @@ public class SettingsOverviewFragment extends Fragment {
 
         FirebaseAuth FAuth = FirebaseAuth.getInstance();
         tutorSettingsBtn = view.findViewById(R.id.tutorSettingsBtn);
+        categorySettingsBtn = view.findViewById(R.id.categorySettingsBtn);
         productSettingsBtn = view.findViewById(R.id.productSettingsBtn);
         rusturSettingsBtn = view.findViewById(R.id.rusturSettingsBtn);
         billSettingsBtn = view.findViewById(R.id.billSettingsBtn);
@@ -54,6 +56,9 @@ public class SettingsOverviewFragment extends Fragment {
 
         View.OnClickListener tutorSettingsClick = Navigation.createNavigateOnClickListener(R.id.action_settingsOverviewFragment_to_tutorSettingsFragment);
         tutorSettingsBtn.setOnClickListener(tutorSettingsClick);
+
+        View.OnClickListener categorySettingsClick = Navigation.createNavigateOnClickListener(R.id.action_settingsOverviewFragment_to_categorySettingsFragment);
+        categorySettingsBtn.setOnClickListener(categorySettingsClick);
 
         View.OnClickListener productSettingsClick = Navigation.createNavigateOnClickListener(R.id.action_settingsOverviewFragment_to_productSettingsFragment);
         productSettingsBtn.setOnClickListener(productSettingsClick);

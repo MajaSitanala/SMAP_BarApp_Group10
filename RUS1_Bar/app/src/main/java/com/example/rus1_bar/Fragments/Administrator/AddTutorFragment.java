@@ -92,8 +92,6 @@ public class AddTutorFragment extends Fragment {
         View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
         cancelBtn.setOnClickListener(addTutorCancelClick);
 
-        View.OnClickListener addTutorAddClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
-
         //Source: https://www.youtube.com/watch?v=OPnusBmMQTw
         tutorImage = rootView.findViewById(R.id.addTutorImage);
         tutorImage.setImageResource(R.drawable.defaultimg);

@@ -39,7 +39,6 @@ public class TutorSettingsFragment extends Fragment {
     private List<Tutor> mTutorList = new ArrayList<>();
 
     Button addTutorBtn;
-    Button editTutorBtn;
     Button cancelBtn;
 
     RecyclerView tutorRecyclerView;
@@ -70,9 +69,6 @@ public class TutorSettingsFragment extends Fragment {
 
         View.OnClickListener cancelBtnClick = Navigation.createNavigateOnClickListener(R.id.action_tutorSettingsFragment_to_settingsOverviewFragment);
         cancelBtn.setOnClickListener(cancelBtnClick);
-
-        //Test data for the card view
-        //fillTestTutorList();
 
         // Recycler View setup
         tutorRecyclerView = rootView.findViewById(R.id.tutorSettingsRecycleView);
@@ -111,17 +107,5 @@ public class TutorSettingsFragment extends Fragment {
 
             // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
-    }
-
-    private void fillTestTutorList()
-    {
-        for (int i = 0; i<4; i++)
-        {
-            //Test data for the card view
-            mTutorList.add(new Tutor("Christoffer Broberg", "Praktikant", 12345678, "123@enmail.com", R.drawable.praktikant));
-            mTutorList.add(new Tutor("Andreas Blaabjerg", "Fl00b3r", 12345678, "123@enmail.com", R.drawable.flobber));
-            mTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
-            mTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
-        }
     }
 }

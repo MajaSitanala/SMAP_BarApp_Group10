@@ -78,6 +78,12 @@
         <action
             android:id="@+id/action_settingsOverviewFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_settingsOverviewFragment_to_categorySettingsFragment"
+            app:destination="@id/categorySettingsFragment" />
+        <action
+            android:id="@+id/action_settingsOverviewFragment_to_categorySettingsFragment2"
+            app:destination="@id/categorySettingsFragment" />
     </fragment>
 
 
@@ -122,5 +128,26 @@
         <action
             android:id="@+id/action_addProductFragment_to_productSettingsFragment"
             app:destination="@id/productSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categorySettingsFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.CategorySettingsFragment"
+        android:label="fragment_category_settings"
+        tools:layout="@layout/fragment_category_settings" >
+        <action
+            android:id="@+id/action_categorySettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment" />
+        <action
+            android:id="@+id/action_categorySettingsFragment_to_addCategoriesFragment"
+            app:destination="@id/addCategoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCategoriesFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.AddCategoriesFragment"
+        android:label="fragment_add_categories"
+        tools:layout="@layout/fragment_add_categories" >
+        <action
+            android:id="@+id/action_addCategoriesFragment_to_categorySettingsFragment"
+            app:destination="@id/categorySettingsFragment" />
     </fragment>
 </navigation>
