@@ -1,6 +1,3 @@
-//TODO: When in LoginFragment and one presses Cancel then it opens the next fragment instead of navigating back.
-//TODO: When pressing the messenger icon two times then it crashes.
-
 package com.example.rus1_bar.Activities;
 
 import androidx.annotation.NonNull;
@@ -44,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     ShoppingService shoppingService;
     boolean isBound = false;
 
+    NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Starting the service
         startService();
+
+        navController = Navigation.findNavController((this), R.id.nav_host_fragment);
+
+
 
         // Initialize Firebase Auth
        //mAuth = shoppingService.getFirebaseAuth_fromService();// FirebaseAuth.getInstance();
@@ -88,17 +91,41 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_login:
+        boolean titleFlag = true;
 
-                //Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
 
-                //Two versions of shifting from tutorViewFragment to Loginfragment - couldnt workaround the first one - next one works.
-                //Navigation.findNavController(findViewById(R.id.MainActivity)).navigate(R.id.action_viewTutorsFragment_to_loginFragment);
+        switch (item.getTitle().toString()) {
+            case "Login":
+                {
+                    //Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
 
-                final NavController navController = Navigation.findNavController((this), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_viewTutorsFragment_to_loginFragment);
+                    // Two versions of shifting from tutorViewFragment to Loginfragment - couldnt workaround the first one - next one works.
+                    //Navigation.findNavController(findViewById(R.id.MainActivity)).navigate(R.id.action_viewTutorsFragment_to_loginFragment);
+
+                    titleFlag = true;
+                    break;
+                }
+            case "Tutors":
+                {
+                    //NavController navController = Navigation.findNavController((this), R.id.nav_host_fragment);
+
+                    //item.setTitle("Login");
+                    titleFlag = false;
+
+                    //case R.id.action_settings:
+                    break;
+                }
         }
+
+        if(titleFlag) {
+            item.setTitle("Tutors");
+            navController.navigate(R.id.action_viewTutorsFragment_to_loginFragment);
+        }
+        else {
+            item.setTitle("Login");
+            navController.navigate(R.id.action_loginFragment_to_viewTutorsFragment);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

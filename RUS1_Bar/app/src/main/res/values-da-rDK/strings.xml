@@ -48,13 +48,24 @@
     <string name="addTutorRealName">Tilføj Navn</string>
     <string name="addTutorEmail">Tilføj Email</string>
     <string name="addTutorNumber">Tilføj Telefon Nummer</string>
-    <string name="addTutorEditNick"></string>
-    <string name="addTutorEditName"></string>
-    <string name="addTutorEditEmail"></string>
-    <string name="addTutorEditNumber"></string>
+    <string name="addTutorEditNick">Tilføj Rediger Streetnavn</string>
+    <string name="addTutorEditName">Tilføj Rediger Navn</string>
+    <string name="addTutorEditEmail">Tilføj rediger E-mail</string>
+    <string name="addTutorEditNumber">Tilføj Rediger Tlf. nr.</string>
     <string name="addTutorCancelBtn">Annuller</string>
     <string name="addTutorAddBtn">Tilføj</string>
     <string name="addTutorNickName">Tilføj Tutornavn</string>
+    <string name="appbar_action_login">Log på</string>
+    <string name="editTutorCancelBtn">Annuller</string>
+    <string name="editTutorDeleteBtn">Slet tutor</string>
+    <string name="editTutorEditBtn">Rediger Tutor</string>
+    <string name="editTutorEmail">E-mail</string>
+    <string name="editTutorName">Navn</string>
+    <string name="editTutorNick">Strretnavn</string>
+    <string name="editTutorPhone">Tlf. nr.</string>
+    <string name="editTutorTitle">Rediger Tutor</string>
+    <string name="appbar_action_settings" translatable="false">Indstillinger</string>
+    <string name="noProductsInBasket">Ingen produkter fundet, tryk Annuller!</string>
 
 
 </resources>
