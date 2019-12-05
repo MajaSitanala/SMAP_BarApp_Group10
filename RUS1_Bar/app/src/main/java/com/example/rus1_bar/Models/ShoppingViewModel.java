@@ -14,11 +14,12 @@ import com.example.rus1_bar.Service.ShoppingService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingViewModel extends AndroidViewModel
+public class ShoppingViewModel extends AndroidViewModel implements Serializable
 {
     // Firebase database
     private FirebaseRepository firebaseRepository;

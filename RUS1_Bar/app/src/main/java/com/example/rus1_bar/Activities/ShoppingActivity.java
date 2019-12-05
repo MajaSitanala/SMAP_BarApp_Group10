@@ -1,5 +1,6 @@
 package com.example.rus1_bar.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -17,6 +18,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -62,11 +64,17 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
+
+        if(savedInstanceState != null)
+        {
+            shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
+        }
+
         //for debugging/viewing database
         enableStethos();
 
         // Starting the service
-        startService();
+        //startService();
 
         // UI declarations
         currentTutor = findViewById(R.id.tutorlabel_id);
@@ -84,10 +92,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         super.onStart();
 
         //startService();
-
         Intent intent = new Intent(this, ShoppingService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
-
     }
 
     @Override
@@ -181,11 +187,13 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
      * Starts the service when called.
      * Inspitation from Code in flow at https://codinginflow.com/tutorials/android/foreground-service
      */
+    /*
     public void startService() {
         Intent serviceIntent = new Intent(this, ShoppingService.class);
         //ContextCompat.startForegroundService(this, serviceIntent);
         startService(serviceIntent);
     }
+     */
 
     /**
      * Stops the service when called
@@ -252,8 +260,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
 
 
-
-
     @Override
     public void onclickTrashRemoveProduct(Product product)
     {
@@ -268,6 +274,14 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         }
     };
 
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle saveInstanceState) {
+        super.onSaveInstanceState(saveInstanceState);
+
+        saveInstanceState.putSerializable(getString(R.string.savedInstanceState_ShoppingActivity), shoppingViewModel);
+    }
 
     //enable stethos tool for inspecting database on device / emulator through chrome
     private void enableStethos()
