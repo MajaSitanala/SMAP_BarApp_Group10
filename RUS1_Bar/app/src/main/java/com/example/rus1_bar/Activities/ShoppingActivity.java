@@ -6,11 +6,14 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Notification;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -38,7 +41,6 @@ import java.util.List;
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
         ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner {
 
-
     private ShoppingViewModel shoppingViewModel;
 
     // Service
@@ -63,68 +65,25 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         //for debugging/viewing database
         enableStethos();
 
-        ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
+        // Starting the service
+        startService();
 
-        // Shopping card fragment (not navigation componment)
-        getSupportFragmentManager().beginTransaction()                                                      //Inspiration and solution found https://codinginflow.com/tutorials/android/fragment-to-fragment-communication-with-shared-viewmodel
-                .add(R.id.nav_shopping_cart_fragment, shoppingCardFragment)// new ShoppingCardFragment())
-                .commit();
-
+        // UI declarations
         currentTutor = findViewById(R.id.tutorlabel_id);
+
+        // Intents from Main Activity
         Intent mainIntent = getIntent();
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
         currentTutor.setText(currentTutorName);
-        //shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
-        shoppingViewModel = new ShoppingViewModel(this.getApplication(), shoppingService);
 
-        // Dummy Data
-        //Product dummyProduct = (new Product("0",0, "Gin Hass", 20, R.drawable.ginhass));
-        //onclickAddProduct(dummyProduct);
-        //mPurchace.addProductToPurchace(dummyProduct);
-
-        Context sCcontext =  shoppingCardFragment.getContext();
-
-        btn_cncl = findViewById(R.id.btn_shopping_cancle);
-        btn_cncl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shoppingViewModel.deleteAllProductsInPurchase();
-                finish();
-            }
-        });
-
-        btn_buy = findViewById(R.id.btn_shopping_buy);
-        btn_buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-
-                if (shoppingViewModel.getAllProductsinPurchase().getValue().size()!=0)
-                {
-                    for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
-                    {
-                        mPurchace.addProductToPurchace(p);
-                    }
-
-                    shoppingViewModel.insertPurchace_CloudFirestore(currentTutorClicked, mPurchace);
-                    shoppingViewModel.deleteAllProductsInPurchase();
-                    finish();
-                }
-                else
-                {
-                    Toast.makeText(v.getContext(), R.string.noProductsInBasket,Toast.LENGTH_SHORT).show();
-                }
-                //Køb her og tilføj til Cloud Firestore (service?)
-            }
-        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        startService();
+        //startService();
 
         Intent intent = new Intent(this, ShoppingService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
@@ -157,6 +116,9 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
             ShoppingService.LocalBinder binder = (ShoppingService.LocalBinder) iBinder;
             shoppingService = binder.getService();
             isBound = true;
+
+            initViewModel();
+
         }
 
         @Override
@@ -164,6 +126,56 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
             isBound = false;
         }
     };
+
+
+    private void initViewModel()
+    {
+        shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
+
+
+        // Shopping card fragment (not navigation componment)
+        ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
+
+        getSupportFragmentManager().beginTransaction()                                                      //Inspiration and solution found https://codinginflow.com/tutorials/android/fragment-to-fragment-communication-with-shared-viewmodel
+                .add(R.id.nav_shopping_cart_fragment, shoppingCardFragment)// new ShoppingCardFragment())
+                .commit();
+
+
+
+        btn_cncl = findViewById(R.id.btn_shopping_cancle);
+        btn_cncl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shoppingViewModel.deleteAllProductsInPurchase();
+                finish();
+            }
+        });
+
+
+        btn_buy = findViewById(R.id.btn_shopping_buy);
+        btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                if (shoppingViewModel.getAllProductsinPurchase().getValue().size()!=0)
+                {
+                    for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
+                    {
+                        mPurchace.addProductToPurchace(p);
+                    }
+
+                    shoppingViewModel.insertPurchace_CloudFirestore(currentTutorClicked, mPurchace);
+                    shoppingViewModel.deleteAllProductsInPurchase();
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(v.getContext(), R.string.noProductsInBasket,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     /**
      * Starts the service when called.
@@ -240,11 +252,21 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
 
 
+
+
     @Override
     public void onclickTrashRemoveProduct(Product product)
     {
         shoppingViewModel.deleteProductInPurchase(product);
     }
+
+    private BroadcastReceiver RepositoriesDeclared = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+
+        }
+    };
 
 
     //enable stethos tool for inspecting database on device / emulator through chrome

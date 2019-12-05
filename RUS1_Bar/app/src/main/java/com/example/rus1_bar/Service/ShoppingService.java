@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
@@ -13,6 +14,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.ShoppingViewModel;
@@ -27,16 +29,28 @@ import static com.example.rus1_bar.Service.AppShopping.TEST_CHANNEL_ID;
 
 public class ShoppingService extends Service {
 
+    static final String ACTION_DATABASE_INSTANCING_DONE = "The repositories have been declared";
+
     private final IBinder binder = new LocalBinder();
 
-    private ShoppingViewModel shoppingViewModel;
+
     private FirebaseRepository firebaseRepository;
     private FirebaseFirestore firebaseFirestore;
     private PurchaseRoomRepository purchaseRoomRepository;
 
+    private ShoppingViewModel shoppingViewModel;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        firebaseRepository = new FirebaseRepository();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        purchaseRoomRepository = new PurchaseRoomRepository(this.getApplication());
+
+        shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
+
 
         // Notification intent
         Intent notificationIntent = new Intent(this, ShoppingActivity.class);
@@ -92,12 +106,15 @@ public class ShoppingService extends Service {
         }
     }
 
-    /**
-     * .
-     */
+
     public FirebaseRepository getFirebaseRepository_fromService()
     {
         return this.firebaseRepository;
+    }
+
+    public void setFirebaseRepository_inService(FirebaseRepository firebaseRepository)
+    {
+        this.firebaseRepository = firebaseRepository;
     }
 
     public FirebaseFirestore getFirebaseFirestore_fromService()
@@ -105,9 +122,19 @@ public class ShoppingService extends Service {
         return this.firebaseFirestore;
     }
 
+    public void setFirebaseFirestore_inService(FirebaseFirestore firebaseFirestore)
+    {
+        this.firebaseFirestore = firebaseFirestore;
+    }
+
     public PurchaseRoomRepository getPurchaseRoomRepository_fromService()
     {
         return this.purchaseRoomRepository;
+    }
+
+    public void setPurchaseRoomRepository_inService(PurchaseRoomRepository purchaseRoomRepository)
+    {
+        this.purchaseRoomRepository = purchaseRoomRepository;
     }
 
     public ShoppingViewModel getShoppingViewModel_fromService()
@@ -115,53 +142,8 @@ public class ShoppingService extends Service {
         return this.shoppingViewModel;
     }
 
-    /*
-
-    MutableLiveData<List<CountryOnRankingList>> changedRankings = new MutableLiveData();
-    private String TAG_GET_RANKINGS = "tag.get.rankings";
-
-    public RankingViewModel(Context applicationContext, BackgroundService backgroundService) {
-        this.backgroundService = backgroundService;
+    public void setShoppingViewModel_inService(ShoppingViewModel shoppingViewModel)
+    {
+        this.shoppingViewModel = shoppingViewModel;
     }
-
-    // REF: https://medium.com/@lgvalle/firebase-viewmodels-livedata-cb64c5ee4f95
-    public LiveData<List<CountryOnRankingList>> getCountries() {
-        // REF: https://firebase.google.com/docs/firestore/query-data/listen
-        backgroundService.getRankingRepo().getRankingsCollection().addSnapshotListener(
-                (queryDocumentSnapshots, e) -> {
-                    if (e != null) {
-                        Log.w(TAG_GET_RANKINGS, "Listen failed.", e);
-                        return;
-                    }
-                    if (queryDocumentSnapshots != null) {
-                        Log.d(TAG_GET_RANKINGS, "Current data: " + queryDocumentSnapshots.getDocuments());
-
-                        List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
-                        List<CountryOnRankingList> localChangedRankings = new ArrayList<>();
-
-                        if (!docs.isEmpty()) {
-                            for (DocumentSnapshot doc : docs) {
-                                CountryOnRankingList country = doc.toObject(CountryOnRankingList.class);
-                                localChangedRankings.add(country);
-                            }
-
-                            // REF: https://stackoverflow.com/questions/10853205/android-sort-arraylist-by-properties
-                            Collections.sort(localChangedRankings, new Comparator<CountryOnRankingList>() {
-                                public int compare(CountryOnRankingList o1, CountryOnRankingList o2) {
-                                    return o2.compareTo(o1);
-                                }
-                            });
-
-                            changedRankings.postValue(localChangedRankings);
-                        }
-                    } else {
-                        Log.d(TAG_GET_RANKINGS, "Current data: null");
-                    }
-                }
-        );
-
-        return changedRankings;
-    }
-
-     */
 }

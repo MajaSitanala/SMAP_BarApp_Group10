@@ -54,8 +54,6 @@ public class ShoppingCardFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fragment_shopping_card, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
 
 
-
-
         //Test data for the card view
         //fillTestShoppingCardList();
 

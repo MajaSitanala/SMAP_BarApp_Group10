@@ -36,13 +36,13 @@ public class ShoppingViewModel extends AndroidViewModel
     public ShoppingViewModel(@NonNull Application application, ShoppingService shoppingService)
     {
         super(application);
-        //firebaseRepository = shoppingService.getFirebaseRepository_fromService();
-        //firebaseFirestore = shoppingService.getFirebaseFirestore_fromService();
-        //purchaseRoomRepository = shoppingService.getPurchaseRoomRepository_fromService();
+        firebaseRepository = shoppingService.getFirebaseRepository_fromService();
+        firebaseFirestore = shoppingService.getFirebaseFirestore_fromService();
+        purchaseRoomRepository = shoppingService.getPurchaseRoomRepository_fromService();
 
-        firebaseRepository = new FirebaseRepository();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        purchaseRoomRepository = new PurchaseRoomRepository(application);
+        //firebaseRepository = new FirebaseRepository();
+        //firebaseFirestore = FirebaseFirestore.getInstance();
+        //purchaseRoomRepository = new PurchaseRoomRepository(application);
     }
 
     public void insertProductInPurchase(Product product)
