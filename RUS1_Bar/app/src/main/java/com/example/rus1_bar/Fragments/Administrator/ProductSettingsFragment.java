@@ -41,6 +41,7 @@ public class ProductSettingsFragment extends Fragment {
     Button editProductBtn;
     Button addCategoryBtn;
     Button editCategoryBtn;
+    Button cancelBtn;
 
     RecyclerView productRecyclerView;
     RecyclerView.Adapter productRecyclerAdapter;
@@ -65,6 +66,10 @@ public class ProductSettingsFragment extends Fragment {
 
         //Test data for the card view
         fillTestShoppingCardList();
+
+        //Cancel button go back
+        View.OnClickListener cancelClick = Navigation.createNavigateOnClickListener(R.id.action_productSettingsFragment_to_settingsOverviewFragment);
+        cancelBtn = rootView.findViewById(R.id.productsettingsCancelBtn);
 
         // Recycler View setup
         productRecyclerView = rootView.findViewById(R.id.productSettingsRecycleView);

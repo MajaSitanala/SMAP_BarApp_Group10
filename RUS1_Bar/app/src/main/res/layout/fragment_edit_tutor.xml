@@ -15,6 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorTitle"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline137"
             app:layout_constraintEnd_toStartOf="@+id/guideline135"
             app:layout_constraintStart_toStartOf="@+id/guideline134"
@@ -25,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorName"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline141"
             app:layout_constraintEnd_toStartOf="@+id/guideline153"
             app:layout_constraintStart_toStartOf="@+id/guideline152"
@@ -45,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorEmail"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline147"
             app:layout_constraintEnd_toStartOf="@+id/guideline153"
             app:layout_constraintStart_toStartOf="@+id/guideline152"
@@ -56,6 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorPhone"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline150"
             app:layout_constraintEnd_toStartOf="@+id/guideline153"
             app:layout_constraintStart_toStartOf="@+id/guideline152"
@@ -64,6 +68,7 @@
 
         <Button
             android:id="@+id/editTutorCancelBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorCancelBtn"
@@ -74,6 +79,7 @@
 
         <Button
             android:id="@+id/editTutorDeleteBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorDeleteBtn"
@@ -84,6 +90,7 @@
 
         <Button
             android:id="@+id/editTutorEditBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editTutorEditBtn"

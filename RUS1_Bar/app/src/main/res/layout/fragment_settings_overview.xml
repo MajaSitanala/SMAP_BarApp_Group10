@@ -12,6 +12,7 @@
 
         <Button
             android:id="@+id/tutorSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/tutorSettingsBtn"
@@ -23,6 +24,7 @@
 
         <Button
             android:id="@+id/productSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/productSettingsBtn"
@@ -34,6 +36,7 @@
 
         <Button
             android:id="@+id/rusturSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsBtn"
@@ -45,6 +48,7 @@
 
         <Button
             android:id="@+id/billSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/billSettingsBtn"
@@ -59,6 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/adminSettingTitle"
+            android:textColor="@color/DarkPurple"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline64"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
@@ -67,6 +72,7 @@
 
         <Button
             android:id="@+id/logOffBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/logOffBtn"

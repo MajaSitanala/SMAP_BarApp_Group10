@@ -23,11 +23,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tutorSettingsRecycleView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/Grey" />
         </LinearLayout>
 
         <Button
             android:id="@+id/tutorAddBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/tutorAddBtn"
@@ -38,6 +40,7 @@
 
         <Button
             android:id="@+id/tutorListCancel"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/Cancel"
@@ -51,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/tutorlistTextView"
+            android:textColor="@color/DarkPurple"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline78"
             app:layout_constraintEnd_toStartOf="@+id/guideline77"

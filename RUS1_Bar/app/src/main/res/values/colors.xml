@@ -3,6 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
     <color name="cardViewColor">#2d2d2d</color>
+    
+    
+    <color name="DarkPurple">#454863</color>
+    <color name="Grey">#F3F1F3</color>
+    <color name="LightPurple">#9095B8</color>
+    <color name="Blue">#60bce4</color>
+    <color name="Black">#121216</color>
 </resources>

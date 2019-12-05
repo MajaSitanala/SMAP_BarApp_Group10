@@ -12,6 +12,7 @@
 
         <Button
             android:id="@+id/rusturSettingsAddRusturBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsAddRusturBtn"
@@ -22,6 +23,7 @@
 
         <Button
             android:id="@+id/rusturSettingsEditRusturBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsEditRusturBtn"
@@ -33,6 +35,7 @@
 
         <Button
             android:id="@+id/rusturSettingsSetCurrentBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsSetCurrentBtn"
@@ -44,6 +47,7 @@
 
         <Button
             android:id="@+id/rusturSettingsEndRusturBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsEndRusturBtn"
@@ -55,6 +59,7 @@
 
         <Button
             android:id="@+id/rusturSettingsCancelBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsCancelBtn"
@@ -68,6 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsTitle"
+            android:textColor="@color/DarkPurple"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline54"
             app:layout_constraintEnd_toStartOf="@+id/guideline40"
@@ -88,7 +94,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rusturList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/Grey" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline

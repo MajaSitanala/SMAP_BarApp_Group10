@@ -143,7 +143,7 @@ public class FirebaseRepository {
                 for(QueryDocumentSnapshot doc : task.getResult()){
                     purchases.add(doc.toObject(Purchase.class));
                 }
-                //Purchases er listen med alle køb
+                //Purchases er listen med alle køb TODO FÅ en liste med alle products fra servicen
                 List<Product> productList= GetAllProducts();
                 for(Purchase p : purchases){
                     List<Product> boughtProducts = p.getBoughtProducts();

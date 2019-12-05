@@ -66,6 +66,6 @@
     <string name="editTutorTitle">Rediger Tutor</string>
     <string name="appbar_action_settings" translatable="false">Indstillinger</string>
     <string name="noProductsInBasket">Ingen produkter fundet, tryk Annuller!</string>
-
+    <string name="savedInstanceState_ShoppingActivity">saveInstanceState fra shoppingViewModel</string>
 
 </resources>
