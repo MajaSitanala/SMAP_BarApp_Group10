@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.rus1_bar.Models.Rustur;
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +42,13 @@ public class BillSettingsFragment extends Fragment {
         sendBillBtn = rootView.findViewById(R.id.billSettingsSendBillBtn);
 
         exportBillBtn = rootView.findViewById(R.id.billSettingsExportBillsBtn);
+        exportBillBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseRepository rep =  new FirebaseRepository();
+                rep.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",0,"",0),getContext());
+            }
+        });
 
         cancelBtn = rootView.findViewById(R.id.billSettingsCancelBtn);
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_billSettingsFragment_to_settingsOverviewFragment));
