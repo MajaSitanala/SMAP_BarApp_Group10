@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,6 +57,11 @@ public class ProductSettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_product_settings, container, false);
 
+
+        addProductBtn = rootView.findViewById(R.id.productAddBtn);
+
+        View.OnClickListener addProductClick = Navigation.createNavigateOnClickListener(R.id.action_productSettingsFragment_to_addProductFragment);
+        addProductBtn.setOnClickListener(addProductClick);
 
         //Test data for the card view
         fillTestShoppingCardList();
