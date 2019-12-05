@@ -1,12 +1,18 @@
 package com.example.rus1_bar.Fragments.Administrator;
 
 
+import android.accessibilityservice.GestureDescription;
+import android.app.Application;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -21,11 +27,15 @@ import android.widget.Toast;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
 import java.net.URI;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
+import static android.widget.Toast.makeText;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -34,8 +44,14 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class AddTutorFragment extends Fragment {
 
+
+
     Button cancelBtn;
     Button addBtn;
+    EditText editNick;
+    EditText editName;
+    EditText editEmail;
+    EditText editPhone;
 
     FirebaseRepository firebaseRepo;
     Tutor newTutor;
@@ -43,13 +59,10 @@ public class AddTutorFragment extends Fragment {
     private static final int PICK_IMAGE = 100;
     ImageView tutorImage;
     Uri imageUri;
-
-    EditText editNick;
-    EditText editName;
-    EditText editEmail;
-    EditText editPhone;
+    CropImage.ActivityResult cropResult;
 
     String guid;
+
 
 
     public AddTutorFragment() {
@@ -79,6 +92,8 @@ public class AddTutorFragment extends Fragment {
         View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
         cancelBtn.setOnClickListener(addTutorCancelClick);
 
+        View.OnClickListener addTutorAddClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+
         //Source: https://www.youtube.com/watch?v=OPnusBmMQTw
         tutorImage = rootView.findViewById(R.id.addTutorImage);
         tutorImage.setImageResource(R.drawable.defaultimg);
@@ -94,17 +109,16 @@ public class AddTutorFragment extends Fragment {
             public void onClick(View view) {
                 //Error handling for empty fields.
                 if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                 }
                 else {
                     newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString(), R.drawable.defaultimg);
                     newTutor.setImagename(guid);
                     if (imageUri != null){
-                        firebaseRepo.saveTutorImage(newTutor, imageUri);
+                        firebaseRepo.saveTutorImage(newTutor, cropResult.getUri());
                     }
                     firebaseRepo.insertTutor(newTutor);
-                    //TODO: Need to exit add tutor after clicking add
-                    Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+                    Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment); 
                 }
             }
         });
@@ -113,15 +127,26 @@ public class AddTutorFragment extends Fragment {
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        gallery.setType("image/*");
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE && data!=null){
             imageUri = data.getData();
-            tutorImage.setImageURI(imageUri);
+            CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setMaxCropResultSize(1920, 1080)
+                    .setAspectRatio(1,1)
+                    .start(getContext(), this);
+
+            //tutorImage.setImageURI(imageUri);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            cropResult = CropImage.getActivityResult(data);
+            tutorImage.setImageURI(cropResult.getUri());
         }
     }
 }

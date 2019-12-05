@@ -6,12 +6,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Fragments.LoginFragment;
+import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,11 +28,19 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+
 public class MainActivity extends AppCompatActivity {
 
-    public boolean loggedIn = false;
-
+    // Firebase authentication
     private FirebaseAuth mAuth;
+
+    // View Model
+    private ShoppingViewModel shoppingViewModel;
+
+    // Service
+    ShoppingService shoppingService;
+    boolean isBound = false;
+
     NavController navController;
 
     @Override
@@ -34,14 +50,36 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.MAtoolbar);
         setSupportActionBar(myToolbar);
 
+        // Starting the service
+        startService();
+
         navController = Navigation.findNavController((this), R.id.nav_host_fragment);
 
 
 
         // Initialize Firebase Auth
-       mAuth = FirebaseAuth.getInstance();
+       //mAuth = shoppingService.getFirebaseAuth_fromService();// FirebaseAuth.getInstance();
     }
 
+    /*
+    public ShoppingService test()
+    {
+        return  this.shoppingService;
+    }
+
+     */
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        //Toast toast = Toast.makeText(getApplicationContext(),currentUser.getDisplayName(),Toast.LENGTH_LONG);
+
+        Intent intent = new Intent(this, ShoppingService.class);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
 
     // Add functionality to AppBar's clickable objects here
     @Override
@@ -89,15 +127,46 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    /**
+     * ServiceConnection that makes the ListActivity subscribe to the FourgroundService.
+     */
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            ShoppingService.LocalBinder binder = (ShoppingService.LocalBinder) iBinder;
+            shoppingService = binder.getService();
+            isBound = true;
+
+            initWhenServiceIsUp();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            isBound = false;
+        }
+    };
+
+    private void initWhenServiceIsUp()
+    {
+        // Initialize Firebase Auth
+        mAuth = shoppingService.getFirebaseAuth_fromService();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //Toast toast = Toast.makeText(getApplicationContext(),currentUser.getDisplayName(),Toast.LENGTH_LONG);
+        shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
     }
 
+    public void startService()
+    {
+        Intent serviceIntent = new Intent(this, ShoppingService.class);
+        //ContextCompat.startForegroundService(this, serviceIntent);
+        startService(serviceIntent);
+    }
+
+    public ShoppingService getShoppingService_fromMainActivity()
+    {
+        //Toast.makeText(this,"inside fromMainActivity_getShoppingService",Toast.LENGTH_SHORT).show();
+        return this.shoppingService;
+    }
 }

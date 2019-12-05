@@ -14,11 +14,12 @@ import com.example.rus1_bar.Service.ShoppingService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingViewModel extends AndroidViewModel
+public class ShoppingViewModel extends AndroidViewModel implements Serializable
 {
     // Firebase database
     private FirebaseRepository firebaseRepository;
@@ -33,12 +34,16 @@ public class ShoppingViewModel extends AndroidViewModel
     // Service
     private ShoppingService shoppingService;
 
-    public ShoppingViewModel(@NonNull Application application)
+    public ShoppingViewModel(@NonNull Application application, ShoppingService shoppingService)
     {
         super(application);
-        firebaseRepository = new FirebaseRepository();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        purchaseRoomRepository = new PurchaseRoomRepository(application);
+        firebaseRepository = shoppingService.getFirebaseRepository_fromService();
+        firebaseFirestore = shoppingService.getFirebaseFirestore_fromService();
+        purchaseRoomRepository = shoppingService.getPurchaseRoomRepository_fromService();
+
+        //firebaseRepository = new FirebaseRepository();
+        //firebaseFirestore = FirebaseFirestore.getInstance();
+        //purchaseRoomRepository = new PurchaseRoomRepository(application);
     }
 
     public void insertProductInPurchase(Product product)

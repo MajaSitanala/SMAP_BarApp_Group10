@@ -3,6 +3,7 @@ package com.example.rus1_bar.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -28,11 +32,13 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
     private static final String TUTOR_ID = "Tutor id";
     private Context mContext;
     private List<Tutor> mTutorList;
+    private FirebaseRepository repository;
 
 
     public TutorDisplayAdapter(Context mContext, List<Tutor> mTutorList) {
         this.mContext = mContext;
         this.mTutorList = mTutorList;
+        this.repository = new FirebaseRepository();
     }
 
     @NonNull
@@ -49,6 +55,14 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
     public void onBindViewHolder(@NonNull TutorDisplayAdapter.MyViewHolder holder, int position) {
         holder.txt_tutorName.setText(mTutorList.get(position).getNickname());
         holder.img_tutorImage.setImageResource(mTutorList.get(position).getPicture());
+        if(mTutorList.get(position).getImagename() != null) {
+            repository.getTutorImage(mTutorList.get(position).getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.with(mContext).load(uri).resize(600, 600).centerInside().into(holder.img_tutorImage);
+                }
+            });
+        }
 
         holder.cardView_tutorDisplay.setOnClickListener(view ->
         {
