@@ -1,3 +1,6 @@
+//TODO: When in LoginFragment and one presses Cancel then it opens the next fragment instead of navigating back.
+//TODO: When pressing the messenger icon two times then it crashes.
+
 package com.example.rus1_bar.Activities;
 
 import androidx.annotation.NonNull;

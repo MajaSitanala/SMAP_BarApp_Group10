@@ -75,7 +75,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
         currentTutor.setText(currentTutorName);
-        shoppingViewModel = new ShoppingViewModel(this.getApplication());
+        //shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
+        shoppingViewModel = new ShoppingViewModel(this.getApplication(), shoppingService);
 
         // Dummy Data
         //Product dummyProduct = (new Product("0",0, "Gin Hass", 20, R.drawable.ginhass));

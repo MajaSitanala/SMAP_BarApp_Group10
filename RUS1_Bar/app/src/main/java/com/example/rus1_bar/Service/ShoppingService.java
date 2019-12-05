@@ -19,6 +19,7 @@ import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Repository.PurchaseRoomRepository;
+import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Inspiration found from Code in flow at https://codinginflow.com/tutorials/android/foreground-service for the test notification.
  */
@@ -29,10 +30,9 @@ public class ShoppingService extends Service {
     private final IBinder binder = new LocalBinder();
 
     private ShoppingViewModel shoppingViewModel;
-
     private FirebaseRepository firebaseRepository;
+    private FirebaseFirestore firebaseFirestore;
     private PurchaseRoomRepository purchaseRoomRepository;
-
 
     @Override
     public void onCreate() {
@@ -92,7 +92,28 @@ public class ShoppingService extends Service {
         }
     }
 
+    /**
+     * .
+     */
+    public FirebaseRepository getFirebaseRepository_fromService()
+    {
+        return this.firebaseRepository;
+    }
 
+    public FirebaseFirestore getFirebaseFirestore_fromService()
+    {
+        return this.firebaseFirestore;
+    }
+
+    public PurchaseRoomRepository getPurchaseRoomRepository_fromService()
+    {
+        return this.purchaseRoomRepository;
+    }
+
+    public ShoppingViewModel getShoppingViewModel_fromService()
+    {
+        return this.shoppingViewModel;
+    }
 
     /*
 
