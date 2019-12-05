@@ -40,7 +40,11 @@
         android:id="@+id/billSettingsFragment"
         android:name="com.example.rus1_bar.Fragments.Administrator.BillSettingsFragment"
         android:label="fragment_bill_settings"
-        tools:layout="@layout/fragment_bill_settings" />
+        tools:layout="@layout/fragment_bill_settings" >
+        <action
+            android:id="@+id/action_billSettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment" />
+    </fragment>
 
 
     <fragment
@@ -84,6 +88,9 @@
         <action
             android:id="@+id/action_tutorSettingsFragment_to_editTutorFragment"
             app:destination="@id/editTutorFragment" />
+        <action
+            android:id="@+id/action_tutorSettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTutorFragment"

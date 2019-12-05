@@ -2,6 +2,7 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -85,7 +86,6 @@ public class AddTutorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 openGallery();
-
             }
         });
 
@@ -104,7 +104,7 @@ public class AddTutorFragment extends Fragment {
                     }
                     firebaseRepo.insertTutor(newTutor);
                     //TODO: Need to exit add tutor after clicking add
-                    Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment); 
+                    Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
                 }
             }
         });

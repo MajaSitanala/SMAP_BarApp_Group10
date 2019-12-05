@@ -4,10 +4,12 @@ package com.example.rus1_bar.Fragments.Administrator;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.rus1_bar.R;
 
@@ -16,6 +18,10 @@ import com.example.rus1_bar.R;
  */
 public class BillSettingsFragment extends Fragment {
 
+    Button seeBillBtn;
+    Button sendBillBtn;
+    Button exportBillBtn;
+    Button cancelBtn;
 
     public BillSettingsFragment() {
         // Required empty public constructor
@@ -25,8 +31,22 @@ public class BillSettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_bill_settings, container, false);
+
+        //Go to a tutorRecyclerView (same one with params to do diff stuff when pressed a tutor
+        seeBillBtn = rootView.findViewById(R.id.billSettingsViewBillBtn);
+
+        sendBillBtn = rootView.findViewById(R.id.billSettingsSendBillBtn);
+
+        exportBillBtn = rootView.findViewById(R.id.billSettingsExportBillsBtn);
+
+        cancelBtn = rootView.findViewById(R.id.billSettingsCancelBtn);
+        cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_billSettingsFragment_to_settingsOverviewFragment));
+
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bill_settings, container, false);
+        return rootView;
     }
 
 }

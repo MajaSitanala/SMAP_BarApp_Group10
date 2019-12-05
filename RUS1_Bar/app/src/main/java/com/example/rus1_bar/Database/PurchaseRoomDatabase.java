@@ -16,7 +16,7 @@ import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.R;
 
-@Database(entities = Product.class, version = 1, exportSchema = false)
+@Database(entities = Product.class, version = 2, exportSchema = false)
 public abstract class PurchaseRoomDatabase extends androidx.room.RoomDatabase
 {
     private static PurchaseRoomDatabase instance;

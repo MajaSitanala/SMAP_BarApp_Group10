@@ -67,8 +67,10 @@ public class ViewProductsFragment extends Fragment {
         productLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
         productRecyclerView.setLayoutManager(productLayoutManager);
 
+
         //Chosen category
         String cat = getArguments().getString("category");
+
 
         //Init Database ref
         FireDB = FirebaseDatabase.getInstance();
@@ -99,8 +101,9 @@ public class ViewProductsFragment extends Fragment {
 
 
         //Recycler adapter setup
-        productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList);
+        productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList,cat);
         productRecyclerView.setAdapter(productRecyclerAdapter);
+
 
 
         // Inflate the layout for this fragment

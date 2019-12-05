@@ -4,6 +4,7 @@ package com.example.rus1_bar.Fragments;
 import android.app.Activity;
 import android.app.Application;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -106,7 +108,7 @@ public class LoginFragment extends Fragment {
 
 
             if(email.getText() != null && password.getText() != null){
-                authenticate(email.getText().toString(),password.getText().toString());
+                authenticate(email.getText().toString(),password.getText().toString(),view);
 
             }
         });
@@ -137,15 +139,21 @@ public class LoginFragment extends Fragment {
         Toast.makeText(getContext(), "Added "+category.getCategoryName()+" to db",Toast.LENGTH_LONG).show();
     }
 
-    private void authenticate(String email,String pass){
+    private void authenticate(String email,String pass,View view){
         try{
         mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
                      @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                          if(task.isSuccessful()){
+                             //Authenticate
                              Toast.makeText(getContext(),"Authentication succeeded.",Toast.LENGTH_LONG).show();
                              FirebaseUser user = mAuth.getCurrentUser();
+                             //Init Navigation
                              final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                             //Hide Keyboard
+                             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                             //Navigate
                              navController.navigate(R.id.action_loginFragment_to_settingsOverviewFragment);
                         }else {
                             Toast.makeText(getContext(),"Authentication failed.",Toast.LENGTH_LONG).show();

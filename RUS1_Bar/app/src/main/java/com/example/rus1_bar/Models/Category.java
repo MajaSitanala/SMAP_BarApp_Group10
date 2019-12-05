@@ -9,6 +9,7 @@ public class Category {
     private String categoryName;
     private List<Product> categoryProductList;
     private int picture;
+    private String imageName;
 
     public Category(int iD, String Name, int Picture)
     {
@@ -50,4 +51,8 @@ public class Category {
     public int getPicture() {
         return picture;
     }
+
+    public String getImageName() {return imageName; }
+
+    public void setImageName(String imageName) { this.imageName = imageName; }
 }
