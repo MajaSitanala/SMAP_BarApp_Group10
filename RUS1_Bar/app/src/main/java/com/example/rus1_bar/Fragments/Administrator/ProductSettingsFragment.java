@@ -12,9 +12,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Service.ShoppingService;
 
 import java.util.ArrayList;
 import java.util.List;

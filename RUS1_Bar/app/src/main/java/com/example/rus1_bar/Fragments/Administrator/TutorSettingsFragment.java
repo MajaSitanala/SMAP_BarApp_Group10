@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Adapters.TutorDisplayAdapter;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
