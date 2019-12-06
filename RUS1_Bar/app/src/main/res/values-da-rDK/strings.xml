@@ -77,6 +77,30 @@
     <string name="addCategoryName">Kategori Navn</string>
     <string name="addCategoryImage" />
     <string name="addCategoryEditName" />
+    <string name="editCategoryTitle">Ret Kategori</string>
+    <string name="editCategoryCancelBtn">Annuller</string>
+    <string name="editCategoryEditBtn">Ret</string>
+    <string name="editCategoryDeleteBtn">Slet</string>
+    <string name="editCategoryName">Kategori Navn</string>
+    <string name="editCategoryEditName" />
+    <string name="addProductCancelBtn">Annuller</string>
+    <string name="addProductTitle">Tilføj Produkt</string>
+    <string name="addProductAddBtn">Tilføj</string>
+    <string name="addProductName">Produkt Navn</string>
+    <string name="addProductCategory">Tilføj Kategori</string>
+    <string name="addProductPrice">Tilføj Pris</string>
+    <string name="addProductEditName" />
+    <string name="addProductsEditCategory" />
+    <string name="addProductImage" />
+    <string name="editProductCancelBtn">Annuller</string>
+    <string name="editProductDeleteBtn">Slet</string>
+    <string name="editProductEditBtn">Ret</string>
+    <string name="editProductTitle">Ret Produkt</string>
+    <string name="editProductName">Produkt Navn</string>
+    <string name="editProductCategory">Produkt Kategori</string>
+    <string name="editProductEditName" />
+    <string name="editProductEditCategory">Navn</string>
+    <string name="editProductEditPrice">Produkt Pris</string>
 
 
 

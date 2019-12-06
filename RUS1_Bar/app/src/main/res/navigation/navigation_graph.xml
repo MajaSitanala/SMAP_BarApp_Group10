@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/productSettingsFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.ProductSettingsFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Product.ProductSettingsFragment"
         android:label="fragment_product_settings"
         tools:layout="@layout/fragment_product_settings" >
         <action
@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_productSettingsFragment_to_settingsOverviewFragment"
             app:destination="@id/settingsOverviewFragment" />
+        <action
+            android:id="@+id/action_productSettingsFragment_to_editProductFragment"
+            app:destination="@id/editProductFragment" />
     </fragment>
 
 
@@ -107,7 +110,7 @@
 
     <fragment
         android:id="@+id/tutorSettingsFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.TutorSettingsFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Tutor.TutorSettingsFragment"
         android:label="fragment_tutor_settings"
         tools:layout="@layout/fragment_tutor_settings" >
         <action
@@ -125,7 +128,7 @@
     </fragment>
     <fragment
         android:id="@+id/addTutorFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.AddTutorFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Tutor.AddTutorFragment"
         android:label="fragment_add_tutor"
         tools:layout="@layout/fragment_add_tutor" >
         <action
@@ -135,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/editTutorFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.EditTutorFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Tutor.EditTutorFragment"
         android:label="fragment_edit_tutor"
         tools:layout="@layout/fragment_edit_tutor" >
         <action
@@ -145,7 +148,7 @@
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.AddProductFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Product.AddProductFragment"
         android:label="fragment_add_product"
         tools:layout="@layout/fragment_add_product" >
         <action
@@ -155,7 +158,7 @@
     </fragment>
     <fragment
         android:id="@+id/categorySettingsFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.CategorySettingsFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Category.CategorySettingsFragment"
         android:label="fragment_category_settings"
         tools:layout="@layout/fragment_category_settings" >
         <action
@@ -170,7 +173,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCategoriesFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.AddCategoriesFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Category.AddCategoriesFragment"
         android:label="fragment_add_categories"
         tools:layout="@layout/fragment_add_categories" >
         <action
@@ -179,11 +182,20 @@
     </fragment>
     <fragment
         android:id="@+id/editCategoryFragment"
-        android:name="com.example.rus1_bar.Fragments.Administrator.EditCategoryFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Category.EditCategoryFragment"
         android:label="fragment_edit_category"
         tools:layout="@layout/fragment_edit_category" >
         <action
             android:id="@+id/action_editCategoryFragment_to_categorySettingsFragment"
             app:destination="@id/categorySettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProductFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.Product.EditProductFragment"
+        android:label="fragment_edit_product"
+        tools:layout="@layout/fragment_edit_product" >
+        <action
+            android:id="@+id/action_editProductFragment_to_productSettingsFragment"
+            app:destination="@id/productSettingsFragment" />
     </fragment>
 </navigation>

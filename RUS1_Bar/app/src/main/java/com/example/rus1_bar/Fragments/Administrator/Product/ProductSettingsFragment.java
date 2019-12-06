@@ -1,4 +1,4 @@
-package com.example.rus1_bar.Fragments.Administrator;
+package com.example.rus1_bar.Fragments.Administrator.Product;
 
 
 import android.os.Bundle;
@@ -29,9 +29,6 @@ public class ProductSettingsFragment extends Fragment {
     private List<Product> testProductList = new ArrayList<>();
 
     Button addProductBtn;
-    Button editProductBtn;
-    Button addCategoryBtn;
-    Button editCategoryBtn;
     Button cancelBtn;
 
     RecyclerView productRecyclerView;
