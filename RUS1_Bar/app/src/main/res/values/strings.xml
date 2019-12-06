@@ -90,6 +90,7 @@
     <string name="noProductsInBasket">No products to buy, press Cancel!</string>
     <string name="appbar_action_login">Login</string>
     <string name="savedInstanceState_ShoppingActivity">saveInstanceState of shoppingViewModel</string>
+    <string name="SavedInstanceState_MainActivity">SavedInstance Sate Main Activity</string>
 
     <!-- Category Settings -->
     <string name="categorySettings">Category Settings</string>

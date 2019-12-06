@@ -13,8 +13,10 @@ import android.widget.Button;
 
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +28,8 @@ public class BillSettingsFragment extends Fragment {
     Button exportBillBtn;
     Button cancelBtn;
 
+    private ShoppingService shoppingService;
+
     public BillSettingsFragment() {
         // Required empty public constructor
     }
@@ -35,6 +39,9 @@ public class BillSettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bill_settings, container, false);
+
+        // Service
+        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
         //Go to a tutorRecyclerView (same one with params to do diff stuff when pressed a tutor
         seeBillBtn = rootView.findViewById(R.id.billSettingsViewBillBtn);

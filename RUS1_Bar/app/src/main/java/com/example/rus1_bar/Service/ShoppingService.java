@@ -27,9 +27,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Inspiration found from Code in flow at https://codinginflow.com/tutorials/android/foreground-service for the test notification.
  */
+import java.io.Serializable;
+
 import static com.example.rus1_bar.Service.AppShopping.TEST_CHANNEL_ID;
 
-public class ShoppingService extends Service {
+public class ShoppingService extends Service implements Serializable {
 
     static final String ACTION_DATABASE_INSTANCING_DONE = "The repositories have been declared";
 
@@ -50,13 +52,14 @@ public class ShoppingService extends Service {
 
         firebaseRepository = new FirebaseRepository();
         firebaseFirestore = firebaseRepository.getFireStore_fromRepository();//FirebaseFirestore.getInstance();
-        firebaseDatabase = firebaseRepository.getFireDB_fromRepository();
+        firebaseDatabase = FirebaseDatabase.getInstance();//firebaseRepository.getFireDB_fromRepository();
         firebaseAuth = FirebaseAuth.getInstance();
         purchaseRoomRepository = new PurchaseRoomRepository(this.getApplication());
 
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
 
 
+        /*
         // Notification intent
         Intent notificationIntent = new Intent(this, ShoppingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
@@ -72,6 +75,7 @@ public class ShoppingService extends Service {
 
         //Notification starts in the forground
         startForeground(1, notification);
+         */
 
     }
 

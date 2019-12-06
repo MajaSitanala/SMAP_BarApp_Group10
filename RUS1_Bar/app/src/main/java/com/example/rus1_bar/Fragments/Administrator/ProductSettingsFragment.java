@@ -36,6 +36,8 @@ public class ProductSettingsFragment extends Fragment {
     RecyclerView.Adapter productRecyclerAdapter;
     RecyclerView.LayoutManager productLayoutManager;
 
+    private ShoppingService shoppingService;
+
     public ProductSettingsFragment() {
         // Required empty public constructor
     }
@@ -47,6 +49,8 @@ public class ProductSettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_product_settings, container, false);
 
+        // Shopping service
+        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
         addProductBtn = rootView.findViewById(R.id.productAddBtn);
 

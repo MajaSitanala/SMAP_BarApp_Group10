@@ -19,9 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -58,6 +60,8 @@ public class EditTutorFragment extends Fragment {
     EditText editEmail;
     EditText editPhone;
 
+    private ShoppingService shoppingService;
+
     AlertDialog diaBox;
 
     public EditTutorFragment() {
@@ -69,6 +73,9 @@ public class EditTutorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_edit_tutor, container, false);
+
+        // Service
+        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
         guid  = UUID.randomUUID().toString();
         firebaseRepo = new FirebaseRepository();

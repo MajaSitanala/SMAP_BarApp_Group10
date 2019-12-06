@@ -4,13 +4,17 @@ package com.example.rus1_bar.Fragments;
 import android.app.Activity;
 import android.app.Application;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -23,6 +27,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.rus1_bar.Activities.MainActivity;
+import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
@@ -53,6 +58,8 @@ import java.util.concurrent.Executor;
  */
 public class LoginFragment extends Fragment {
 
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
+
     private FirebaseAuth mAuth;
 
     Button buttonLogin;
@@ -67,6 +74,8 @@ public class LoginFragment extends Fragment {
 
     ShoppingService shoppingService;
 
+    private View loginFragmentView;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -75,9 +84,12 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
+        loginFragmentView = rootView;
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return rootView;
 
     }
 
@@ -85,35 +97,18 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+    }
 
-        // Initialize Firebase Auth & Db
-            //mAuth = FirebaseAuth.getInstance();
-            //FireDB = FirebaseDatabase.getInstance();
-        mAuth = shoppingService.getFirebaseAuth_fromService();
-        FireDB = shoppingService.getFirebaseDatabase_fromService();
-        databaseTutors = FireDB.getReference("tutors");
-        databaseProducts = FireDB.getReference("products");
-        databaseCategory = FireDB.getReference("categories");
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
-        buttonCancel = view.findViewById(R.id.cancel_btn);
-        buttonCancel.setOnClickListener(s);
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
 
-        email = view.findViewById(R.id.EmailEditText);
-        password = view.findViewById(R.id.PasswordEditText);
-        buttonLogin = view.findViewById(R.id.login_btn);
-
-        buttonLogin.setOnClickListener(v -> {
-            //dummyDataInit();
-            //Todo:Repotest:
-            //FirebaseRepository repo = new FirebaseRepository();
-            //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
-
-            if(email.getText() != null && password.getText() != null){
-                authenticate(email.getText().toString(),password.getText().toString(),view);
-            }
-        });
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initLoginFragment();
+        }
 
     }
 
@@ -170,6 +165,50 @@ public class LoginFragment extends Fragment {
             Snackbar.make(getActivity().findViewById(android.R.id.content),
                 e.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();}
     }
+
+    private void initLoginFragment()
+    {
+        if (getActivity()!=null)
+        {
+            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+
+            // Initialize Firebase Auth & Db
+            //mAuth = FirebaseAuth.getInstance();
+            //FireDB = FirebaseDatabase.getInstance();
+            mAuth = shoppingService.getFirebaseAuth_fromService();
+            FireDB = shoppingService.getFirebaseDatabase_fromService();
+            databaseTutors = FireDB.getReference("tutors");
+            databaseProducts = FireDB.getReference("products");
+            databaseCategory = FireDB.getReference("categories");
+
+            View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
+            buttonCancel = loginFragmentView.findViewById(R.id.cancel_btn);
+            buttonCancel.setOnClickListener(s);
+
+            email = loginFragmentView.findViewById(R.id.EmailEditText);
+            password = loginFragmentView.findViewById(R.id.PasswordEditText);
+            buttonLogin = loginFragmentView.findViewById(R.id.login_btn);
+
+            buttonLogin.setOnClickListener(v -> {
+                //dummyDataInit();
+                //Todo:Repotest:
+                //FirebaseRepository repo = new FirebaseRepository();
+                //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
+                if(email.getText() != null && password.getText() != null){
+                    authenticate(email.getText().toString(),password.getText().toString(),loginFragmentView);
+                }
+            });
+        }
+
+    }
+
+    private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initLoginFragment();
+        }
+    };
 
     private void dummyDataInit()
     {
