@@ -173,7 +173,6 @@ public class FirebaseRepository {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }

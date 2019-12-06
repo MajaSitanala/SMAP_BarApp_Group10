@@ -135,5 +135,7 @@
     <string name="editProductEditName" />
     <string name="editProductEditCategory">Name</string>
     <string name="editProductEditPrice">Product Price</string>
+    <string name="administrator">Administrator</string>
+    <string name="bartender">Bartender</string>
 
 </resources>

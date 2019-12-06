@@ -69,8 +69,7 @@ public class ShoppingService extends Service implements Serializable {
 
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
 
-
-
+        /*
         // Notification intent
         Intent notificationIntent = new Intent(this, ShoppingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
@@ -86,6 +85,8 @@ public class ShoppingService extends Service implements Serializable {
 
         //Notification starts in the forground
         startForeground(1, notification);
+
+         */
 
 
     }

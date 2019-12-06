@@ -159,5 +159,4 @@ public class ViewTutorsFragment extends Fragment {
         testTutorList.add(new Tutor("Mikkel Bleeg", "Pampers", 12345678, "123@enmail.com", R.drawable.bleeg));
         testTutorList.add(new Tutor("Maja Andersen", "Crystal", 12345678, "123@enmail.com", R.drawable.crystal));
     }
-
 }

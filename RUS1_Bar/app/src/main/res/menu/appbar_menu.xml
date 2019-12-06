@@ -23,7 +23,7 @@
     <!-- item "Login" for settings shortcut in appBar -->
     <item
         android:id="@+id/action_login"
-        android:title="@string/appbar_action_login"
+        android:title="@string/administrator"
         app:showAsAction="never"/>
 
     <!-- item "Logout" for settings shortcut in appBar
@@ -36,7 +36,7 @@
     <!-- item "settings" for settings shortcut in appBar -->
     <item
         android:id="@+id/action_settings"
-        android:title="@string/appbar_action_settings"
+        android:title="@string/bartender"
         app:showAsAction="never"/>
 
 
