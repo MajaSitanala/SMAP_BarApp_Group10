@@ -81,10 +81,11 @@ public class BillSettingsFragment extends Fragment {
             exportBillBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FirebaseRepository rep =  shoppingService.getFirebaseRepository_fromService();
-                    rep.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",0,"",0),getContext());
+                    FirebaseRepository rep = new FirebaseRepository();
+                    rep.SaveAllPurchases(new Rustur("TestTur"),getContext());
                 }
             });
+            //exportBillBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.ac));
 
             cancelBtn = rootView.findViewById(R.id.billSettingsCancelBtn);
             cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_billSettingsFragment_to_settingsOverviewFragment));

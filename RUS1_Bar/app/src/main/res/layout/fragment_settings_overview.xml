@@ -202,6 +202,7 @@
 
         <Button
             android:id="@+id/categorySettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/categorySettings"
