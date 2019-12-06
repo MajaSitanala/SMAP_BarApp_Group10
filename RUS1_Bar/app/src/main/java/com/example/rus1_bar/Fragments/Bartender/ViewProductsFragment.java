@@ -123,6 +123,7 @@ public class ViewProductsFragment extends Fragment {
             //Chosen category
             //String cat = getArguments().getString("category");
 
+
             //Init Database ref
             FireDB = shoppingService.getFirebaseDatabase_fromService();
             databaseProduct = FireDB.getReference("categories").child(cat);

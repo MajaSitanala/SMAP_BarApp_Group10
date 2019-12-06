@@ -84,6 +84,7 @@ public class FirebaseRepository {
                 .collection("Purchases").add(purchase);
     }
 
+    
 
     public void saveTutorImage(Tutor tutor, Uri imageUri){
         if(tutor.getImagename() != null){
