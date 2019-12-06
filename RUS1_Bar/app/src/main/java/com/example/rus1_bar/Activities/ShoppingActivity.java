@@ -27,10 +27,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
+import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
+import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment.FragmentViewProductsListener;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.ShoppingViewModel;
@@ -44,7 +47,8 @@ import java.util.List;
 
 
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
-        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner {
+        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner,
+        CategoryRecyclerAdapter.CategoryRecyclerAdapterListener, ViewProductsFragment.FragmentViewProductsListener {
 
     private static final String SERVICE_CONNECTED_SHOPPING_ACTIVITY = "Shopping service connected to Shopping Activity";
     private ShoppingViewModel shoppingViewModel;
@@ -61,6 +65,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     private static final String TUTOR_OBJECT = "Current Tutor Object";
     private String currentTutorName;
     private Tutor currentTutorClicked;
+
+    private String mCategoryame;
 
     NavController navController;
 
@@ -338,4 +344,14 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         /* end Stethos */
     }
 
+    @Override
+    public void setCategoryString(String categoryName)
+    {
+        this.mCategoryame = categoryName;
+    }
+
+    @Override
+    public String getCategoryString() {
+        return this.mCategoryame;
+    }
 }

@@ -110,7 +110,5 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
             cardViewTutor = itemView.findViewById(R.id.cardview_tutor);
 
         }
-
     }
-
 }

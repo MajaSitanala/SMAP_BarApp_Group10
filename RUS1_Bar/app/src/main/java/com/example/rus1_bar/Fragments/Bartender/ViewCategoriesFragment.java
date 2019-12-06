@@ -107,7 +107,6 @@ public class ViewCategoriesFragment extends Fragment {
             databaseCategory.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                     testCategoryList.clear();
                     for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()){
                         Category cat = categorySnapshot.getValue(Category.class);
