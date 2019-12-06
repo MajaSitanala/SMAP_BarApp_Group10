@@ -84,6 +84,11 @@ public class ViewTutorsFragment extends Fragment {
     {
         super.onStart();
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
+
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initViewTutorsFragment();
+        }
     }
 
     private void initViewTutorsFragment()
@@ -118,8 +123,6 @@ public class ViewTutorsFragment extends Fragment {
             tutorRecyclerAdapter = new TutorRecyclerAdapter(getActivity(), testTutorList);
 
             tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
-
-
         }
 
     }
