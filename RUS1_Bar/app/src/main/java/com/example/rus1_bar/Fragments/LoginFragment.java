@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
     DatabaseReference databaseCategory;
     FirebaseDatabase FireDB;
 
-    ShoppingService shoppingService;
+    private ShoppingService shoppingService;
 
     private View rootView;
 
