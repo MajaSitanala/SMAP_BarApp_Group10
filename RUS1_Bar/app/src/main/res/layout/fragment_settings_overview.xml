@@ -12,17 +12,19 @@
 
         <Button
             android:id="@+id/tutorSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/tutorSettingsBtn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline57"
+            app:layout_constraintBottom_toTopOf="@+id/guideline91"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline41"
-            app:layout_constraintTop_toTopOf="@+id/guideline56" />
+            app:layout_constraintTop_toTopOf="@+id/guideline99" />
 
         <Button
             android:id="@+id/productSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/productSettingsBtn"
@@ -34,6 +36,7 @@
 
         <Button
             android:id="@+id/rusturSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/rusturSettingsBtn"
@@ -45,6 +48,7 @@
 
         <Button
             android:id="@+id/billSettingsBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/billSettingsBtn"
@@ -59,6 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/adminSettingTitle"
+            android:textColor="@color/DarkPurple"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline64"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
@@ -67,6 +72,7 @@
 
         <Button
             android:id="@+id/logOffBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/logOffBtn"
@@ -164,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.23" />
+            app:layout_constraintGuide_percent="0.13" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline65"
@@ -179,5 +185,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.40" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline99"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <Button
+            android:id="@+id/categorySettingsBtn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/categorySettings"
+            app:layout_constraintBottom_toTopOf="@+id/guideline57"
+            app:layout_constraintEnd_toStartOf="@+id/guideline44"
+            app:layout_constraintStart_toStartOf="@+id/guideline41"
+            app:layout_constraintTop_toTopOf="@+id/guideline56" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

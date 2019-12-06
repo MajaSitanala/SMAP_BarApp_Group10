@@ -15,7 +15,6 @@
     <string name="rusturSettingsBtn">Rustur Indstillinger</string>
     <string name="billSettingsBtn">Regning Indstillinger</string>
     <string name="tutorAddBtn">Tilføj Tutor</string>
-    <string name="tutorEditBtn">Ret Tutor</string>
     <string name="tutorlistTextView">Tutor Liste</string>
     <string name="categoryAddButton">Tilføj Kategori</string>
     <string name="productAddBtn">Tilføj Produkt</string>
@@ -49,13 +48,36 @@
     <string name="addTutorRealName">Tilføj Navn</string>
     <string name="addTutorEmail">Tilføj Email</string>
     <string name="addTutorNumber">Tilføj Telefon Nummer</string>
-    <string name="addTutorEditNick"></string>
-    <string name="addTutorEditName"></string>
-    <string name="addTutorEditEmail"></string>
-    <string name="addTutorEditNumber"></string>
+    <string name="addTutorEditNick"/>
+    <string name="addTutorEditName"/>
+    <string name="addTutorEditEmail"/>
+    <string name="addTutorEditNumber"/>
     <string name="addTutorCancelBtn">Annuller</string>
     <string name="addTutorAddBtn">Tilføj</string>
     <string name="addTutorNickName">Tilføj Tutornavn</string>
+    <string name="appbar_action_login">Log på</string>
+    <string name="editTutorCancelBtn">Annuller</string>
+    <string name="editTutorDeleteBtn">Slet tutor</string>
+    <string name="editTutorEditBtn">Rediger Tutor</string>
+    <string name="editTutorEmail">E-mail</string>
+    <string name="editTutorName">Navn</string>
+    <string name="editTutorNick">Strretnavn</string>
+    <string name="editTutorPhone">Tlf. nr.</string>
+    <string name="editTutorTitle">Rediger Tutor</string>
+    <string name="appbar_action_settings" translatable="false">Indstillinger</string>
+    <string name="noProductsInBasket">Ingen produkter fundet, tryk Annuller!</string>
+    <string name="savedInstanceState_ShoppingActivity">saveInstanceState of shoppingViewModel</string>
+    <string name="categorySettings">Kategori Indstillinger</string>
+    <string name="categorySettingsTitle">Kategori Indstillinger</string>
+    <string name="categorySettingsAddBtn">Tilføj Kategori</string>
+    <string name="categorySettingsCancelBtn">Annuller</string>
+    <string name="addCategoriesCancelBtn">Annuller</string>
+    <string name="addCategoriesAddBtn">Tilføj</string>
+    <string name="addCategoryTitle">Tilføj Kategori</string>
+    <string name="addCategoryName">Kategori Navn</string>
+    <string name="addCategoryImage" />
+    <string name="addCategoryEditName" />
+
 
 
 </resources>

@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.rus1_bar.Activities.MainActivity;
+import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
@@ -73,6 +74,8 @@ public class LoginFragment extends Fragment {
 
     ShoppingService shoppingService;
 
+    private View loginFragmentView;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -81,8 +84,12 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
+        loginFragmentView = rootView;
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return rootView;
 
     }
 
@@ -90,31 +97,19 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
-        buttonCancel = view.findViewById(R.id.cancel_btn);
-        buttonCancel.setOnClickListener(s);
-
-        email = view.findViewById(R.id.EmailEditText);
-        password = view.findViewById(R.id.PasswordEditText);
-        buttonLogin = view.findViewById(R.id.login_btn);
-
-        buttonLogin.setOnClickListener(v -> {
-            //dummyDataInit();
-            //Todo:Repotest:
-            //FirebaseRepository repo = new FirebaseRepository();
-            //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
-
-            if(email.getText() != null && password.getText() != null){
-                authenticate(email.getText().toString(),password.getText().toString(),view);
-            }
-        });
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
+
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initLoginFragment();
+        }
+
     }
 
     private void AddTutor(Tutor tutor){
@@ -173,7 +168,6 @@ public class LoginFragment extends Fragment {
 
     private void initLoginFragment()
     {
-
         if (getActivity()!=null)
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
@@ -186,6 +180,25 @@ public class LoginFragment extends Fragment {
             databaseTutors = FireDB.getReference("tutors");
             databaseProducts = FireDB.getReference("products");
             databaseCategory = FireDB.getReference("categories");
+
+            View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
+            buttonCancel = loginFragmentView.findViewById(R.id.cancel_btn);
+            buttonCancel.setOnClickListener(s);
+
+            email = loginFragmentView.findViewById(R.id.EmailEditText);
+            password = loginFragmentView.findViewById(R.id.PasswordEditText);
+            buttonLogin = loginFragmentView.findViewById(R.id.login_btn);
+
+            buttonLogin.setOnClickListener(v -> {
+                //dummyDataInit();
+                //Todo:Repotest:
+                //FirebaseRepository repo = new FirebaseRepository();
+                //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
+                Toast.makeText(this.getContext(), "TriedToLogin", Toast.LENGTH_SHORT).show();
+                if(email.getText() != null && password.getText() != null){
+                    authenticate(email.getText().toString(),password.getText().toString(),loginFragmentView);
+                }
+            });
         }
 
     }

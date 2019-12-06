@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_view_tutors" >
         <action
             android:id="@+id/action_viewTutorsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/loginFragment" />
     </fragment>
 
 
@@ -23,17 +24,27 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_viewTutorsFragment"
-            app:destination="@id/viewTutorsFragment" />
+            app:destination="@id/viewTutorsFragment"
+            app:popUpTo="@+id/viewTutorsFragment" />
         <action
             android:id="@+id/action_loginFragment_to_settingsOverviewFragment"
-            app:destination="@id/settingsOverviewFragment" />
+            app:destination="@id/settingsOverviewFragment"
+            app:popUpTo="@+id/settingsOverviewFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/productSettingsFragment"
         android:name="com.example.rus1_bar.Fragments.Administrator.ProductSettingsFragment"
         android:label="fragment_product_settings"
-        tools:layout="@layout/fragment_product_settings" />
+        tools:layout="@layout/fragment_product_settings" >
+        <action
+            android:id="@+id/action_productSettingsFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment"
+            app:popUpTo="@+id/addProductFragment" />
+        <action
+            android:id="@+id/action_productSettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment" />
+    </fragment>
 
 
     <fragment
@@ -43,7 +54,8 @@
         tools:layout="@layout/fragment_bill_settings" >
         <action
             android:id="@+id/action_billSettingsFragment_to_settingsOverviewFragment"
-            app:destination="@id/settingsOverviewFragment" />
+            app:destination="@id/settingsOverviewFragment"
+            app:popUpTo="@+id/settingsOverviewFragment" />
     </fragment>
 
 
@@ -51,7 +63,12 @@
         android:id="@+id/rusturSettingsFragment"
         android:name="com.example.rus1_bar.Fragments.Administrator.RusturSettingsFragment"
         android:label="fragment_rustur_settings"
-        tools:layout="@layout/fragment_rustur_settings" />
+        tools:layout="@layout/fragment_rustur_settings" >
+        <action
+            android:id="@+id/action_rusturSettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment"
+            app:popUpTo="@+id/settingsOverviewFragment" />
+    </fragment>
 
 
     <fragment
@@ -61,19 +78,30 @@
         tools:layout="@layout/fragment_settings_overview" >
         <action
             android:id="@+id/action_settingsOverviewFragment_to_billSettingsFragment"
-            app:destination="@id/billSettingsFragment" />
+            app:destination="@id/billSettingsFragment"
+            app:popUpTo="@+id/billSettingsFragment" />
         <action
             android:id="@+id/action_settingsOverviewFragment_to_rusturSettingsFragment"
-            app:destination="@id/rusturSettingsFragment" />
+            app:destination="@id/rusturSettingsFragment"
+            app:popUpTo="@+id/tutorSettingsFragment" />
         <action
             android:id="@+id/action_settingsOverviewFragment_to_productSettingsFragment"
-            app:destination="@id/productSettingsFragment" />
+            app:destination="@id/productSettingsFragment"
+            app:popUpTo="@+id/productSettingsFragment" />
         <action
             android:id="@+id/action_settingsOverviewFragment_to_tutorSettingsFragment"
-            app:destination="@id/tutorSettingsFragment" />
+            app:destination="@id/tutorSettingsFragment"
+            app:popUpTo="@+id/tutorSettingsFragment" />
         <action
             android:id="@+id/action_settingsOverviewFragment_to_loginFragment"
+            app:popUpTo="@+id/loginFragment" />
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_settingsOverviewFragment_to_categorySettingsFragment"
+            app:destination="@id/categorySettingsFragment" />
+        <action
+            android:id="@+id/action_settingsOverviewFragment_to_categorySettingsFragment2"
+            app:destination="@id/categorySettingsFragment" />
     </fragment>
 
 
@@ -84,13 +112,16 @@
         tools:layout="@layout/fragment_tutor_settings" >
         <action
             android:id="@+id/action_tutorSettingsFragment_to_addTutorFragment"
-            app:destination="@id/addTutorFragment" />
+            app:destination="@id/addTutorFragment"
+            app:popUpTo="@+id/addTutorFragment" />
         <action
             android:id="@+id/action_tutorSettingsFragment_to_editTutorFragment"
-            app:destination="@id/editTutorFragment" />
+            app:destination="@id/editTutorFragment"
+            app:popUpTo="@+id/editTutorFragment" />
         <action
             android:id="@+id/action_tutorSettingsFragment_to_settingsOverviewFragment"
-            app:destination="@id/settingsOverviewFragment" />
+            app:destination="@id/settingsOverviewFragment"
+            app:popUpTo="@+id/settingsOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTutorFragment"
@@ -99,7 +130,8 @@
         tools:layout="@layout/fragment_add_tutor" >
         <action
             android:id="@+id/action_addTutorFragment_to_tutorSettingsFragment"
-            app:destination="@id/tutorSettingsFragment" />
+            app:destination="@id/tutorSettingsFragment"
+            app:popUpTo="@+id/tutorSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editTutorFragment"
@@ -108,6 +140,38 @@
         tools:layout="@layout/fragment_edit_tutor" >
         <action
             android:id="@+id/action_editTutorFragment_to_tutorSettingsFragment"
-            app:destination="@id/tutorSettingsFragment" />
+            app:destination="@id/tutorSettingsFragment"
+            app:popUpTo="@+id/tutorSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.AddProductFragment"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" >
+        <action
+            android:id="@+id/action_addProductFragment_to_productSettingsFragment"
+            app:destination="@id/productSettingsFragment"
+            app:popUpTo="@+id/productSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categorySettingsFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.CategorySettingsFragment"
+        android:label="fragment_category_settings"
+        tools:layout="@layout/fragment_category_settings" >
+        <action
+            android:id="@+id/action_categorySettingsFragment_to_settingsOverviewFragment"
+            app:destination="@id/settingsOverviewFragment" />
+        <action
+            android:id="@+id/action_categorySettingsFragment_to_addCategoriesFragment"
+            app:destination="@id/addCategoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCategoriesFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.AddCategoriesFragment"
+        android:label="fragment_add_categories"
+        tools:layout="@layout/fragment_add_categories" >
+        <action
+            android:id="@+id/action_addCategoriesFragment_to_categorySettingsFragment"
+            app:destination="@id/categorySettingsFragment" />
     </fragment>
 </navigation>

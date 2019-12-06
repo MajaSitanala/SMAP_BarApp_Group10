@@ -39,6 +39,16 @@ public class Tutor implements Serializable {
         this.setImagename(imgname);
         purchases = new ArrayList<Purchase>();
     }
+
+    public Tutor(String Name, String Nickname, int PhoneNumber, String Mail)
+    {
+        this.setTutorName(Name);
+        this.setNickname(Nickname);
+        this.setPhoneNr(PhoneNumber);
+        this.setMail(Mail);
+        purchases = new ArrayList<Purchase>();
+    }
+
     public Tutor(){}
 
     public void setImagename(String imagename){this.imagename = imagename;}

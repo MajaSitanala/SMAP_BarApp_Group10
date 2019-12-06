@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -88,11 +89,14 @@ public class AddTutorFragment extends Fragment {
         newTutor = new Tutor();
         firebaseRepo = new FirebaseRepository();
 
-
-        View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
-        cancelBtn.setOnClickListener(addTutorCancelClick);
-
-        View.OnClickListener addTutorAddClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+            }
+        });
 
         //Source: https://www.youtube.com/watch?v=OPnusBmMQTw
         tutorImage = rootView.findViewById(R.id.addTutorImage);
@@ -112,7 +116,7 @@ public class AddTutorFragment extends Fragment {
                     makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString(), R.drawable.defaultimg);
+                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
                     newTutor.setImagename(guid);
                     if (imageUri != null){
                         firebaseRepo.saveTutorImage(newTutor, cropResult.getUri());
@@ -136,13 +140,12 @@ public class AddTutorFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE && data!=null){
             imageUri = data.getData();
+            //Source: https://www.youtube.com/watch?v=buwyfcN1pLk
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setMaxCropResultSize(1920, 1080)
                     .setAspectRatio(1,1)
                     .start(getContext(), this);
-
-            //tutorImage.setImageURI(imageUri);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);

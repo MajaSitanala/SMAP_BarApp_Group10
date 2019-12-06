@@ -24,7 +24,6 @@
 
     <!-- Tutor Settings Fragment -->
     <string name="tutorAddBtn">Add Tutor</string>
-    <string name="tutorEditBtn">Edit Tutor</string>
     <string name="tutorlistTextView">Tutor List</string>
 
     <!-- Product Settings Fragment -->
@@ -62,31 +61,49 @@
     <string name="price_dkk">Price:</string>
     <string name="button_shopping_cancel">Cancel</string>
     <string name="button_shopping_buy">Buy</string>
-    <string name="action_login" translatable="false">action_login</string>
-    <string name="action_settings" translatable="false">action_settings</string>
+    <string name="appbar_action_settings">Settings</string>
 
     <!-- Add Tutor -->
     <string name="addTutorTitle">Add Tutor</string>
     <string name="addTutorRealName">Add Name</string>
     <string name="addTutorEmail">Add Email</string>
     <string name="addTutorNumber">Add Phone Number</string>
-    <string name="addTutorEditNick"></string>
-    <string name="addTutorEditName"></string>
-    <string name="addTutorEditEmail"></string>
-    <string name="addTutorEditNumber"></string>
+    <string name="addTutorEditNick"/>
+    <string name="addTutorEditName"/>
+    <string name="addTutorEditEmail"/>
+    <string name="addTutorEditNumber"/>
     <string name="addTutorCancelBtn">Cancel</string>
     <string name="addTutorAddBtn">Add</string>
     <string name="addTutorNickName">Add Nickname</string>
+
+    <!-- Edit Tutor -->
     <string name="editTutorTitle">Edit Tutor</string>
     <string name="editTutorName">Name</string>
     <string name="editTutorNick">Nickname</string>
-    <string name="editTutorEmail">Email</string>
+    <string name="editTutorEmail">E-mail</string>
     <string name="editTutorPhone">Phone Number</string>
     <string name="editTutorCancelBtn">Cancel</string>
     <string name="editTutorDeleteBtn">Delete Tutor</string>
     <string name="editTutorEditBtn">Edit Tutor</string>
-    <string name="noProductsInBasket">No products to buy, press cancel!</string>
+
+
+    <string name="noProductsInBasket">No products to buy, press Cancel!</string>
+    <string name="appbar_action_login">Login</string>
     <string name="savedInstanceState_ShoppingActivity">saveInstanceState of shoppingViewModel</string>
     <string name="SavedInstanceState_MainActivity">SavedInstance Sate Main Activity</string>
+
+    <!-- Category Settings -->
+    <string name="categorySettings">Category Settings</string>
+    <string name="categorySettingsTitle">Category Settings</string>
+    <string name="categorySettingsAddBtn">Add Category</string>
+    <string name="categorySettingsCancelBtn">Cancel</string>
+
+    <!-- Add Category -->
+    <string name="addCategoriesCancelBtn">Cancel</string>
+    <string name="addCategoriesAddBtn">Add</string>
+    <string name="addCategoryTitle">Add Category</string>
+    <string name="addCategoryName">Category Name</string>
+    <string name="addCategoryImage" />
+    <string name="addCategoryEditName" />
 
 </resources>

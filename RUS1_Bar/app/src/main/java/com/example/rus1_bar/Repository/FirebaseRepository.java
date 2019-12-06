@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,7 +34,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.util.ArrayList;
@@ -138,7 +143,7 @@ public class FirebaseRepository {
                 for(QueryDocumentSnapshot doc : task.getResult()){
                     purchases.add(doc.toObject(Purchase.class));
                 }
-                //Purchases er listen med alle køb
+                //Purchases er listen med alle køb TODO FÅ en liste med alle products fra servicen
                 List<Product> productList= GetAllProducts();
                 for(Purchase p : purchases){
                     List<Product> boughtProducts = p.getBoughtProducts();
@@ -151,18 +156,26 @@ public class FirebaseRepository {
                     }
                 }
                 //Take all Purchases and append to file
-                WriteLineToFile(tutor.getNickname(),context,tutor.getNickname());
-                WriteLineToFile("Produkt;Antal;Pris;",context,tutor.getNickname());
-                double finalSum = 0;
-                for(Product finalprod : productList){
-                    WriteLineToFile(finalprod.getProductName()+";"+finalprod.getQuantity()+";"+(finalprod.getPrice()*finalprod.getQuantity())+";",context,tutor.getNickname());
-                    finalSum +=(finalprod.getPrice()*finalprod.getQuantity());
+                try {
+                    File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), tutor.getNickname());
+
+                    WriteLineToFile(tutor.getNickname(),file);
+                    WriteLineToFile("Produkt;Antal;Pris;",file);
+                    double finalSum = 0;
+                    for(Product finalprod : productList){
+                        WriteLineToFile(finalprod.getProductName()+";"+finalprod.getQuantity()+";"+(finalprod.getPrice()*finalprod.getQuantity())+";",file);
+                        finalSum +=(finalprod.getPrice()*finalprod.getQuantity());
+                    }
+                    WriteLineToFile("SUM IALT: "+Double.toString(finalSum),file);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                WriteLineToFile("SUM IALT: "+Double.toString(finalSum),context,tutor.getNickname());
+
             }
         });
     }
-
+    //Få liste med alle produkter
     private List<Product> GetAllProducts(){
         List<Product> products = new ArrayList<>();
         List<String> categories = new ArrayList<>();
@@ -202,14 +215,17 @@ public class FirebaseRepository {
         return products;
     }
 
-    private void WriteLineToFile(String data,Context context,String Filename){
+    private void WriteLineToFile(String data,File file) throws IOException {
+        OutputStream os = new FileOutputStream(file,true);
+        file.getPath();
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(Filename+".csv", Context.MODE_PRIVATE));
-            outputStreamWriter.append(data+"\r\n");
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+            os = new FileOutputStream(file,true);
+            os.write(data.getBytes());
+        } catch (IOException e) {
+            Log.w("ExternalStorage", "Error writing " + file, e);
+        } finally {
+            os.flush();
+            os.close();
         }
     }
 

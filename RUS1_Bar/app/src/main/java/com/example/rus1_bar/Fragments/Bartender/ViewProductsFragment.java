@@ -79,10 +79,12 @@ public class ViewProductsFragment extends Fragment {
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_SHOPPING_ACTIVITY));
 
         // Service reference
+        /*
         if (((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity() != null)
         {
             initViewProductFragment();
         }
+         */
 
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
@@ -93,6 +95,7 @@ public class ViewProductsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        // Service reference
         if (((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity() != null)
         {
             initViewProductFragment();

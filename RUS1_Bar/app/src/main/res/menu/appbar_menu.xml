@@ -11,17 +11,32 @@
 
      -->
 
+    <!-- outcommented login button - now moved into settings bar
+            kept this for example for adding extra button.
     <item
         android:id="@+id/action_login"
         android:icon="@drawable/messenger_bubble_large_white"
         android:title="@string/action_login"
         app:showAsAction="ifRoom" />
+    -->
 
+    <!-- item "Login" for settings shortcut in appBar -->
+    <item
+        android:id="@+id/action_login"
+        android:title="@string/appbar_action_login"
+        app:showAsAction="never"/>
 
-    <!-- item for settings in appBar -->
+    <!-- item "Logout" for settings shortcut in appBar
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/appbar_action_login"
+        app:showAsAction="never"/>
+         -->
+
+    <!-- item "settings" for settings shortcut in appBar -->
     <item
         android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="@string/appbar_action_settings"
         app:showAsAction="never"/>
 
 

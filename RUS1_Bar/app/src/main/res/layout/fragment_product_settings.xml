@@ -23,11 +23,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productSettingsRecycleView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/Grey" />
         </LinearLayout>
 
         <Button
             android:id="@+id/categoryAddBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/categoryAddButton"
@@ -39,6 +41,7 @@
 
         <Button
             android:id="@+id/categoryEditBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/categoryEditBtn"
@@ -50,17 +53,19 @@
 
         <Button
             android:id="@+id/productAddBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/productAddBtn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline29"
+            app:layout_constraintBottom_toTopOf="@+id/guideline31"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toTopOf="@+id/guideline30" />
+            app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
         <Button
             android:id="@+id/productEditBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/productEditBtn"
@@ -72,6 +77,7 @@
 
         <Button
             android:id="@+id/productsettingsCancelBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/productSettingsCancelBtn"
@@ -85,6 +91,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/productSettingsList"
+            android:textColor="@color/DarkPurple"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -150,62 +157,18 @@
             app:layout_constraintGuide_percent="0.88" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.70" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.80"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.65" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55" />
-
-        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.50" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.40" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.35" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline34"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.3" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline35"

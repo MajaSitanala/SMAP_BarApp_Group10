@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +43,7 @@ public class ProductSettingsFragment extends Fragment {
     Button editProductBtn;
     Button addCategoryBtn;
     Button editCategoryBtn;
+    Button cancelBtn;
 
     RecyclerView productRecyclerView;
     RecyclerView.Adapter productRecyclerAdapter;
@@ -63,8 +65,17 @@ public class ProductSettingsFragment extends Fragment {
         // Shopping service
         shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
+        addProductBtn = rootView.findViewById(R.id.productAddBtn);
+
+        View.OnClickListener addProductClick = Navigation.createNavigateOnClickListener(R.id.action_productSettingsFragment_to_addProductFragment);
+        addProductBtn.setOnClickListener(addProductClick);
+
         //Test data for the card view
         fillTestShoppingCardList();
+
+        //Cancel button go back
+        View.OnClickListener cancelClick = Navigation.createNavigateOnClickListener(R.id.action_productSettingsFragment_to_settingsOverviewFragment);
+        cancelBtn = rootView.findViewById(R.id.productsettingsCancelBtn);
 
         // Recycler View setup
         productRecyclerView = rootView.findViewById(R.id.productSettingsRecycleView);

@@ -68,9 +68,8 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
         {
             Tutor t = mTutorList.get(position);
 
-
             Bundle bundle = new Bundle();
-            bundle.putString("Tutor",t.getNickname());
+            bundle.putSerializable("Tutor", t);
 
             Navigation.findNavController(view).navigate(R.id.editTutorFragment,bundle);
         });
