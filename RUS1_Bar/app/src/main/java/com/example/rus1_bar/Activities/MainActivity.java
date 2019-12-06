@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.rus1_bar.Fragments.LoginFragment;
+import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {

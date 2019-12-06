@@ -74,7 +74,7 @@ public class LoginFragment extends Fragment {
 
     ShoppingService shoppingService;
 
-    private View loginFragmentView;
+    private View rootView;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -84,9 +84,8 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        loginFragmentView = rootView;
 
         // Inflate the layout for this fragment
         return rootView;
@@ -182,12 +181,12 @@ public class LoginFragment extends Fragment {
             databaseCategory = FireDB.getReference("categories");
 
             View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
-            buttonCancel = loginFragmentView.findViewById(R.id.cancel_btn);
+            buttonCancel = rootView.findViewById(R.id.cancel_btn);
             buttonCancel.setOnClickListener(s);
 
-            email = loginFragmentView.findViewById(R.id.EmailEditText);
-            password = loginFragmentView.findViewById(R.id.PasswordEditText);
-            buttonLogin = loginFragmentView.findViewById(R.id.login_btn);
+            email = rootView.findViewById(R.id.EmailEditText);
+            password = rootView.findViewById(R.id.PasswordEditText);
+            buttonLogin = rootView.findViewById(R.id.login_btn);
 
             buttonLogin.setOnClickListener(v -> {
                 //dummyDataInit();
@@ -195,7 +194,7 @@ public class LoginFragment extends Fragment {
                 //FirebaseRepository repo = new FirebaseRepository();
                 //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
                 if(email.getText() != null && password.getText() != null){
-                    authenticate(email.getText().toString(),password.getText().toString(),loginFragmentView);
+                    authenticate(email.getText().toString(),password.getText().toString(),rootView);
                 }
             });
         }
@@ -292,6 +291,4 @@ public class LoginFragment extends Fragment {
         AddProduct(new Product("45",1,"Shaker Pineapple",5,R.drawable.shakerpineapple),new Category(6,"RTD",R.drawable.breezer));
 
     }
-
-
 }

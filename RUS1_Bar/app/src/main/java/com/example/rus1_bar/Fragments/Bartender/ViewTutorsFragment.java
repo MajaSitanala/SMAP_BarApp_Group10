@@ -118,6 +118,8 @@ public class ViewTutorsFragment extends Fragment {
             tutorRecyclerAdapter = new TutorRecyclerAdapter(getActivity(), testTutorList);
 
             tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
+
+
         }
 
     }

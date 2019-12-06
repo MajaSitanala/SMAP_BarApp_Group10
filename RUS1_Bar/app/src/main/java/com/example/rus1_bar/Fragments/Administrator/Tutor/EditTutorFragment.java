@@ -2,12 +2,16 @@ package com.example.rus1_bar.Fragments.Administrator.Tutor;
 
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -41,6 +45,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class EditTutorFragment extends Fragment {
 
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity";
+
 
     Button cancelBtn;
     Button deleteBtn;
@@ -63,6 +69,7 @@ public class EditTutorFragment extends Fragment {
     private ShoppingService shoppingService;
 
     AlertDialog diaBox;
+    private View rootView;
 
     public EditTutorFragment() {
         // Required empty public constructor
@@ -72,83 +79,99 @@ public class EditTutorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_edit_tutor, container, false);
+        rootView = inflater.inflate(R.layout.fragment_edit_tutor, container, false);
 
-        // Service
-        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+        return rootView;
+    }
 
-        guid  = UUID.randomUUID().toString();
-        firebaseRepo = new FirebaseRepository();
-        currentTutor = (Tutor) getArguments().getSerializable("Tutor");
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        editName = rootView.findViewById(R.id.editTutorEditName);
-        editName.setText(currentTutor.getTutorName());
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
 
-        editNick = rootView.findViewById(R.id.editTutorEditNick);
-        editNick.setText(currentTutor.getNickname());
+        if (((MainActivity) getActivity()).getShoppingService_fromMainActivity() != null) {
+            initEditTutorFragment();
+        }
 
-        editEmail = rootView.findViewById(R.id.editTutorEditEmail);
-        editEmail.setText(currentTutor.getMail());
+    }
 
-        editPhone = rootView.findViewById(R.id.editTutorEditPhone);
-        editPhone.setText(Integer.toString(currentTutor.getPhoneNr()));
+    private void initEditTutorFragment()
+    {
+        if (getActivity() != null)
+        {
+            // Service
+            shoppingService = ((MainActivity) getActivity()).getShoppingService_fromMainActivity();
 
-        tutorImage = rootView.findViewById(R.id.editTutorImage);
-        if(currentTutor.getImagename() != null){
-            firebaseRepo.getTutorImage(currentTutor.getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            guid = UUID.randomUUID().toString();
+            firebaseRepo = shoppingService.getFirebaseRepository_fromService();
+            currentTutor = (Tutor) getArguments().getSerializable("Tutor");
+
+            editName = rootView.findViewById(R.id.editTutorEditName);
+            editName.setText(currentTutor.getTutorName());
+
+            editNick = rootView.findViewById(R.id.editTutorEditNick);
+            editNick.setText(currentTutor.getNickname());
+
+            editEmail = rootView.findViewById(R.id.editTutorEditEmail);
+            editEmail.setText(currentTutor.getMail());
+
+            editPhone = rootView.findViewById(R.id.editTutorEditPhone);
+            editPhone.setText(Integer.toString(currentTutor.getPhoneNr()));
+
+            tutorImage = rootView.findViewById(R.id.editTutorImage);
+            if (currentTutor.getImagename() != null) {
+                firebaseRepo.getTutorImage(currentTutor.getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.with(rootView.getContext()).load(uri).resize(600, 600).centerInside().into(tutorImage);
+                    }
+                });
+            }
+            tutorImage.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.with(rootView.getContext()).load(uri).resize(600,600).centerInside().into(tutorImage);
+                public void onClick(View view) {
+                    openGallery();
+                }
+            });
+
+            cancelBtn = rootView.findViewById(R.id.editTutorCancelBtn);
+            deleteBtn = rootView.findViewById(R.id.editTutorDeleteBtn);
+            editBtn = rootView.findViewById(R.id.editTutorEditBtn);
+
+
+            View.OnClickListener editTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+            cancelBtn.setOnClickListener(editTutorCancelClick);
+
+
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    diaBox = AskOption();
+                    diaBox.show();
+
+                }
+            });
+
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Error handling for empty fields.
+                    if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")) {
+                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    } else {
+                        currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
+                        currentTutor.setImagename(guid);
+                        if (imageUri != null) {
+                            firebaseRepo.saveTutorImage(currentTutor, cropResult.getUri());
+                        }
+                        firebaseRepo.insertTutor(currentTutor);
+                        Navigation.findNavController(view).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+                    }
                 }
             });
         }
-        tutorImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
 
-        cancelBtn = rootView.findViewById(R.id.editTutorCancelBtn);
-        deleteBtn = rootView.findViewById(R.id.editTutorDeleteBtn);
-        editBtn = rootView.findViewById(R.id.editTutorEditBtn);
-
-
-
-        View.OnClickListener editTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editTutorFragment_to_tutorSettingsFragment);
-        cancelBtn.setOnClickListener(editTutorCancelClick);
-
-
-
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                diaBox = AskOption();
-                diaBox.show();
-
-            }
-        });
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Error handling for empty fields.
-                if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
-                    makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
-                    currentTutor.setImagename(guid);
-                    if (imageUri != null){
-                        firebaseRepo.saveTutorImage(currentTutor, cropResult.getUri());
-                    }
-                    firebaseRepo.insertTutor(currentTutor);
-                    Navigation.findNavController(view).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
-                }
-            }
-        });
-
-        return rootView;
     }
 
     //Source https://stackoverflow.com/questions/11740311/android-confirmation-message-for-delete
@@ -197,4 +220,12 @@ public class EditTutorFragment extends Fragment {
             tutorImage.setImageURI(cropResult.getUri());
         }
     }
+
+    private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initEditTutorFragment();
+        }
+    };
 }

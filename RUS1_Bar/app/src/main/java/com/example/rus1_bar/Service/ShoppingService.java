@@ -10,24 +10,35 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.rus1_bar.Activities.ShoppingActivity;
+import com.example.rus1_bar.Models.Category;
+import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Repository.PurchaseRoomRepository;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Inspiration found from Code in flow at https://codinginflow.com/tutorials/android/foreground-service for the test notification.
  */
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.rus1_bar.Service.AppShopping.TEST_CHANNEL_ID;
 
@@ -97,7 +108,6 @@ public class ShoppingService extends Service implements Serializable {
         return binder;
     }
 
-
     @Override
     public boolean onUnbind(Intent intent) {
         return super.onUnbind(intent);
@@ -115,6 +125,63 @@ public class ShoppingService extends Service implements Serializable {
         }
     }
 
+
+    public List<Product> getAllProductsInDatabase()
+    {
+        List<Category> allCategoriesInDatabase = new ArrayList<>();
+        List<Product> allProductsInDatabase = new ArrayList<>();
+
+
+        //Get categories from db
+        DatabaseReference databaseCategory = this.firebaseDatabase.getReference("categories");
+        databaseCategory.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e("Category fromService ", "inside");
+                allCategoriesInDatabase.clear();
+                for (DataSnapshot categorySnapshot : dataSnapshot.getChildren())
+                {
+
+                    Category cat = categorySnapshot.getValue(Category.class);
+                    allCategoriesInDatabase.add(cat);
+
+                    //Init Database ref
+                    DatabaseReference databaseProduct = firebaseDatabase.getReference("categories").child(cat.getCategoryName());
+                    databaseProduct.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            allProductsInDatabase.clear();
+                            for (DataSnapshot productSnapshot : dataSnapshot.getChildren())
+                            {
+                                try {
+                                    Product product = productSnapshot.getValue(Product.class);
+                                    allProductsInDatabase.add(product);
+                                }
+                                catch (DatabaseException E)
+                                {
+                                    Log.e("DB x: " + E, "Error fom try catch.");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError)
+                        {
+                            Log.e("PRODUCT fromService ", "Error did not load the products");
+                        }
+                    });
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+                Log.e("Category fromService ", "Error did not load the categories");
+            }
+        });
+
+        return allProductsInDatabase;
+    }
 
     public FirebaseRepository getFirebaseRepository_fromService()
     {
