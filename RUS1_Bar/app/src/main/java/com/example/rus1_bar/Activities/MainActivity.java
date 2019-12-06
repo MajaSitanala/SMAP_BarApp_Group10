@@ -102,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         unbindService(connection);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService();
+    }
+
     // Add functionality to AppBar's clickable objects here
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,6 +199,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             // TODO: Rustur's settings.
+
+            case "fragment_view_tutors":
+            {
+                finish();
+            }
         }
     }
 
@@ -235,6 +246,11 @@ public class MainActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, ShoppingService.class);
         //ContextCompat.startForegroundService(this, serviceIntent);
         startService(serviceIntent);
+    }
+
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, ShoppingService.class);
+        stopService(serviceIntent);
     }
 
     public ShoppingService getShoppingService_fromMainActivity()

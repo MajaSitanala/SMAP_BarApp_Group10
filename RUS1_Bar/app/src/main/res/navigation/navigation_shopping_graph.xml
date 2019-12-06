@@ -18,5 +18,9 @@
         android:id="@+id/viewProductsFragment"
         android:name="com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment"
         android:label="fragment_view_products"
-        tools:layout="@layout/fragment_view_products" />
+        tools:layout="@layout/fragment_view_products" >
+        <action
+            android:id="@+id/action_viewProductsFragment_to_viewCategoriesFragment"
+            app:destination="@id/viewCategoriesFragment" />
+    </fragment>
 </navigation>

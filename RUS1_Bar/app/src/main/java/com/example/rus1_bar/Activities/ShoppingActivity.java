@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
@@ -60,12 +62,14 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     private String currentTutorName;
     private Tutor currentTutorClicked;
 
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
+        navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
 
         if(savedInstanceState != null)
         {
@@ -107,8 +111,11 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
     @Override
     protected void onStop() {
+        if(shoppingViewModel!=null)
+        {
+            shoppingViewModel.deleteAllProductsInPurchase();
+        }
         unbindService(connection);
-        stopService();
         super.onStop();
     }
 
@@ -207,14 +214,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
      */
 
-    /**
-     * Stops the service when called
-     * Inspitation from Code in flow at https://codinginflow.com/tutorials/android/foreground-service
-     */
-    public void stopService() {
-        Intent serviceIntent = new Intent(this, ShoppingService.class);
-        stopService(serviceIntent);
-    }
+
 
     @Override
     public void onclickAddProduct(Product product)
@@ -291,7 +291,23 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         return this.shoppingService;
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        String currentLabel = navController.getCurrentDestination().getLabel().toString();
 
+        switch (currentLabel) {
+            case "fragment_view_products": {
+                navController.navigate(R.id.action_viewProductsFragment_to_viewCategoriesFragment);
+                break;
+            }
+            case "fragment_view_categories":
+            {
+                finish();
+                break;
+            }
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle saveInstanceState) {
