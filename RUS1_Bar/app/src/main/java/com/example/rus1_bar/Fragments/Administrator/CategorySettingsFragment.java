@@ -2,6 +2,10 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,16 +13,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
-import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
-import com.example.rus1_bar.Adapters.TutorDisplayAdapter;
+import com.example.rus1_bar.Adapters.CategoryDisplayAdapter;
 import com.example.rus1_bar.Models.Category;
-import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -92,7 +88,7 @@ public class CategorySettingsFragment extends Fragment {
             }
         });
 
-        categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), mCategoryList);
+        categoryRecyclerAdapter = new CategoryDisplayAdapter(getActivity(), mCategoryList);
         categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
 
         return rootView;

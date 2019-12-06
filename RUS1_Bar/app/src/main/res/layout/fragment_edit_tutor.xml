@@ -148,18 +148,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline144"
             app:layout_constraintVertical_bias="0.346" />
 
-        <EditText
-            android:id="@+id/editTutorEditPhone"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/guideline149"
-            app:layout_constraintEnd_toStartOf="@+id/guideline154"
-            app:layout_constraintStart_toStartOf="@+id/guideline153"
-            app:layout_constraintTop_toTopOf="@+id/guideline147"
-            app:layout_constraintVertical_bias="0.675" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline134"
             android:layout_width="wrap_content"
@@ -327,5 +315,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.70" />
+
+        <EditText
+            android:id="@+id/editTutorEditPhone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ems="10"
+            android:inputType="phone"
+            app:layout_constraintBottom_toTopOf="@+id/guideline149"
+            app:layout_constraintEnd_toStartOf="@+id/guideline154"
+            app:layout_constraintStart_toStartOf="@+id/guideline153"
+            app:layout_constraintTop_toTopOf="@+id/guideline147" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

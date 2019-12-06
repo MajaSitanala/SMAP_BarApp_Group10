@@ -1,29 +1,20 @@
 package com.example.rus1_bar.Fragments.Administrator;
 
 
-import android.accessibilityservice.GestureDescription;
-import android.app.Application;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
@@ -31,8 +22,6 @@ import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
-import java.net.URI;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
@@ -89,6 +78,8 @@ public class AddTutorFragment extends Fragment {
         newTutor = new Tutor();
         firebaseRepo = new FirebaseRepository();
 
+        //TODO: This needs to be fixed before it's used
+        /*
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +87,10 @@ public class AddTutorFragment extends Fragment {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
             }
-        });
+        });*/
+
+        View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+        cancelBtn.setOnClickListener(addTutorCancelClick);
 
         //Source: https://www.youtube.com/watch?v=OPnusBmMQTw
         tutorImage = rootView.findViewById(R.id.addTutorImage);
