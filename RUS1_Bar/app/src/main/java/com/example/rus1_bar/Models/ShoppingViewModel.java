@@ -82,6 +82,8 @@ public class ShoppingViewModel extends AndroidViewModel implements Serializable
         Rustur testRustur = new Rustur("Test_RUSTUR_From_Shopping");
         firebaseRepository.insertPurchase(testRustur, tutor, purchase);
     }
+
+
 }
 
 
