@@ -182,7 +182,13 @@ public class LoginFragment extends Fragment {
 
             View.OnClickListener s = Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_viewTutorsFragment);
             buttonCancel = rootView.findViewById(R.id.cancel_btn);
-            buttonCancel.setOnClickListener(s);
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController n = Navigation.findNavController(rootView);
+                    n.navigate(R.id.action_loginFragment_to_viewTutorsFragment);
+                }
+            });
 
             email = rootView.findViewById(R.id.EmailEditText);
             password = rootView.findViewById(R.id.PasswordEditText);
