@@ -89,6 +89,7 @@ public class CategorySettingsFragment extends Fragment {
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
+
             cancelBtn = rootView.findViewById(R.id.categorySettingsCancel);
             addCategoryBtn = rootView.findViewById(R.id.categorySettingsAddBtn);
             categoryRecyclerView = rootView.findViewById(R.id.categorySettingsRecyclerView);

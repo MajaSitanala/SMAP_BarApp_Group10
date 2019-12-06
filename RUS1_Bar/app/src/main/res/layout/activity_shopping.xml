@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ShoppingActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/MAtoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nav_host_fragment" >
+
+        <TextView
+            android:id="@+id/tekst_SA_Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textColor="@color/DarkPurple"
+            android:textSize="25dp"
+            android:gravity="center_vertical"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <fragment
         android:id="@+id/nav_item_selection_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -16,9 +39,22 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MAtoolbar"
         app:layout_constraintVertical_bias="1.0"
         app:navGraph="@navigation/navigation_shopping_graph" />
+
+    <LinearLayout
+        android:id="@+id/lineaLayout_status"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:background="@color/Black"
+        app:layout_constraintBottom_toTopOf="@+id/nav_shopping_cart_fragment"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5">
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/nav_shopping_cart_fragment"
@@ -32,24 +68,12 @@
 
     </FrameLayout>
 
-    <!--fragment
-        android:id="@+id/nav_shopping_cart_fragment"
-        android:name="com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:navGraph="@navigation/navigation_shopping_card_graph"/-->
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
+        app:layout_constraintGuide_percent="0.53024024" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline71"
@@ -66,6 +90,7 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <Button
+        style="@style/btnBackTheme"
         android:id="@+id/btn_shopping_cancle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,6 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nav_shopping_cart_fragment" />
 
     <Button
+        style="@style/btnGoTheme"
         android:id="@+id/btn_shopping_buy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,13 +125,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
 
-    <TextView
-        android:id="@+id/tutorlabel_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/nav_shopping_cart_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nav_item_selection_fragment" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

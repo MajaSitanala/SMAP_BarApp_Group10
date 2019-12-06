@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
@@ -78,13 +79,20 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         //startService();
 
         // UI declarations
-        currentTutor = findViewById(R.id.tutorlabel_id);
+        //currentTutor = findViewById(R.id.tutorlabel_id);
 
         // Intents from Main Activity
         Intent mainIntent = getIntent();
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
-        currentTutor.setText(currentTutorName);
+        //currentTutor.setText(currentTutorName);
+
+
+        Toolbar shoppingToolbar = findViewById(R.id.MAtoolbar);
+        setSupportActionBar(shoppingToolbar);
+
+        TextView tutorNucknaleToolbar = findViewById(R.id.tekst_SA_Toolbar);
+        tutorNucknaleToolbar.setText(currentTutorName);
 
     }
 
@@ -100,7 +108,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     protected void onStop() {
         unbindService(connection);
-        //stopService();
+        stopService();
         super.onStop();
     }
 
@@ -128,6 +136,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
             Intent intent = new Intent(SERVICE_CONNECTED_SHOPPING_ACTIVITY);
             LocalBroadcastManager.getInstance(shoppingService.getApplicationContext()).sendBroadcast(intent);
+
         }
 
         @Override

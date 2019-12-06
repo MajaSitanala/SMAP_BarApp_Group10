@@ -70,32 +70,17 @@ public class AddCategoriesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_add_categories, container, false);
-
-        editName = rootView.findViewById(R.id.addCategoryEditName);
-
-        addBtn = rootView.findViewById(R.id.addCategoryAddBtn);
-        cancelBtn = rootView.findViewById(R.id.addCategoryCancelBtn);
-
-        guid  = UUID.randomUUID().toString();
-        newCategory = new Category();
-
-        categoryImage = rootView.findViewById(R.id.addCategoryImage);
-        categoryImage.setImageResource(R.drawable.defaultimg);
-        categoryImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
 
         return rootView;
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
 
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
@@ -112,7 +97,25 @@ public class AddCategoriesFragment extends Fragment {
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
-            firebaseRepo = shoppingService.getFirebaseRepository_fromService();
+
+            editName = rootView.findViewById(R.id.addCategoryEditName);
+
+            addBtn = rootView.findViewById(R.id.addCategoryAddBtn);
+            cancelBtn = rootView.findViewById(R.id.addCategoryCancelBtn);
+
+            guid  = UUID.randomUUID().toString();
+            newCategory = new Category();
+
+            categoryImage = rootView.findViewById(R.id.addCategoryImage);
+            categoryImage.setImageResource(R.drawable.defaultimg);
+            categoryImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openGallery();
+                }
+            });
+
+            firebaseRepo = shoppingService.getFirebaseRepository_fromService();//new FirebaseRepository();
 
             //TODO: This needs to be fixed before it's used
         /*

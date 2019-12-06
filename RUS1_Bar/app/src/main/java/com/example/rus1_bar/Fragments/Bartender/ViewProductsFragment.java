@@ -60,6 +60,8 @@ public class ViewProductsFragment extends Fragment {
     // Service reference
     private ShoppingService shoppingService;
 
+    private String cat;
+
     public ViewProductsFragment() {
         // Required empty public constructor
     }
@@ -75,8 +77,13 @@ public class ViewProductsFragment extends Fragment {
         // Recycler View setup
         productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
 
+        //Chosen category
+        cat = getArguments().getString("category");
+
         // Broadcast Manager
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_SHOPPING_ACTIVITY));
+
+
 
         // Service reference
         /*
@@ -100,7 +107,6 @@ public class ViewProductsFragment extends Fragment {
         {
             initViewProductFragment();
         }
-
     }
 
     private void initViewProductFragment()
@@ -115,7 +121,7 @@ public class ViewProductsFragment extends Fragment {
             productRecyclerView.setLayoutManager(productLayoutManager);
 
             //Chosen category
-            String cat = getArguments().getString("category");
+            //String cat = getArguments().getString("category");
 
             //Init Database ref
             FireDB = shoppingService.getFirebaseDatabase_fromService();
@@ -143,7 +149,6 @@ public class ViewProductsFragment extends Fragment {
 
                 }
             });
-
 
             //Recycler adapter setup
             productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList,cat);

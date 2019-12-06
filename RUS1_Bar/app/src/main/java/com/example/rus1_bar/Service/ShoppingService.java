@@ -70,7 +70,7 @@ public class ShoppingService extends Service implements Serializable {
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
 
 
-        /*
+
         // Notification intent
         Intent notificationIntent = new Intent(this, ShoppingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
@@ -86,7 +86,7 @@ public class ShoppingService extends Service implements Serializable {
 
         //Notification starts in the forground
         startForeground(1, notification);
-         */
+
 
     }
 
@@ -131,7 +131,6 @@ public class ShoppingService extends Service implements Serializable {
         List<Category> allCategoriesInDatabase = new ArrayList<>();
         List<Product> allProductsInDatabase = new ArrayList<>();
 
-
         //Get categories from db
         DatabaseReference databaseCategory = this.firebaseDatabase.getReference("categories");
         databaseCategory.addValueEventListener(new ValueEventListener() {
@@ -141,7 +140,6 @@ public class ShoppingService extends Service implements Serializable {
                 allCategoriesInDatabase.clear();
                 for (DataSnapshot categorySnapshot : dataSnapshot.getChildren())
                 {
-
                     Category cat = categorySnapshot.getValue(Category.class);
                     allCategoriesInDatabase.add(cat);
 
