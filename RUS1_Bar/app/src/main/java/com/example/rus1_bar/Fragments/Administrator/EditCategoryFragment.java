@@ -2,8 +2,11 @@ package com.example.rus1_bar.Fragments.Administrator;
 
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,11 +19,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -37,6 +43,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * A simple {@link Fragment} subclass.
  */
 public class EditCategoryFragment extends Fragment {
+
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
     private Button cancelBtn;
     private Button deleteBtn;
@@ -55,6 +63,10 @@ public class EditCategoryFragment extends Fragment {
 
     private AlertDialog diaBox;
 
+    ShoppingService shoppingService;
+
+    private View rootView;
+
     public EditCategoryFragment() {
         // Required empty public constructor
     }
@@ -64,72 +76,92 @@ public class EditCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_edit_category, container, false);
+        rootView = inflater.inflate(R.layout.fragment_edit_category, container, false);
 
-        guid  = UUID.randomUUID().toString();
-        firebaseRepo = new FirebaseRepository();
-        currentCategory = (Category) getArguments().getSerializable("category");
+        return rootView;
+    }
 
-        editName = rootView.findViewById(R.id.editCategoryEditName);
-        editName.setText(currentCategory.getCategoryName());
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        //TODO: Need to implement getImageName in Category
-        categoryImage = rootView.findViewById(R.id.editCategoryImage);
-        if(currentCategory.getImageName() != null){
-            firebaseRepo.getCategoryImage(currentCategory.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
+
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initEditCategoryFragment();
+        }
+
+    }
+
+    private void initEditCategoryFragment()
+    {
+        if (getActivity()!=null)
+        {
+            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+            guid  = UUID.randomUUID().toString();
+            firebaseRepo = shoppingService.getFirebaseRepository_fromService();
+            currentCategory = (Category) getArguments().getSerializable("category");
+
+            editName = rootView.findViewById(R.id.editCategoryEditName);
+            editName.setText(currentCategory.getCategoryName());
+
+            //TODO: Need to implement getImageName in Category
+            categoryImage = rootView.findViewById(R.id.editCategoryImage);
+            if(currentCategory.getImageName() != null){
+                firebaseRepo.getCategoryImage(currentCategory.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.with(rootView.getContext()).load(uri).resize(600,600).centerInside().into(categoryImage);
+                    }
+                });
+            }
+            categoryImage.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.with(rootView.getContext()).load(uri).resize(600,600).centerInside().into(categoryImage);
+                public void onClick(View view) {
+                    openGallery();
+                }
+            });
+
+            cancelBtn = rootView.findViewById(R.id.editCategoryCancelBtn);
+            deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
+            editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
+
+
+
+            View.OnClickListener editCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
+            cancelBtn.setOnClickListener(editCategoryCancelClick);
+
+
+
+            deleteBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    diaBox = AskOption();
+                    diaBox.show();
+
+                }
+            });
+
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Error handling for empty fields.
+                    if (editName.toString().equals("")){
+                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        currentCategory = new Category(editName.getText().toString());
+                        currentCategory.setImageName(guid);
+                        if (imageUri != null){
+                            firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
+                        }
+                        firebaseRepo.insertCategory(currentCategory);
+                        Navigation.findNavController(view).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
+                    }
                 }
             });
         }
-        categoryImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
-
-        cancelBtn = rootView.findViewById(R.id.editCategoryCancelBtn);
-        deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
-        editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
-
-
-
-        View.OnClickListener editCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
-        cancelBtn.setOnClickListener(editCategoryCancelClick);
-
-
-
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                diaBox = AskOption();
-                diaBox.show();
-
-            }
-        });
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Error handling for empty fields.
-                if (editName.toString().equals("")){
-                    makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    currentCategory = new Category(editName.getText().toString());
-                    currentCategory.setImageName(guid);
-                    if (imageUri != null){
-                        firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
-                    }
-                    firebaseRepo.insertCategory(currentCategory);
-                    Navigation.findNavController(view).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
-                }
-            }
-        });
-
-        return rootView;
     }
 
     //Source https://stackoverflow.com/questions/11740311/android-confirmation-message-for-delete
@@ -178,5 +210,14 @@ public class EditCategoryFragment extends Fragment {
             categoryImage.setImageURI(cropResult.getUri());
         }
     }
+
+    private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initEditCategoryFragment();
+        }
+    };
+
 
 }
