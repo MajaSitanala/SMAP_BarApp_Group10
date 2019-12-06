@@ -1,12 +1,15 @@
 package com.example.rus1_bar.Fragments.Administrator.Category;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -19,10 +22,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -37,6 +42,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * A simple {@link Fragment} subclass.
  */
 public class AddCategoriesFragment extends Fragment {
+
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
 
     private Button cancelBtn;
@@ -53,6 +60,9 @@ public class AddCategoriesFragment extends Fragment {
 
     private String guid;
 
+    private ShoppingService shoppingService;
+    private View rootView;
+
     public AddCategoriesFragment() {
         // Required empty public constructor
     }
@@ -62,7 +72,7 @@ public class AddCategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_add_categories, container, false);
+        rootView = inflater.inflate(R.layout.fragment_add_categories, container, false);
 
         editName = rootView.findViewById(R.id.addCategoryEditName);
 
@@ -71,21 +81,6 @@ public class AddCategoriesFragment extends Fragment {
 
         guid  = UUID.randomUUID().toString();
         newCategory = new Category();
-        firebaseRepo = new FirebaseRepository();
-
-        //TODO: This needs to be fixed before it's used
-        /*
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
-            }
-        });*/
-
-        View.OnClickListener addCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
-        cancelBtn.setOnClickListener(addCategoryCancelClick);
 
         categoryImage = rootView.findViewById(R.id.addCategoryImage);
         categoryImage.setImageResource(R.drawable.defaultimg);
@@ -96,26 +91,62 @@ public class AddCategoriesFragment extends Fragment {
             }
         });
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Error handling for empty fields.
-                if (editName.toString().equals("")){
-                    makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    newCategory = new Category(editName.getText().toString());
-                    newCategory.setImageName(guid);
-                    if (imageUri != null){
-                        firebaseRepo.saveCategoryImage(newCategory, cropResult.getUri());
-                    }
-                    firebaseRepo.insertCategory(newCategory);
-                    Navigation.findNavController(view).navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
-                }
-            }
-        });
-
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
+
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initAddCategoriesFragment();
+        }
+    }
+
+    private void initAddCategoriesFragment()
+    {
+        if (getActivity() != null)
+        {
+            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+
+            firebaseRepo = shoppingService.getFirebaseRepository_fromService();
+
+            //TODO: This needs to be fixed before it's used
+        /*
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
+            }
+        });*/
+
+            View.OnClickListener addCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
+            cancelBtn.setOnClickListener(addCategoryCancelClick);
+
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Error handling for empty fields.
+                    if (editName.toString().equals("")){
+                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        newCategory = new Category(editName.getText().toString());
+                        newCategory.setImageName(guid);
+                        if (imageUri != null){
+                            firebaseRepo.saveCategoryImage(newCategory, cropResult.getUri());
+                        }
+                        firebaseRepo.insertCategory(newCategory);
+                        Navigation.findNavController(view).navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
+                    }
+                }
+            });
+        }
     }
 
     private void openGallery(){
@@ -141,5 +172,14 @@ public class AddCategoriesFragment extends Fragment {
             categoryImage.setImageURI(cropResult.getUri());
         }
     }
+
+    private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initAddCategoriesFragment();
+        }
+    };
+
 
 }

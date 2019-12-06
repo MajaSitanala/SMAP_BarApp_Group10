@@ -108,7 +108,6 @@ public class LoginFragment extends Fragment {
         {
             initLoginFragment();
         }
-
     }
 
     private void AddTutor(Tutor tutor){

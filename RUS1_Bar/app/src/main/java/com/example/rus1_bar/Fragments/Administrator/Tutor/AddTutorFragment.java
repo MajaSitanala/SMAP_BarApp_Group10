@@ -1,7 +1,10 @@
 package com.example.rus1_bar.Fragments.Administrator.Tutor;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,11 +17,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -34,7 +40,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class AddTutorFragment extends Fragment {
 
-
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
     Button cancelBtn;
     Button addBtn;
@@ -53,7 +59,9 @@ public class AddTutorFragment extends Fragment {
 
     String guid;
 
+    private ShoppingService shoppingService;
 
+    private View rootView;
 
     public AddTutorFragment() {
         // Required empty public constructor
@@ -64,7 +72,7 @@ public class AddTutorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_add_tutor, container, false);
+        rootView = inflater.inflate(R.layout.fragment_add_tutor, container, false);
 
         editNick = rootView.findViewById(R.id.addTutorEditNick);
         editName = rootView.findViewById(R.id.addTutorEditName);
@@ -76,7 +84,7 @@ public class AddTutorFragment extends Fragment {
 
         guid  = UUID.randomUUID().toString();
         newTutor = new Tutor();
-        firebaseRepo = new FirebaseRepository();
+
 
         //TODO: This needs to be fixed before it's used
         /*
@@ -102,26 +110,53 @@ public class AddTutorFragment extends Fragment {
             }
         });
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Error handling for empty fields.
-                if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
-                    makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
-                    newTutor.setImagename(guid);
-                    if (imageUri != null){
-                        firebaseRepo.saveTutorImage(newTutor, cropResult.getUri());
-                    }
-                    firebaseRepo.insertTutor(newTutor);
-                    Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment); 
-                }
-            }
-        });
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
+
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initAddTutorFragment();
+        }
+
         return rootView;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+
+    }
+
+    private void initAddTutorFragment()
+    {
+        if (getActivity()!=null)
+        {
+            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+
+            firebaseRepo = shoppingService.getFirebaseRepository_fromService();//new FirebaseRepository();
+
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Error handling for empty fields.
+                    if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
+                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
+                        newTutor.setImagename(guid);
+                        if (imageUri != null){
+                            firebaseRepo.saveTutorImage(newTutor, cropResult.getUri());
+                        }
+                        firebaseRepo.insertTutor(newTutor);
+                        Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+                    }
+                }
+            });
+        }
+    }
+
 
     private void openGallery(){
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -146,4 +181,12 @@ public class AddTutorFragment extends Fragment {
             tutorImage.setImageURI(cropResult.getUri());
         }
     }
+
+    private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initAddTutorFragment();
+        }
+    };
 }
