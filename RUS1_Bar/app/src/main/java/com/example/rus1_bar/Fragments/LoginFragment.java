@@ -291,6 +291,4 @@ public class LoginFragment extends Fragment {
         AddProduct(new Product("45",1,"Shaker Pineapple",5,R.drawable.shakerpineapple),new Category(6,"RTD",R.drawable.breezer));
 
     }
-
-
 }

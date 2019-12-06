@@ -91,7 +91,6 @@ public class EditCategoryFragment extends Fragment {
         {
             initEditCategoryFragment();
         }
-
     }
 
     private void initEditCategoryFragment()
