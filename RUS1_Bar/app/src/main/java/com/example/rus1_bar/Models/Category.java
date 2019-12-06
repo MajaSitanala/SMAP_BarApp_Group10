@@ -1,9 +1,10 @@
 package com.example.rus1_bar.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category {
+public class Category implements Serializable {
 
     private int categoryID;
     private String categoryName;
@@ -16,6 +17,11 @@ public class Category {
         this.setCategoryID(iD);
         this.setCategoryName(Name);
         this.setPicture(Picture);
+    }
+
+    public Category(String Name)
+    {
+        this.setCategoryName(Name);
     }
 
     public Category(){}

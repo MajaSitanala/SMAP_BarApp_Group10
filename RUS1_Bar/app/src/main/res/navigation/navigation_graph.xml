@@ -164,6 +164,9 @@
         <action
             android:id="@+id/action_categorySettingsFragment_to_addCategoriesFragment"
             app:destination="@id/addCategoriesFragment" />
+        <action
+            android:id="@+id/action_categorySettingsFragment_to_editCategoryFragment"
+            app:destination="@id/editCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCategoriesFragment"
@@ -172,6 +175,15 @@
         tools:layout="@layout/fragment_add_categories" >
         <action
             android:id="@+id/action_addCategoriesFragment_to_categorySettingsFragment"
+            app:destination="@id/categorySettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="com.example.rus1_bar.Fragments.Administrator.EditCategoryFragment"
+        android:label="fragment_edit_category"
+        tools:layout="@layout/fragment_edit_category" >
+        <action
+            android:id="@+id/action_editCategoryFragment_to_categorySettingsFragment"
             app:destination="@id/categorySettingsFragment" />
     </fragment>
 </navigation>

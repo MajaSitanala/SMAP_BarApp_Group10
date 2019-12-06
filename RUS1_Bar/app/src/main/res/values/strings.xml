@@ -68,10 +68,10 @@
     <string name="addTutorRealName">Add Name</string>
     <string name="addTutorEmail">Add Email</string>
     <string name="addTutorNumber">Add Phone Number</string>
-    <string name="addTutorEditNick"/>
-    <string name="addTutorEditName"/>
-    <string name="addTutorEditEmail"/>
-    <string name="addTutorEditNumber"/>
+    <string name="addTutorEditNick" />
+    <string name="addTutorEditName" />
+    <string name="addTutorEditEmail" />
+    <string name="addTutorEditNumber" />
     <string name="addTutorCancelBtn">Cancel</string>
     <string name="addTutorAddBtn">Add</string>
     <string name="addTutorNickName">Add Nickname</string>
@@ -104,5 +104,11 @@
     <string name="addCategoryName">Category Name</string>
     <string name="addCategoryImage" />
     <string name="addCategoryEditName" />
+    <string name="editCategoryTitle">Edit Category</string>
+    <string name="editCategoryCancelBtn">Cancel</string>
+    <string name="editCategoryEditBtn">Edit</string>
+    <string name="editCategoryDeleteBtn">Delete</string>
+    <string name="editCategoryName">Category Name</string>
+    <string name="editCategoryEditName" />
 
 </resources>

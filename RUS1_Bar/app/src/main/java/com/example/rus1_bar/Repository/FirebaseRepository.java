@@ -1,15 +1,11 @@
 package com.example.rus1_bar.Repository;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.rus1_bar.Models.Category;
@@ -17,30 +13,23 @@ import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +88,18 @@ public class FirebaseRepository {
     public void saveTutorImage(Tutor tutor, Uri imageUri){
         if(tutor.getImagename() != null){
             StorageReference pic = ImageDB.child("tutors/"+tutor.getImagename()+".jpg");
+            pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("UPLOAD"," Completed for: "+taskSnapshot);
+                }
+            });
+        }
+    }
+
+    public void saveCategoryImage(Category category, Uri imageUri){
+        if(category.getImageName() != null){
+            StorageReference pic = ImageDB.child("categories/"+category.getImageName()+".jpg");
             pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
