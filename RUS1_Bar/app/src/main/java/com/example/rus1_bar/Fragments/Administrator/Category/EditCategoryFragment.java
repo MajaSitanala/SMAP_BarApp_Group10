@@ -1,4 +1,4 @@
-package com.example.rus1_bar.Fragments.Administrator;
+package com.example.rus1_bar.Fragments.Administrator.Category;
 
 
 import android.app.AlertDialog;
@@ -9,11 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.Navigation;
+
 import com.example.rus1_bar.Activities.MainActivity;
-import com.example.rus1_bar.Models.Tutor;
+import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Service.ShoppingService;
@@ -43,43 +42,41 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditTutorFragment extends Fragment {
+public class EditCategoryFragment extends Fragment {
 
-    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity";
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
+    private Button cancelBtn;
+    private Button deleteBtn;
+    private Button editBtn;
 
-    Button cancelBtn;
-    Button deleteBtn;
-    Button editBtn;
+    private static final int PICK_IMAGE = 101;
+    private ImageView categoryImage;
+    private Uri imageUri;
+    private CropImage.ActivityResult cropResult;
+    private String guid;
 
-    private static final int PICK_IMAGE = 100;
-    ImageView tutorImage;
-    Uri imageUri;
-    CropImage.ActivityResult cropResult;
-    String guid;
+    private FirebaseRepository firebaseRepo;
+    private Category currentCategory;
 
-    FirebaseRepository firebaseRepo;
-    Tutor currentTutor;
+    private EditText editName;
 
-    EditText editNick;
-    EditText editName;
-    EditText editEmail;
-    EditText editPhone;
+    private AlertDialog diaBox;
 
-    private ShoppingService shoppingService;
+    ShoppingService shoppingService;
 
-    AlertDialog diaBox;
     private View rootView;
 
-    public EditTutorFragment() {
+    public EditCategoryFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_edit_tutor, container, false);
+        rootView = inflater.inflate(R.layout.fragment_edit_category, container, false);
 
         return rootView;
     }
@@ -90,63 +87,55 @@ public class EditTutorFragment extends Fragment {
 
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
 
-        if (((MainActivity) getActivity()).getShoppingService_fromMainActivity() != null) {
-            initEditTutorFragment();
+        if (((MainActivity)getActivity()).getShoppingService_fromMainActivity() != null)
+        {
+            initEditCategoryFragment();
         }
-
     }
 
-    private void initEditTutorFragment()
+    private void initEditCategoryFragment()
     {
-        if (getActivity() != null)
+        if (getActivity()!=null)
         {
-            // Service
-            shoppingService = ((MainActivity) getActivity()).getShoppingService_fromMainActivity();
-
-            guid = UUID.randomUUID().toString();
+            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+            guid  = UUID.randomUUID().toString();
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();
-            currentTutor = (Tutor) getArguments().getSerializable("Tutor");
+            currentCategory = (Category) getArguments().getSerializable("category");
 
-            editName = rootView.findViewById(R.id.editTutorEditName);
-            editName.setText(currentTutor.getTutorName());
+            editName = rootView.findViewById(R.id.editCategoryEditName);
+            editName.setText(currentCategory.getCategoryName());
 
-            editNick = rootView.findViewById(R.id.editTutorEditNick);
-            editNick.setText(currentTutor.getNickname());
-
-            editEmail = rootView.findViewById(R.id.editTutorEditEmail);
-            editEmail.setText(currentTutor.getMail());
-
-            editPhone = rootView.findViewById(R.id.editTutorEditPhone);
-            editPhone.setText(Integer.toString(currentTutor.getPhoneNr()));
-
-            tutorImage = rootView.findViewById(R.id.editTutorImage);
-            if (currentTutor.getImagename() != null) {
-                firebaseRepo.getTutorImage(currentTutor.getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            //TODO: Need to implement getImageName in Category
+            categoryImage = rootView.findViewById(R.id.editCategoryImage);
+            if(currentCategory.getImageName() != null){
+                firebaseRepo.getCategoryImage(currentCategory.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.with(rootView.getContext()).load(uri).resize(600, 600).centerInside().into(tutorImage);
+                        Picasso.with(rootView.getContext()).load(uri).resize(600,600).centerInside().into(categoryImage);
                     }
                 });
             }
-            tutorImage.setOnClickListener(new View.OnClickListener() {
+            categoryImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     openGallery();
                 }
             });
 
-            cancelBtn = rootView.findViewById(R.id.editTutorCancelBtn);
-            deleteBtn = rootView.findViewById(R.id.editTutorDeleteBtn);
-            editBtn = rootView.findViewById(R.id.editTutorEditBtn);
+            cancelBtn = rootView.findViewById(R.id.editCategoryCancelBtn);
+            deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
+            editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
 
 
-            View.OnClickListener editTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editTutorFragment_to_tutorSettingsFragment);
-            cancelBtn.setOnClickListener(editTutorCancelClick);
+
+            View.OnClickListener editCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
+            cancelBtn.setOnClickListener(editCategoryCancelClick);
 
 
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
+
+            deleteBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view){
                     diaBox = AskOption();
                     diaBox.show();
 
@@ -157,21 +146,21 @@ public class EditTutorFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
-                    if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")) {
+                    if (editName.toString().equals("")){
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                    } else {
-                        currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
-                        currentTutor.setImagename(guid);
-                        if (imageUri != null) {
-                            firebaseRepo.saveTutorImage(currentTutor, cropResult.getUri());
+                    }
+                    else {
+                        currentCategory = new Category(editName.getText().toString());
+                        currentCategory.setImageName(guid);
+                        if (imageUri != null){
+                            firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
                         }
-                        firebaseRepo.insertTutor(currentTutor);
-                        Navigation.findNavController(view).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+                        firebaseRepo.insertCategory(currentCategory);
+                        Navigation.findNavController(view).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                     }
                 }
             });
         }
-
     }
 
     //Source https://stackoverflow.com/questions/11740311/android-confirmation-message-for-delete
@@ -179,12 +168,12 @@ public class EditTutorFragment extends Fragment {
     {
         AlertDialog deleteDialogBox = new AlertDialog.Builder(getContext()) //Might have to be (this) instead of getContext
                 .setTitle("Delete")
-                .setMessage("Do you want to delete this Tutor?")
+                .setMessage("Do you want to delete this Category?")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        firebaseRepo.deleteTutor(currentTutor);
-                        Navigation.findNavController(getView()).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+                        firebaseRepo.deleteCategory(currentCategory);
+                        Navigation.findNavController(getView()).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -217,7 +206,7 @@ public class EditTutorFragment extends Fragment {
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);
-            tutorImage.setImageURI(cropResult.getUri());
+            categoryImage.setImageURI(cropResult.getUri());
         }
     }
 
@@ -225,7 +214,9 @@ public class EditTutorFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            initEditTutorFragment();
+            initEditCategoryFragment();
         }
     };
+
+
 }

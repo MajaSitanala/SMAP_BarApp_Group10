@@ -105,11 +105,35 @@
     <string name="addCategoryName">Category Name</string>
     <string name="addCategoryImage" />
     <string name="addCategoryEditName" />
+
+    <!-- Edit Category -->
     <string name="editCategoryTitle">Edit Category</string>
     <string name="editCategoryCancelBtn">Cancel</string>
     <string name="editCategoryEditBtn">Edit</string>
     <string name="editCategoryDeleteBtn">Delete</string>
     <string name="editCategoryName">Category Name</string>
     <string name="editCategoryEditName" />
+
+    <!-- Add Product -->
+    <string name="addProductCancelBtn">Cancel</string>
+    <string name="addProductTitle">Add Product</string>
+    <string name="addProductAddBtn">Add</string>
+    <string name="addProductName">Product Name</string>
+    <string name="addProductCategory">Add Category</string>
+    <string name="addProductPrice">Add Price</string>
+    <string name="addProductEditName" />
+    <string name="addProductsEditCategory" />
+    <string name="addProductImage" />
+
+    <!-- Edit Product -->
+    <string name="editProductCancelBtn">Cancel</string>
+    <string name="editProductDeleteBtn">Delete</string>
+    <string name="editProductEditBtn">Edit</string>
+    <string name="editProductTitle">Edit Product</string>
+    <string name="editProductName">Product Name</string>
+    <string name="editProductCategory">Product Category</string>
+    <string name="editProductEditName" />
+    <string name="editProductEditCategory">Name</string>
+    <string name="editProductEditPrice">Product Price</string>
 
 </resources>

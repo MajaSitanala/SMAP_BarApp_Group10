@@ -1,4 +1,4 @@
-package com.example.rus1_bar.Fragments.Administrator;
+package com.example.rus1_bar.Fragments.Administrator.Category;
 
 
 import android.content.Context;
