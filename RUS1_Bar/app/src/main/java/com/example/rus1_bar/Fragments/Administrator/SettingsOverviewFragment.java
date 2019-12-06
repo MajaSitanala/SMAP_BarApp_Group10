@@ -24,6 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class SettingsOverviewFragment extends Fragment {
 
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
+
+
     Button tutorSettingsBtn;
     Button categorySettingsBtn;
     Button productSettingsBtn;
@@ -77,7 +80,5 @@ public class SettingsOverviewFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings_overview, container, false);
     }
-
-
 
 }
