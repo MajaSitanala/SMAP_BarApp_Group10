@@ -87,5 +87,6 @@
     <string name="editTutorEditBtn">Edit Tutor</string>
     <string name="noProductsInBasket">No products to buy, press cancel!</string>
     <string name="savedInstanceState_ShoppingActivity">saveInstanceState of shoppingViewModel</string>
+    <string name="SavedInstanceState_MainActivity">SavedInstance Sate Main Activity</string>
 
 </resources>

@@ -6,6 +6,7 @@ package com.example.rus1_bar.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -34,6 +35,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
     // Firebase authentication
     private FirebaseAuth mAuth;
 
@@ -54,17 +56,13 @@ public class MainActivity extends AppCompatActivity {
         // Starting the service
         startService();
 
-        // Initialize Firebase Auth
-       //mAuth = shoppingService.getFirebaseAuth_fromService();// FirebaseAuth.getInstance();
+        if(savedInstanceState != null)
+        {
+            //Todo: Hvis der er noget data som skal gemmes ved rotation
+        }
     }
 
-    /*
-    public ShoppingService test()
-    {
-        return  this.shoppingService;
-    }
 
-     */
 
     @Override
     public void onStart() {
@@ -76,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ShoppingService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
     }
 
     // Add functionality to AppBar's clickable objects here
@@ -113,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
             isBound = true;
 
             initWhenServiceIsUp();
+
+            Intent intent = new Intent(SERVICE_CONNECTED_MAIN_ACTIVITY);
+            LocalBroadcastManager.getInstance(shoppingService.getApplicationContext()).sendBroadcast(intent);
         }
 
         @Override
@@ -125,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     {
         // Initialize Firebase Auth
         mAuth = shoppingService.getFirebaseAuth_fromService();
+
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
@@ -139,7 +147,12 @@ public class MainActivity extends AppCompatActivity {
 
     public ShoppingService getShoppingService_fromMainActivity()
     {
-        //Toast.makeText(this,"inside fromMainActivity_getShoppingService",Toast.LENGTH_SHORT).show();
         return this.shoppingService;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle saveInstanceState) {
+        super.onSaveInstanceState(saveInstanceState);
+        //Todo: Hvis der er noget data som skal gemmes ved rotation
     }
 }

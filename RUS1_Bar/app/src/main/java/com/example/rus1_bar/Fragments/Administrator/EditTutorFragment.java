@@ -16,9 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 
 
 /**
@@ -43,6 +45,8 @@ public class EditTutorFragment extends Fragment {
     EditText editEmail;
     EditText editPhone;
 
+    private ShoppingService shoppingService;
+
     public EditTutorFragment() {
         // Required empty public constructor
     }
@@ -54,6 +58,9 @@ public class EditTutorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_edit_tutor, container, false);
+
+        // Service
+        shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
         editName = rootView.findViewById(R.id.editTutorEditName);
         editNick = rootView.findViewById(R.id.editTutorEditNick);

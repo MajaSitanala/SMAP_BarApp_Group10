@@ -43,6 +43,7 @@ import java.util.List;
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
         ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner {
 
+    private static final String SERVICE_CONNECTED_SHOPPING_ACTIVITY = "Shopping service connected to Shopping Activity";
     private ShoppingViewModel shoppingViewModel;
 
     // Service
@@ -99,7 +100,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     protected void onStop() {
         unbindService(connection);
-        stopService();
+        //stopService();
         super.onStop();
     }
 
@@ -125,6 +126,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
             initViewModel();
 
+            Intent intent = new Intent(SERVICE_CONNECTED_SHOPPING_ACTIVITY);
+            LocalBroadcastManager.getInstance(shoppingService.getApplicationContext()).sendBroadcast(intent);
         }
 
         @Override
@@ -273,6 +276,11 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
         }
     };
+
+    public ShoppingService getShoppingService_fromShoppingActivity()
+    {
+        return this.shoppingService;
+    }
 
 
 
