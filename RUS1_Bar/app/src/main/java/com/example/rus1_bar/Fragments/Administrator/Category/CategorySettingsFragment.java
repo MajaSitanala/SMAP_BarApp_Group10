@@ -61,7 +61,6 @@ public class CategorySettingsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    //TODO: Make Correct recycler adapter - so it won't access the category
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,6 +87,7 @@ public class CategorySettingsFragment extends Fragment {
         if (getActivity() != null)
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+
 
             cancelBtn = rootView.findViewById(R.id.categorySettingsCancel);
             addCategoryBtn = rootView.findViewById(R.id.categorySettingsAddBtn);

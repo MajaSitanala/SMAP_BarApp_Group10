@@ -96,7 +96,7 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
 
             txt_productName = (TextView) itemView.findViewById(R.id.txt_productName);
             img_productImage = (ImageView) itemView.findViewById(R.id.img_productImage);
-            cardViewProduct = (CardView) itemView.findViewById(R.id.cardview_product);
+            cardViewProduct = (CardView) itemView.findViewById(R.id.cardview_tutor);
         }
 
     }

@@ -3,9 +3,11 @@ package com.example.rus1_bar.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -47,12 +49,16 @@ public class MainActivity extends AppCompatActivity {
 
     NavController navController;
 
+    Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.MAtoolbar);
         setSupportActionBar(myToolbar);
+
+        bundle = savedInstanceState;
 
         // Starting the service
         startService();
@@ -96,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         unbindService(connection);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService();
+    }
+
     // Add functionality to AppBar's clickable objects here
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,43 +118,96 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        boolean titleFlag = true;
 
+        // https://inducesmile.com/android-programming/how-to-get-current-visible-fragment-in-android-navigation-component/
+        NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
+        String currentLabel = navController.getCurrentDestination().getLabel().toString();
 
-        switch (item.getTitle().toString()) {
-            case "Login":
-                {
-                    //Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
-
-                    // Two versions of shifting from tutorViewFragment to Loginfragment - couldnt workaround the first one - next one works.
-                    //Navigation.findNavController(findViewById(R.id.MainActivity)).navigate(R.id.action_viewTutorsFragment_to_loginFragment);
-
-                    titleFlag = true;
-                    break;
-                }
-            case "Tutors":
-                {
-                    //NavController navController = Navigation.findNavController((this), R.id.nav_host_fragment);
-
-                    //item.setTitle("Login");
-                    titleFlag = false;
-
-                    //case R.id.action_settings:
-                    break;
-                }
-        }
-
-        if(titleFlag) {
-            item.setTitle("Tutors");
+        if(item.getTitle().toString().equals(getString(R.string.administrator)) && (currentLabel.equals("fragment_view_tutors")))
+        {
             navController.navigate(R.id.action_viewTutorsFragment_to_loginFragment);
         }
-        else {
-            item.setTitle("Login");
+        else if (item.getTitle().toString().equals(getString(R.string.bartender)) && (currentLabel.equals("fragment_login")))
+        {
             navController.navigate(R.id.action_loginFragment_to_viewTutorsFragment);
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    // https://stackoverflow.com/questions/3141996/android-how-to-override-the-back-button-so-it-doesnt-finish-my-activity
+    @Override
+    public void onBackPressed()
+    {
+        //super.onBackPressed();
+
+        String currentLabel = navController.getCurrentDestination().getLabel().toString();
+
+        switch (currentLabel) {
+            case "fragment_login":
+            {
+                navController.navigate(R.id.action_loginFragment_to_viewTutorsFragment);
+                break;
+            }
+            case "fragment_settings_overview":
+            {
+                navController.navigate(R.id.action_settingsOverviewFragment_to_loginFragment);
+                break;
+            }
+            case "fragment_tutor_settings":
+            {
+                navController.navigate(R.id.action_tutorSettingsFragment_to_settingsOverviewFragment);
+                break;
+            }
+            case "fragment_add_tutor":
+            {
+                navController.navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+                break;
+            }
+            case "fragment_category_settings":
+            {
+                navController.navigate(R.id.action_categorySettingsFragment_to_settingsOverviewFragment);
+                break;
+            }
+            case "fragment_add_categories":
+            {
+                navController.navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
+                break;
+            }
+            case "fragment_product_settings":
+            {
+                navController.navigate(R.id.action_productSettingsFragment_to_settingsOverviewFragment);
+                break;
+            }
+            case "fragment_add_product":
+            {
+                navController.navigate(R.id.action_addProductFragment_to_productSettingsFragment);
+                break;
+            }
+            case "fragment_rustur_settings":
+            {
+                navController.navigate(R.id.action_rusturSettingsFragment_to_settingsOverviewFragment);
+                break;
+            }
+
+            // TODO: Rustur's settings.
+
+            case "fragment_bill_settings":
+            {
+                navController.navigate(R.id.action_billSettingsFragment_to_settingsOverviewFragment);
+                break;
+            }
+            // TODO: Rustur's settings.
+
+            case "fragment_view_tutors":
+            {
+                finish();
+            }
+        }
+    }
+
+
 
     /**
      * ServiceConnection that makes the ListActivity subscribe to the FourgroundService.
@@ -183,6 +248,11 @@ public class MainActivity extends AppCompatActivity {
         startService(serviceIntent);
     }
 
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, ShoppingService.class);
+        stopService(serviceIntent);
+    }
+
     public ShoppingService getShoppingService_fromMainActivity()
     {
         return this.shoppingService;
@@ -193,4 +263,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(saveInstanceState);
         //Todo: Hvis der er noget data som skal gemmes ved rotation
     }
+
+
 }

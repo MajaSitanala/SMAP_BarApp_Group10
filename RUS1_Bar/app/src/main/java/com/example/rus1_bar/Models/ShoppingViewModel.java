@@ -78,9 +78,7 @@ public class ShoppingViewModel extends AndroidViewModel implements Serializable
 
     public void insertPurchace_CloudFirestore(Tutor tutor, Purchase purchase)
     {
-        //TODO: Get the rustur object from somewhere else!!!!!!
-        Rustur testRustur = new Rustur("Test_RUSTUR_From_Shopping");
-        firebaseRepository.insertPurchase(testRustur, tutor, purchase);
+        firebaseRepository.insertPurchase(shoppingService.currentRustur, tutor, purchase);
     }
 
 

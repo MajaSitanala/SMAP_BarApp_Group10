@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Models.Category;
+import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +29,13 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
     private static final int REQUEST_CATEGORY_ACTION = 102;
     private Context mContext;
     private List<Category> mCategoryList;
+    private List<Product> mProductList;
     private FirebaseRepository repository;
+
+    RecyclerView productRecyclerView;
+    RecyclerView.Adapter productRecyclerAdapter;
+    RecyclerView.LayoutManager productLayoutManager;
+
 
     public ProductSettingsCategoryRecyclerAdapter(Context mContext, List<Category> mCategoryList) {
         this.mContext = mContext;
@@ -59,6 +66,7 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
                 }
             });
         }
+
         //TODO: Make navigation to new recyclerView
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
@@ -82,6 +90,11 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
         ImageView img_categoryImage;
         CardView cardViewCategory;
 
+        TextView txt_productName;
+        ImageView img_productImage;
+        CardView cardViewProduct;
+
+
         public MyViewHolder(View itemView)
         {
             super(itemView);
@@ -89,6 +102,10 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
             txt_categoryName = (TextView) itemView.findViewById(R.id.txt_categoryName);
             img_categoryImage = (ImageView) itemView.findViewById(R.id.img_categoryImage);
             cardViewCategory = (CardView) itemView.findViewById(R.id.cardview_category);
+
+            txt_productName = itemView.findViewById(R.id.txt_productName);
+            img_productImage = itemView.findViewById(R.id.img_productImage);
+            cardViewProduct = itemView.findViewById(R.id.cardview_tutor);
         }
     }
 }

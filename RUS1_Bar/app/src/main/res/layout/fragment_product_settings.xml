@@ -52,7 +52,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
         <Button
-            android:id="@+id/productAddBtn"
+            android:id="@+id/productSettingsAddBtn"
             style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"

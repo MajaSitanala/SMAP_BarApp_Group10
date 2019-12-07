@@ -5,6 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Universal buttons -->
+    <string name="Ok">Ok</string>
     <string name="Cancel">Cancel</string>
     <string name="Buy">Buy</string>
 
@@ -43,11 +44,14 @@
 
     <!-- Rustur Settings Fragment -->
     <string name="rusturSettingsAddRusturBtn">Add Rustur</string>
-    <string name="rusturSettingsEditRusturBtn">Edit Rustur</string>
+    <string name="rusturSettingsEditRusturBtn">Remove Rustur</string>
     <string name="rusturSettingsSetCurrentBtn">Set Rustur</string>
     <string name="rusturSettingsEndRusturBtn">End Rustur</string>
     <string name="rusturSettingsCancelBtn">Cancel</string>
     <string name="rusturSettingsTitle">Rustur Settings</string>
+    <string name="rusturDeleteMsg">Remove through FireBase Console</string>
+    <string name="rusturSetMsg">Press a rustur to set as current</string>
+    <string name="rusturTitle">Rustur title</string>
 
     <!-- Tutor view Fragment -->
     <string name="TutorName">TutorName</string>
@@ -135,5 +139,9 @@
     <string name="editProductEditName" />
     <string name="editProductEditCategory">Name</string>
     <string name="editProductEditPrice">Product Price</string>
+    <string name="administrator">Administrator</string>
+    <string name="bartender">Bartender</string>
+
+
 
 </resources>

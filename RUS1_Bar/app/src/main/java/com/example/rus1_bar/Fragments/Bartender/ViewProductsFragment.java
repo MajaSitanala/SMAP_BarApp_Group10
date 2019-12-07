@@ -26,6 +26,8 @@ import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
+import com.example.rus1_bar.Models.ShoppingViewModel;
+import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,7 @@ import java.util.List;
 public class ViewProductsFragment extends Fragment {
 
     private static final String SERVICE_CONNECTED_SHOPPING_ACTIVITY = "Shopping service connected to Shopping Activity";
+    private static final String CATEGOTY_NAME = "category name from adapter";
 
     private List<Product> testProductList = new ArrayList<>();
 
@@ -59,6 +62,10 @@ public class ViewProductsFragment extends Fragment {
 
     // Service reference
     private ShoppingService shoppingService;
+
+    private String cat;
+
+    FragmentViewProductsListener listener;
 
     public ViewProductsFragment() {
         // Required empty public constructor
@@ -75,8 +82,14 @@ public class ViewProductsFragment extends Fragment {
         // Recycler View setup
         productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
 
+
+        //Chosen category
+        cat = listener.getCategoryString();//getArguments().getString("category");
+
         // Broadcast Manager
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_SHOPPING_ACTIVITY));
+
+
 
         // Service reference
         /*
@@ -100,7 +113,21 @@ public class ViewProductsFragment extends Fragment {
         {
             initViewProductFragment();
         }
+    }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        // Checks if the activity implements the fragment interface. To avoid null refferences.
+        if (context instanceof ShoppingCardFragment.FragmentViewShoppingCardListener)
+        {
+            listener = (FragmentViewProductsListener) context;
+        }
+        else
+        {
+            throw new RuntimeException(context.toString() + ": must implement FragmentViewShoppingCardListenter!");
+        }
     }
 
     private void initViewProductFragment()
@@ -115,7 +142,7 @@ public class ViewProductsFragment extends Fragment {
             productRecyclerView.setLayoutManager(productLayoutManager);
 
             //Chosen category
-            String cat = getArguments().getString("category");
+            //String cat = getArguments().getString("category");
 
 
             //Init Database ref
@@ -145,11 +172,16 @@ public class ViewProductsFragment extends Fragment {
                 }
             });
 
-
             //Recycler adapter setup
             productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList,cat);
             productRecyclerView.setAdapter(productRecyclerAdapter);
         }
+    }
+
+    public interface FragmentViewProductsListener
+    {
+        // Meathod to be overwritten that gets category data from the Activity that gets it from the database.
+        String getCategoryString();
     }
 
 

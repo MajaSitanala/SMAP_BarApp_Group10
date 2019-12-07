@@ -22,4 +22,5 @@
         <item name="android:background">@color/Grey</item>
         <item name="android:textColor">@color/LightPurple</item>
     </style>
+
 </resources>

@@ -7,9 +7,6 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Purchase_table")
 public class Product {
-
-    private Category categoryName;
-
     @NonNull
     @PrimaryKey(autoGenerate = false)
     private String productID;

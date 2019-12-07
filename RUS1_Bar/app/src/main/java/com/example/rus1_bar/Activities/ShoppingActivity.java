@@ -23,11 +23,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
+import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
+import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment.FragmentViewProductsListener;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.ShoppingViewModel;
@@ -41,7 +47,8 @@ import java.util.List;
 
 
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
-        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner {
+        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner,
+        CategoryRecyclerAdapter.CategoryRecyclerAdapterListener, ViewProductsFragment.FragmentViewProductsListener {
 
     private static final String SERVICE_CONNECTED_SHOPPING_ACTIVITY = "Shopping service connected to Shopping Activity";
     private ShoppingViewModel shoppingViewModel;
@@ -59,12 +66,16 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     private String currentTutorName;
     private Tutor currentTutorClicked;
 
+    private String mCategoryame;
+
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
+        navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
 
         if(savedInstanceState != null)
         {
@@ -78,13 +89,20 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         //startService();
 
         // UI declarations
-        currentTutor = findViewById(R.id.tutorlabel_id);
+        //currentTutor = findViewById(R.id.tutorlabel_id);
 
         // Intents from Main Activity
         Intent mainIntent = getIntent();
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
-        currentTutor.setText(currentTutorName);
+        //currentTutor.setText(currentTutorName);
+
+
+        Toolbar shoppingToolbar = findViewById(R.id.MAtoolbar);
+        setSupportActionBar(shoppingToolbar);
+
+        TextView tutorNucknaleToolbar = findViewById(R.id.tekst_SA_Toolbar);
+        tutorNucknaleToolbar.setText(currentTutorName);
 
     }
 
@@ -99,8 +117,11 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
     @Override
     protected void onStop() {
+        if(shoppingViewModel!=null)
+        {
+            shoppingViewModel.deleteAllProductsInPurchase();
+        }
         unbindService(connection);
-        //stopService();
         super.onStop();
     }
 
@@ -128,6 +149,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
             Intent intent = new Intent(SERVICE_CONNECTED_SHOPPING_ACTIVITY);
             LocalBroadcastManager.getInstance(shoppingService.getApplicationContext()).sendBroadcast(intent);
+
         }
 
         @Override
@@ -198,14 +220,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
      */
 
-    /**
-     * Stops the service when called
-     * Inspitation from Code in flow at https://codinginflow.com/tutorials/android/foreground-service
-     */
-    public void stopService() {
-        Intent serviceIntent = new Intent(this, ShoppingService.class);
-        stopService(serviceIntent);
-    }
+
 
     @Override
     public void onclickAddProduct(Product product)
@@ -282,7 +297,23 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         return this.shoppingService;
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        String currentLabel = navController.getCurrentDestination().getLabel().toString();
 
+        switch (currentLabel) {
+            case "fragment_view_products": {
+                navController.navigate(R.id.action_viewProductsFragment_to_viewCategoriesFragment);
+                break;
+            }
+            case "fragment_view_categories":
+            {
+                finish();
+                break;
+            }
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle saveInstanceState) {
@@ -313,4 +344,14 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         /* end Stethos */
     }
 
+    @Override
+    public void setCategoryString(String categoryName)
+    {
+        this.mCategoryame = categoryName;
+    }
+
+    @Override
+    public String getCategoryString() {
+        return this.mCategoryame;
+    }
 }

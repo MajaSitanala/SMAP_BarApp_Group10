@@ -131,8 +131,6 @@ public class EditCategoryFragment extends Fragment {
             View.OnClickListener editCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
             cancelBtn.setOnClickListener(editCategoryCancelClick);
 
-
-
             deleteBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){

@@ -72,6 +72,8 @@ public class AddProductFragment extends Fragment {
 
         addBtn = rootView.findViewById(R.id.addProductAddBtn);
         cancelBtn = rootView.findViewById(R.id.addProductCancelBtn);
+        View.OnClickListener addProductCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addProductFragment_to_productSettingsFragment);
+        cancelBtn.setOnClickListener(addProductCancelClick);
 
         guid  = UUID.randomUUID().toString();
         firebaseRepo = new FirebaseRepository();
