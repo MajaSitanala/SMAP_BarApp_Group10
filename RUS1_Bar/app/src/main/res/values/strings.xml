@@ -52,6 +52,8 @@
     <string name="rusturDeleteMsg">Remove through FireBase Console</string>
     <string name="rusturSetMsg">Press a rustur to set as current</string>
     <string name="rusturTitle">Rustur title</string>
+    <string name="exporting">Exporting, may take a moment</string>
+    <string name="validate">Name has to be 1 word and no \'.\', \'#\', \'$\', \'[\', or \']\'</string>
 
     <!-- Tutor view Fragment -->
     <string name="TutorName">TutorName</string>

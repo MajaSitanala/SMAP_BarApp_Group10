@@ -11,18 +11,6 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/billSettingsViewBillBtn"
-            style="@style/btnGoTheme"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="@string/billSettingsViewBillBtn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline14"
-            app:layout_constraintEnd_toStartOf="@+id/guideline9"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toTopOf="@+id/guideline13" />
-
-        <Button
             android:id="@+id/billSettingsSendBillBtn"
             style="@style/btnGoTheme"
             android:layout_width="0dp"
@@ -51,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/billSettingsTitle"
+            android:textAlignment="viewStart"
             android:textColor="@color/DarkPurple"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline19"

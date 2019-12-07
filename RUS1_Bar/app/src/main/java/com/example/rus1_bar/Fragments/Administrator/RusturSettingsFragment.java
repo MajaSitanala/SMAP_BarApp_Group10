@@ -157,9 +157,14 @@ public class RusturSettingsFragment extends Fragment
                 builder.setPositiveButton(R.string.Ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //Validate has to be 1 word and no '.', '#', '$', '[', or ']'
+                        if(validateinput(input.getText().toString())){
                         //Add new Rustur here from firebaseRepofunc
-                        shoppingService.insertRustur(new Rustur(input.getText().toString()));
+                        Rustur rustur = new Rustur("");
+                        rustur.setRusturName(input.getText().toString());
+                        shoppingService.insertRustur(rustur);
                         rusturRecyclerAdapter.notifyDataSetChanged();
+                        }else{Toast.makeText(getActivity(),R.string.validate, Toast.LENGTH_LONG).show();}
                     }
                 });
                 builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
@@ -175,6 +180,34 @@ public class RusturSettingsFragment extends Fragment
             rusturRecyclerAdapter = new RusturRecycleAdapter(getActivity(), rusturList, shoppingService);
             rusturRecyclerView.setAdapter(rusturRecyclerAdapter);
         }
+    }
+
+    private boolean validateinput(String string){
+        //'.', '#', '$', '[', or ']'
+        for (int i = 0; i < string.length(); i++){
+            char c = string.charAt(i);
+            switch (c){
+                case '.':
+                    return false;
+                case '#':
+                    return false;
+                case '$':
+                    return false;
+                case '[':
+                    return false;
+                case ']':
+                    return false;
+                case ' ':
+                    return false;
+                case '@':
+                    return false;
+                case '{':
+                    return false;
+                case '}':
+                    return false;
+            }
+        }
+        return true;
     }
 
     private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
