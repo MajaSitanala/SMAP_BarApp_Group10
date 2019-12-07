@@ -116,9 +116,9 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
             int displayWith = viewMetrics.widthPixels;
 
             // https://stackoverflow.com/questions/3674933/find-out-if-android-device-is-portrait-or-landscape-for-normal-usage
-            if(itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-
-                int imagesize = ((displayWith-133)/4);   //30 is the collected the margin size
+            if(itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                int imagesize = ((displayWith-133)/4);   //133 is the collected the margin size
 
                 cardViewTutor.getLayoutParams().width = imagesize;
                 img_tutorImage.getLayoutParams().width = imagesize;

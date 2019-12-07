@@ -33,7 +33,6 @@ import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
-import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment.FragmentViewProductsListener;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.ShoppingViewModel;
@@ -47,8 +46,7 @@ import java.util.List;
 
 
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
-        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner,
-        CategoryRecyclerAdapter.CategoryRecyclerAdapterListener, ViewProductsFragment.FragmentViewProductsListener {
+        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner{
 
     private static final String SERVICE_CONNECTED_SHOPPING_ACTIVITY = "Shopping service connected to Shopping Activity";
     private ShoppingViewModel shoppingViewModel;
@@ -81,12 +79,12 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
-
         if(savedInstanceState != null)
         {
             shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
         }
+
+        navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
 
         //for debugging/viewing database
         enableStethos();
@@ -126,14 +124,10 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
     @Override
     protected void onStop() {
-        if(shoppingViewModel!=null)
-        {
-            shoppingViewModel.deleteAllProductsInPurchase();
-
-        }
         unbindService(connection);
         super.onStop();
     }
+
 
     @Override
     protected void onPause() {
@@ -141,8 +135,10 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
+
     }
 
     /**
@@ -361,17 +357,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 .build());
 
         /* end Stethos */
-    }
-
-    @Override
-    public void setCategoryString(String categoryName)
-    {
-        this.mCategoryame = categoryName;
-    }
-
-    @Override
-    public String getCategoryString() {
-        return this.mCategoryame;
     }
 
     private void updateCartUI(int items, double sum)

@@ -35,21 +35,10 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     private List<Category> mCategoryList;
     private FirebaseRepository repository;
 
-    private CategoryRecyclerAdapterListener listener;
-
     public CategoryRecyclerAdapter(Context mContext, List<Category> mCategoryList) {
         this.mContext = mContext;
         this.mCategoryList = mCategoryList;
         this.repository = new FirebaseRepository();
-
-        if (mContext instanceof ProductRecyclerAdapter.AdapterProductListner)
-        {
-            listener = (CategoryRecyclerAdapterListener) mContext;
-        }
-        else
-        {
-            throw new RuntimeException(mContext.toString() + ": must implement AdapterProductListner!");
-        }
     }
 
 
@@ -88,9 +77,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             Bundle bundle = new Bundle();
             bundle.putString("category",t.getCategoryName());
 
-            listener.setCategoryString(t.getCategoryName());
-
-
             // Navigation: navigates from ViewCategoriesFragment to ViewProducts fragment.
             Navigation.findNavController(view).navigate(R.id.viewProductsFragment,bundle);
 
@@ -117,11 +103,4 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             cardViewCategory = (CardView) itemView.findViewById(R.id.cardview_category);
         }
     }
-
-    public interface CategoryRecyclerAdapterListener
-    {
-        // Meathod to be overwritten that gets category data from the Activity that gets it from the database.
-        void setCategoryString(String categoryName);
-    }
-
 }

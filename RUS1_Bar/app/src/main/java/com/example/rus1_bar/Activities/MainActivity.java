@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
         unbindService(connection);
     }
 
@@ -228,11 +229,22 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(SERVICE_CONNECTED_MAIN_ACTIVITY);
             LocalBroadcastManager.getInstance(shoppingService.getApplicationContext()).sendBroadcast(intent);
+
+            if(shoppingViewModel!=null)
+            {
+                shoppingViewModel.deleteAllProductsInPurchase();
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             isBound = false;
+
+            if(shoppingViewModel!=null)
+            {
+                shoppingViewModel.deleteAllProductsInPurchase();
+            }
+
         }
     };
 
