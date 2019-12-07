@@ -197,7 +197,8 @@ public class LoginFragment extends Fragment {
                 //dummyDataInit();
                 //Todo:Repotest:
                 //FirebaseRepository repo = new FirebaseRepository();
-                //repo.SaveAllPurchasesFromtutor(new Rustur("TestTur"),new Tutor("","Prak10",1,"",1));
+                //repo.insertRustur(new Rustur("TestTur"));
+                //repo.insertRustur(new Rustur("Test_RUSTUR_From_Shopping"));
                 if(email.getText() != null && password.getText() != null){
                     authenticate(email.getText().toString(),password.getText().toString(),rootView);
                 }

@@ -33,9 +33,9 @@ import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
-import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment.FragmentViewProductsListener;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
+import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
@@ -47,8 +47,7 @@ import java.util.List;
 
 
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
-        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner,
-        CategoryRecyclerAdapter.CategoryRecyclerAdapterListener, ViewProductsFragment.FragmentViewProductsListener {
+        ShoppingCardFragment.FragmentViewShoppingCardListener, ShoppingCardRecyclerAdapter.AdapterShoppingCardListner{
 
     private static final String SERVICE_CONNECTED_SHOPPING_ACTIVITY = "Shopping service connected to Shopping Activity";
     private ShoppingViewModel shoppingViewModel;
@@ -65,22 +64,29 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     private static final String TUTOR_OBJECT = "Current Tutor Object";
     private String currentTutorName;
     private Tutor currentTutorClicked;
+    private Rustur rustur;
 
     private String mCategoryame;
 
     NavController navController;
+
+    private TextView textView_itemsInCart;
+    private TextView textView_totalSum;
+
+    private int intemsInCart;
+    private double totalSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
-
         if(savedInstanceState != null)
         {
-            shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
+            //shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
         }
+
+        navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
 
         //for debugging/viewing database
         enableStethos();
@@ -90,11 +96,15 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
         // UI declarations
         //currentTutor = findViewById(R.id.tutorlabel_id);
+        textView_itemsInCart = findViewById(R.id.txt_items_in_cart);
+        textView_totalSum = findViewById(R.id.txt_total_sum);
+        updateCartUI(0, 0.0);
 
         // Intents from Main Activity
         Intent mainIntent = getIntent();
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
+
         //currentTutor.setText(currentTutorName);
 
 
@@ -117,13 +127,10 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
     @Override
     protected void onStop() {
-        if(shoppingViewModel!=null)
-        {
-            shoppingViewModel.deleteAllProductsInPurchase();
-        }
         unbindService(connection);
         super.onStop();
     }
+
 
     @Override
     protected void onPause() {
@@ -131,8 +138,10 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
+
     }
 
     /**
@@ -163,6 +172,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     {
         shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
 
+        rustur = shoppingService.getCurrentRustur();
+
 
         // Shopping card fragment (not navigation componment)
         ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
@@ -178,6 +189,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
             @Override
             public void onClick(View v) {
                 shoppingViewModel.deleteAllProductsInPurchase();
+
                 finish();
             }
         });
@@ -196,7 +208,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                         mPurchace.addProductToPurchace(p);
                     }
 
-                    shoppingViewModel.insertPurchace_CloudFirestore(currentTutorClicked, mPurchace);
+                    shoppingViewModel.insertPurchace_CloudFirestore(rustur, currentTutorClicked, mPurchace);
                     shoppingViewModel.deleteAllProductsInPurchase();
                     finish();
                 }
@@ -235,17 +247,18 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 p.setQuantity(p.getQuantity()+1);
                 p.setPrice(product.getPrice()*p.getQuantity());
                 shoppingViewModel.updateProductInPurchase(p);
+                updateCartUI(intemsInCart+1, totalSum+product.getPrice());
                 return;
             }
         }
         shoppingViewModel.insertProductInPurchase(product);
+        updateCartUI(intemsInCart+1, totalSum+product.getPrice());
     }
 
     @Override
     public void onClickRemoveProduct(Product product)
     {
         //mPurchace.removeProductToPurchace(product);
-
 
         for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
         {
@@ -254,8 +267,13 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 p.setQuantity(p.getQuantity()-1);
                 p.setPrice(product.getPrice()*p.getQuantity());
                 shoppingViewModel.updateProductInPurchase(p);
+                updateCartUI(intemsInCart-1, totalSum-product.getPrice());
                 return;
             }
+        }
+        if (intemsInCart>=1)
+        {
+            updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
         }
         shoppingViewModel.deleteProductInPurchase(product);
     }
@@ -275,6 +293,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     public void swipeToDelete(Product product) {
         shoppingViewModel.deleteProductInPurchase(product);
+        updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
     }
 
 
@@ -282,6 +301,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     public void onclickTrashRemoveProduct(Product product)
     {
         shoppingViewModel.deleteProductInPurchase(product);
+        updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
     }
 
     private BroadcastReceiver RepositoriesDeclared = new BroadcastReceiver() {
@@ -344,14 +364,12 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         /* end Stethos */
     }
 
-    @Override
-    public void setCategoryString(String categoryName)
+    private void updateCartUI(int items, double sum)
     {
-        this.mCategoryame = categoryName;
-    }
+        this.intemsInCart = items;
+        this.totalSum = sum;
 
-    @Override
-    public String getCategoryString() {
-        return this.mCategoryame;
+        textView_itemsInCart.setText(getText(R.string.items_in_cart)+Integer.toString(intemsInCart));
+        textView_totalSum.setText(getText(R.string.total_sum)+Double.toString(totalSum));
     }
 }

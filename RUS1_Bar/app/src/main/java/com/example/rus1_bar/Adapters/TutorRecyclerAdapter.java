@@ -3,7 +3,9 @@ package com.example.rus1_bar.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +111,28 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
             img_tutorImage = itemView.findViewById(R.id.img_tutorImage);
             cardViewTutor = itemView.findViewById(R.id.cardview_tutor);
 
+            // https://stackoverflow.com/questions/19639691/android-getheight-and-getwidth
+            DisplayMetrics viewMetrics = cardViewTutor.getResources().getDisplayMetrics();
+            int displayWith = viewMetrics.widthPixels;
+
+            // https://stackoverflow.com/questions/3674933/find-out-if-android-device-is-portrait-or-landscape-for-normal-usage
+            if(itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                int imagesize = ((displayWith-133)/4);   //133 is the collected the margin size
+
+                cardViewTutor.getLayoutParams().width = imagesize;
+                img_tutorImage.getLayoutParams().width = imagesize;
+                img_tutorImage.getLayoutParams().height = imagesize;
+                img_tutorImage.requestLayout();
+            }
+            else
+            {
+                int imagesize = ((displayWith-30)/3);   //30 is the collected the margin size
+
+                img_tutorImage.getLayoutParams().width = imagesize;
+                img_tutorImage.getLayoutParams().height = imagesize;
+                img_tutorImage.requestLayout();
+            }
         }
     }
 }

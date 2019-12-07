@@ -52,20 +52,26 @@
     <string name="rusturDeleteMsg">Remove through FireBase Console</string>
     <string name="rusturSetMsg">Press a rustur to set as current</string>
     <string name="rusturTitle">Rustur title</string>
+    <string name="exporting">Exporting, may take a moment</string>
+    <string name="validate">Name has to be 1 word and no \'.\', \'#\', \'$\', \'[\', or \']\'</string>
 
     <!-- Tutor view Fragment -->
     <string name="TutorName">TutorName</string>
     <string name="categoryname">CategoryName</string>
     <string name="productname">ProductName</string>
     <string name="itemprice">ItemPrice</string>
-    <string name="ItemQuantity">ItemQuantity</string>
     <string name="itemname">ItemName</string>
-    <string name="quantity">Qty:</string>
     <string name="shopping_cart_product">Product:</string>
     <string name="price_dkk">Price:</string>
     <string name="button_shopping_cancel">Cancel</string>
     <string name="button_shopping_buy">Buy</string>
     <string name="appbar_action_settings">Settings</string>
+    <string name="quantity">Qty:</string>
+    <string name="ItemQuantity">ItemQuantity</string>
+
+    <!-- Shopping Activity-->
+    <string name="items_in_cart">Items in cart: </string>
+    <string name="total_sum">Total sum: </string>
 
     <!-- Add Tutor -->
     <string name="addTutorTitle">Add Tutor</string>

@@ -6,9 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Activities.ShoppingActivity;
@@ -49,6 +52,10 @@ public class ViewTutorsFragment extends Fragment {
     RecyclerView.Adapter tutorRecyclerAdapter;
     RecyclerView.LayoutManager tutorLayoutManager;
 
+    View rootView;
+
+
+
     // Database
     private DatabaseReference databaseTutor;
     private FirebaseDatabase FireDB;
@@ -67,13 +74,23 @@ public class ViewTutorsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // rootView is needed when using fingViewById because otherwise the views have not been created by the time the views are called.
-        View rootView = inflater.inflate(R.layout.fragment_view_tutors, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        rootView = inflater.inflate(R.layout.fragment_view_tutors, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
         // Recycler View setup
         tutorRecyclerView = rootView.findViewById(R.id.tutorRecyclerView);
 
         //Creates the grid layout
-        tutorLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
-        tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+        if(rootView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            tutorLayoutManager = new GridLayoutManager(getActivity(), 4);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+        }
+        else
+        {
+            tutorLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+        }
+
+
 
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);

@@ -62,10 +62,8 @@ public class ViewProductsFragment extends Fragment {
 
     // Service reference
     private ShoppingService shoppingService;
-
+    private View rootView;
     private String cat;
-
-    FragmentViewProductsListener listener;
 
     public ViewProductsFragment() {
         // Required empty public constructor
@@ -77,27 +75,15 @@ public class ViewProductsFragment extends Fragment {
                              Bundle savedInstanceState)
     {
         // RootView is needed when using fingViewById because otherwise the views have not been created by the time the views are called.
-        View rootView = inflater.inflate(R.layout.fragment_view_products, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
-
-        // Recycler View setup
-        productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
-
-
-        //Chosen category
-        cat = listener.getCategoryString();//getArguments().getString("category");
+        rootView = inflater.inflate(R.layout.fragment_view_products, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
 
         // Broadcast Manager
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_SHOPPING_ACTIVITY));
 
+        //Chosen category
+        cat = getArguments().getString("category");//listener.getCategoryString();//
 
 
-        // Service reference
-        /*
-        if (((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity() != null)
-        {
-            initViewProductFragment();
-        }
-         */
 
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
@@ -115,21 +101,6 @@ public class ViewProductsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        // Checks if the activity implements the fragment interface. To avoid null refferences.
-        if (context instanceof ShoppingCardFragment.FragmentViewShoppingCardListener)
-        {
-            listener = (FragmentViewProductsListener) context;
-        }
-        else
-        {
-            throw new RuntimeException(context.toString() + ": must implement FragmentViewShoppingCardListenter!");
-        }
-    }
-
     private void initViewProductFragment()
     {
         if (getActivity()!=null)
@@ -137,13 +108,13 @@ public class ViewProductsFragment extends Fragment {
             // Service
             shoppingService = ((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity();
 
+            // Recycler View setup
+            productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
+
+
             //Creates the grid layout
             productLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
             productRecyclerView.setLayoutManager(productLayoutManager);
-
-            //Chosen category
-            //String cat = getArguments().getString("category");
-
 
             //Init Database ref
             FireDB = shoppingService.getFirebaseDatabase_fromService();
@@ -178,19 +149,12 @@ public class ViewProductsFragment extends Fragment {
         }
     }
 
-    public interface FragmentViewProductsListener
-    {
-        // Meathod to be overwritten that gets category data from the Activity that gets it from the database.
-        String getCategoryString();
-    }
-
-
 
     private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            initViewProductFragment();
+             initViewProductFragment();
         }
     };
 

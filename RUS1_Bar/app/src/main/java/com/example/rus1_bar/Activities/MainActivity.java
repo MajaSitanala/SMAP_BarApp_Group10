@@ -3,20 +3,26 @@ package com.example.rus1_bar.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.rus1_bar.Fragments.LoginFragment;
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
         unbindService(connection);
     }
 
@@ -131,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         {
             navController.navigate(R.id.action_loginFragment_to_viewTutorsFragment);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -223,11 +229,22 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(SERVICE_CONNECTED_MAIN_ACTIVITY);
             LocalBroadcastManager.getInstance(shoppingService.getApplicationContext()).sendBroadcast(intent);
+
+            if(shoppingViewModel!=null)
+            {
+                shoppingViewModel.deleteAllProductsInPurchase();
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             isBound = false;
+
+            if(shoppingViewModel!=null)
+            {
+                shoppingViewModel.deleteAllProductsInPurchase();
+            }
+
         }
     };
 

@@ -36,8 +36,10 @@
     <string name="rusturSettingsTitle">Rustur Indstillinger</string>
     <string name="rusturDeleteMsg">Fjern gennem FireBase Console</string>
     <string name="rusturSetMsg">Tryk på en rustur, for at sætte som nuværende.</string>
-    <string name="rusturTitle">Rustur-navn</string>
+    <string name="rusturTitle">Rusturnavn</string>
     <string name="TutorName">TutorNavn</string>
+    <string name="exporting">Exporterer, dette tager et øjeblik</string>
+    <string name="validate">Rusturnavn skal være 1 ord og ikke: \'.\', \'#\', \'$\', \'[\', or \']\'</string>
     <string name="ItemQuantity">Antal</string>
     <string name="button_shopping_buy">Køb</string>
     <string name="button_shopping_cancel">Annuller</string>
@@ -105,7 +107,8 @@
     <string name="editProductEditName" />
     <string name="editProductEditCategory">Navn</string>
     <string name="editProductEditPrice">Produkt Pris</string>
-
+    <string name="items_in_cart">"Varer i kurv: "</string>
+    <string name="total_sum">"Total sum: "</string>
 
 
 </resources>

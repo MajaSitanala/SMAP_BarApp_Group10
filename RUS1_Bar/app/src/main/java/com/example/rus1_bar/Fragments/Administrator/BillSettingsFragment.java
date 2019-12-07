@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
@@ -30,7 +31,6 @@ public class BillSettingsFragment extends Fragment {
 
     private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
-    Button seeBillBtn;
     Button sendBillBtn;
     Button exportBillBtn;
     Button cancelBtn;
@@ -72,17 +72,23 @@ public class BillSettingsFragment extends Fragment {
             // Service
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
-            //Go to a tutorRecyclerView (same one with params to do diff stuff when pressed a tutor
-            seeBillBtn = rootView.findViewById(R.id.billSettingsViewBillBtn);
+
 
             sendBillBtn = rootView.findViewById(R.id.billSettingsSendBillBtn);
+            sendBillBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(),"Comming soon.",Toast.LENGTH_LONG);
+                }
+            });
 
             exportBillBtn = rootView.findViewById(R.id.billSettingsExportBillsBtn);
             exportBillBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FirebaseRepository rep = new FirebaseRepository();
-                    rep.SaveAllPurchases(new Rustur("TestTur"),getContext());
+                    rep.SaveAllPurchases(shoppingService.currentRustur,getContext());
+                    Toast.makeText(getActivity(),R.string.exporting,Toast.LENGTH_LONG).show();
                 }
             });
             //exportBillBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.ac));
