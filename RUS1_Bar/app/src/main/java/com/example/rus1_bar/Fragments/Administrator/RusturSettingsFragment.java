@@ -9,9 +9,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -22,10 +25,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rus1_bar.Activities.MainActivity;
+import com.example.rus1_bar.Adapters.CategoryDisplayAdapter;
+import com.example.rus1_bar.Adapters.RusturRecycleAdapter;
+import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +54,15 @@ public class RusturSettingsFragment extends Fragment
     Button setBtn;
     Button addBtn;
 
-    List<Rustur> rusturList;
+    List<Rustur> rusturList = new ArrayList<>();
+
+    RecyclerView rusturRecyclerView;
+    RecyclerView.Adapter rusturRecyclerAdapter;
+    RecyclerView.LayoutManager rusturLayoutManager;
+
+    // Database
+    private DatabaseReference databaseRusturDisplay;
+    private FirebaseDatabase FireDB;
 
     private ShoppingService shoppingService;
 
@@ -60,7 +80,7 @@ public class RusturSettingsFragment extends Fragment
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rustur_settings, container, false);
+        return rootView;
     }
 
     @Override
@@ -87,11 +107,37 @@ public class RusturSettingsFragment extends Fragment
 
             //Go back to settings overview
             cancelBtn = rootView.findViewById(R.id.rusturSettingsCancelBtn);
-            rootView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_rusturSettingsFragment_to_settingsOverviewFragment));
+            cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_rusturSettingsFragment_to_settingsOverviewFragment));
 
             //show toast, deleting collection is not available from client device TODO TOAST
             removeBtn = rootView.findViewById(R.id.rusturSettingsRemoveRusturBtn);
-            removeBtn.setOnClickListener(v -> Toast.makeText(this.getActivity(),R.string.rusturDeleteMsg, Toast.LENGTH_LONG).show());
+            removeBtn.setOnClickListener(v -> {
+                Toast.makeText(this.getActivity(),R.string.rusturDeleteMsg, Toast.LENGTH_LONG).show();
+
+            });
+
+            //set Rycycler view
+            rusturRecyclerView = rootView.findViewById(R.id.rusturList);
+            rusturLayoutManager = new GridLayoutManager(getActivity(), 1);
+            rusturRecyclerView.setLayoutManager(rusturLayoutManager);
+            FireDB = shoppingService.getFirebaseDatabase_fromService();
+            databaseRusturDisplay = FireDB.getReference("rustur");
+            databaseRusturDisplay.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                {       rusturList.clear();
+                    for (DataSnapshot RusturSnapshot : dataSnapshot.getChildren()){
+                        Rustur rus = RusturSnapshot.getValue(Rustur.class);
+                        rusturList.add(rus);
+                        rusturRecyclerAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
             //Set Rustur as currentRustur TODO: Toast og highlight den aktive rsutur
@@ -112,7 +158,8 @@ public class RusturSettingsFragment extends Fragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Add new Rustur here from firebaseRepofunc
-
+                        shoppingService.insertRustur(new Rustur(input.getText().toString()));
+                        rusturRecyclerAdapter.notifyDataSetChanged();
                     }
                 });
                 builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
@@ -125,6 +172,8 @@ public class RusturSettingsFragment extends Fragment
                 builder.show();
             });
 
+            rusturRecyclerAdapter = new RusturRecycleAdapter(getActivity(), rusturList, shoppingService);
+            rusturRecyclerView.setAdapter(rusturRecyclerAdapter);
         }
     }
 

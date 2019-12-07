@@ -11,10 +11,25 @@ public class Rustur {
     private String location;
     private String season;
     private int picture;
+    private boolean IsActive;
+
+    Rustur() {
+        //Empty CTOR
+    }
 
     public Rustur(String name){
         this.rusturName = name;
+        this.IsActive = false;
     }
+
+    public boolean getisActive() {
+        return IsActive;
+    }
+
+    public void setisActive(boolean isActive){
+        this.IsActive = isActive;
+    }
+
 
     public void setRusturName(String rusturName) {
         this.rusturName = rusturName;
