@@ -15,6 +15,7 @@ import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,13 @@ public class RusturRecycleAdapter extends RecyclerView.Adapter<RusturRecycleAdap
     private Context mContext;
     private List<Rustur> mRusturList = new ArrayList<>();
     private FirebaseRepository repository;
+    private ShoppingService shoppingService;
 
-    public RusturRecycleAdapter(Context mContext, List<Rustur> mTutorList) {
+    public RusturRecycleAdapter(Context mContext, List<Rustur> mRusturList, ShoppingService shoppingService) {
         this.mContext = mContext;
-        this.mRusturList = mTutorList;
+        this.mRusturList = mRusturList;
         this.repository = new FirebaseRepository();
+        this.shoppingService = shoppingService;
     }
 
     @NonNull
@@ -46,8 +49,19 @@ public class RusturRecycleAdapter extends RecyclerView.Adapter<RusturRecycleAdap
 
     @Override
     public void onBindViewHolder(@NonNull RusturRecycleAdapter.MyViewHolder holder, int position) {
-        holder.img_rusturImage.setImageResource(R.drawable.com_facebook_button_like_icon_selected);
+        if(mRusturList.get(position).getisActive()){
+            holder.img_rusturImage.setImageResource(R.drawable.rustura);
+        }else {holder.img_rusturImage.setImageResource(R.drawable.rusturi);}
         holder.txt_rusturName.setText(mRusturList.get(position).getRusturName());
+        holder.cardViewrustur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mRusturList.get(position).getisActive()){
+                    holder.img_rusturImage.setImageResource(R.drawable.rustura);
+                    shoppingService.setCurrentRustur(mRusturList.get(position));
+                }
+            }
+        });
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder

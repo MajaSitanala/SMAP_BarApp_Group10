@@ -187,6 +187,24 @@ public class ShoppingService extends Service implements Serializable {
         return allProductsInDatabase;
     }
 
+    public void insertRustur(Rustur rustur){
+        this.firebaseRepository.insertRustur(rustur);
+        this.firebaseRepository.insertFIRESTORERustur(rustur);
+    }
+
+    public void deleteRustur(Rustur rustur){
+        this.firebaseRepository.deleteRustur(rustur);
+    }
+
+    public void setCurrentRustur(Rustur rustur){
+        Rustur temp = currentRustur;
+        temp.setisActive(false);
+        this.firebaseRepository.insertRustur(temp);
+        rustur.setisActive(true);
+        this.firebaseRepository.insertRustur(rustur);
+        currentRustur = rustur;
+    }
+
     public FirebaseRepository getFirebaseRepository_fromService()
     {
         return this.firebaseRepository;
