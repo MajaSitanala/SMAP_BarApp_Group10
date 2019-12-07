@@ -70,6 +70,12 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
     NavController navController;
 
+    private TextView textView_itemsInCart;
+    private TextView textView_totalSum;
+
+    private int intemsInCart;
+    private double totalSum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +96,9 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
         // UI declarations
         //currentTutor = findViewById(R.id.tutorlabel_id);
+        textView_itemsInCart = findViewById(R.id.txt_items_in_cart);
+        textView_totalSum = findViewById(R.id.txt_total_sum);
+        updateCartUI(0, 0.0);
 
         // Intents from Main Activity
         Intent mainIntent = getIntent();
@@ -120,6 +129,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         if(shoppingViewModel!=null)
         {
             shoppingViewModel.deleteAllProductsInPurchase();
+
         }
         unbindService(connection);
         super.onStop();
@@ -178,6 +188,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
             @Override
             public void onClick(View v) {
                 shoppingViewModel.deleteAllProductsInPurchase();
+
                 finish();
             }
         });
@@ -235,17 +246,18 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 p.setQuantity(p.getQuantity()+1);
                 p.setPrice(product.getPrice()*p.getQuantity());
                 shoppingViewModel.updateProductInPurchase(p);
+                updateCartUI(intemsInCart+1, totalSum+product.getPrice());
                 return;
             }
         }
         shoppingViewModel.insertProductInPurchase(product);
+        updateCartUI(intemsInCart+1, totalSum+product.getPrice());
     }
 
     @Override
     public void onClickRemoveProduct(Product product)
     {
         //mPurchace.removeProductToPurchace(product);
-
 
         for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
         {
@@ -254,8 +266,13 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 p.setQuantity(p.getQuantity()-1);
                 p.setPrice(product.getPrice()*p.getQuantity());
                 shoppingViewModel.updateProductInPurchase(p);
+                updateCartUI(intemsInCart-1, totalSum-product.getPrice());
                 return;
             }
+        }
+        if (intemsInCart>=1)
+        {
+            updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
         }
         shoppingViewModel.deleteProductInPurchase(product);
     }
@@ -275,6 +292,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     public void swipeToDelete(Product product) {
         shoppingViewModel.deleteProductInPurchase(product);
+        updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
     }
 
 
@@ -282,6 +300,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     public void onclickTrashRemoveProduct(Product product)
     {
         shoppingViewModel.deleteProductInPurchase(product);
+        updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
     }
 
     private BroadcastReceiver RepositoriesDeclared = new BroadcastReceiver() {
@@ -353,5 +372,14 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     public String getCategoryString() {
         return this.mCategoryame;
+    }
+
+    private void updateCartUI(int items, double sum)
+    {
+        this.intemsInCart = items;
+        this.totalSum = sum;
+
+        textView_itemsInCart.setText(getText(R.string.items_in_cart)+Integer.toString(intemsInCart));
+        textView_totalSum.setText(getText(R.string.total_sum)+Double.toString(totalSum));
     }
 }

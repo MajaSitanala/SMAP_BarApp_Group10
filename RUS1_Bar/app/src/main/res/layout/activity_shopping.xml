@@ -56,27 +56,28 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/txt_shopping_totalQuantity"
+            android:id="@+id/txt_items_in_cart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Quantity:"
+            android:text="@string/items_in_cart"
             android:textStyle="bold"
             android:textColor="@color/DarkPurple"
             android:textSize="15dp"
             android:gravity="center_vertical"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"/>
 
         <TextView
-            android:id="@+id/txt_shopping_totalPrice"
+            android:id="@+id/txt_total_sum"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Collected price:"
+            android:text="@string/total_sum"
             android:textStyle="bold"
             android:textColor="@color/DarkPurple"
             android:textSize="15dp"
             android:gravity="center_vertical"
-
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"/>
 
 
 

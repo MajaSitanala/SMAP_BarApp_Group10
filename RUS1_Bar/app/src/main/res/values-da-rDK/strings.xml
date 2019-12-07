@@ -105,7 +105,8 @@
     <string name="editProductEditName" />
     <string name="editProductEditCategory">Navn</string>
     <string name="editProductEditPrice">Produkt Pris</string>
-
+    <string name="items_in_cart">"Varer i kurv: "</string>
+    <string name="total_sum">"Total sum: "</string>
 
 
 </resources>
