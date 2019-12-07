@@ -15,7 +15,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Models.Category;
-import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CategoryDisplayAdapter extends RecyclerView.Adapter<CategoryDisplayAdapter.MyViewHolder> {
+public class CategoryRecyclerDisplayAdapter extends RecyclerView.Adapter<CategoryRecyclerDisplayAdapter.MyViewHolder> {
 
     private static final String CATEGORY_ID = "Category id";
     private static final int REQUEST_CATEGORY_ACTION = 102;
@@ -31,26 +30,24 @@ public class CategoryDisplayAdapter extends RecyclerView.Adapter<CategoryDisplay
     private List<Category> mCategoryList;
     private FirebaseRepository repository;
 
-
-    public CategoryDisplayAdapter(Context mContext, List<Category> mCategoryList) {
+    public CategoryRecyclerDisplayAdapter(Context mContext, List<Category> mCategoryList) {
         this.mContext = mContext;
         this.mCategoryList = mCategoryList;
         this.repository = new FirebaseRepository();
     }
 
-
     @NonNull
     @Override
-    public CategoryDisplayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryRecyclerDisplayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardwiev_item_category, parent, false);
-        return new CategoryDisplayAdapter.MyViewHolder(view);
+        return new CategoryRecyclerDisplayAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryDisplayAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryRecyclerDisplayAdapter.MyViewHolder holder, int position) {
 
         holder.txt_categoryName.setText(mCategoryList.get(position).getCategoryName());
         holder.img_categoryImage.setImageResource(mCategoryList.get(position).getPicture());
@@ -61,7 +58,6 @@ public class CategoryDisplayAdapter extends RecyclerView.Adapter<CategoryDisplay
                     Picasso.with(mContext).load(uri).resize(600,600).centerInside().into(holder.img_categoryImage);
                 }
             });
-
         }
 
         holder.cardViewCategory.setOnClickListener(view -> {

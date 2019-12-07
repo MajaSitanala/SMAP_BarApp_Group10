@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Purchase_table")
 public class Product {
 
+    private Category categoryName;
+
     @NonNull
     @PrimaryKey(autoGenerate = false)
     private String productID;
@@ -36,6 +38,12 @@ public class Product {
         //To avoid null error in adapter in holder
         this.setProductID(iD);
         this.setPicture(Picture);
+    }
+
+    public Product(String Name, double Price)
+    {
+        this.setProductName(Name);
+        this.setPrice(Price);
     }
 
     public Product(){}

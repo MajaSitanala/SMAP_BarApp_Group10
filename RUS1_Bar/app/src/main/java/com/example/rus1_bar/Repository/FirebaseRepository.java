@@ -109,6 +109,18 @@ public class FirebaseRepository {
             });
         }
     }
+    //TODO: Navigate correctly through DB
+    public void saveProductImage(Product product, Uri imageUri){
+        if(product.getImageName() != null){
+            StorageReference pic = ImageDB.child("categories/"+product.getImageName()+".jpg");
+            pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("UPLOAD"," Completed for: "+taskSnapshot);
+                }
+            });
+        }
+    }
 
     //TODO: Handle Exceptions when loading pictures
     public StorageReference getCategoryImage(String categoryName){

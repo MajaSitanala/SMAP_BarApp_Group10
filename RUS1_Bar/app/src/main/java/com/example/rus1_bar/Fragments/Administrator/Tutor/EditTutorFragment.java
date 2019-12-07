@@ -157,7 +157,7 @@ public class EditTutorFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
-                    if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")) {
+                    if (editName.getText().toString().equals("") || editNick.getText().toString().equals("") || editPhone.getText().toString().equals("") || editEmail.getText().toString().equals("")){
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     } else {
                         currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());

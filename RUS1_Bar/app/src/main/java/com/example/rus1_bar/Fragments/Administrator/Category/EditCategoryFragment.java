@@ -146,7 +146,7 @@ public class EditCategoryFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
-                    if (editName.toString().equals("")){
+                    if (editName.getText().toString().equals("")){
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
                     else {

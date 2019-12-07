@@ -70,7 +70,7 @@ public class ProductSettingsFragment extends Fragment {
             initProductSettingsFragment();
         }
     }
-
+    //TODO: Add ProductSettingsCategoryRecyclerAdapter as recyclerView
     private void initProductSettingsFragment()
     {
         if (getActivity()!=null)

@@ -151,5 +151,5 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
     {
         void onclickAddProduct(Product product);
         void onClickRemoveProduct(Product product);
-    }
+}
 }

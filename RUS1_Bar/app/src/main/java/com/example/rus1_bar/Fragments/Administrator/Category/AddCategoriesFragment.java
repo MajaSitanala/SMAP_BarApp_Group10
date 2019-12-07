@@ -73,19 +73,14 @@ public class AddCategoriesFragment extends Fragment {
         newCategory = new Category();
         firebaseRepo = new FirebaseRepository();
 
-        //TODO: This needs to be fixed before it's used
-        /*
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
+                Navigation.findNavController(v).navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
             }
-        });*/
-
-        View.OnClickListener addCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
-        cancelBtn.setOnClickListener(addCategoryCancelClick);
+        });
 
         categoryImage = rootView.findViewById(R.id.addCategoryImage);
         categoryImage.setImageResource(R.drawable.defaultimg);
@@ -100,7 +95,7 @@ public class AddCategoriesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Error handling for empty fields.
-                if (editName.toString().equals("")){
+                if (editName.getText().toString().equals("")){
                     makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                 }
                 else {

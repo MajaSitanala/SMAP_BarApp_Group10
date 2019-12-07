@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.MainActivity;
-import com.example.rus1_bar.Adapters.CategoryDisplayAdapter;
+import com.example.rus1_bar.Adapters.CategoryRecyclerDisplayAdapter;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
@@ -122,7 +122,7 @@ public class CategorySettingsFragment extends Fragment {
                 }
             });
 
-            categoryRecyclerAdapter = new CategoryDisplayAdapter(getActivity(), mCategoryList);
+            categoryRecyclerAdapter = new CategoryRecyclerDisplayAdapter(getActivity(), mCategoryList);
             categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
         }
     }

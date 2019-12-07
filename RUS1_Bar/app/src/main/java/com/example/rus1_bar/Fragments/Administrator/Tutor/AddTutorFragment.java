@@ -81,20 +81,14 @@ public class AddTutorFragment extends Fragment {
         newTutor = new Tutor();
         firebaseRepo = new FirebaseRepository();
 
-        //TODO: This needs to be fixed before it's used
-
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 Navigation.findNavController(v).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
-
             }
         });
-
-        //View.OnClickListener addTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addTutorFragment_to_tutorSettingsFragment);
-        //cancelBtn.setOnClickListener(addTutorCancelClick);
 
         //Source: https://www.youtube.com/watch?v=OPnusBmMQTw
         tutorImage = rootView.findViewById(R.id.addTutorImage);
@@ -110,7 +104,7 @@ public class AddTutorFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Error handling for empty fields.
-                if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
+                if (editName.getText().toString().equals("") || editNick.getText().toString().equals("") || editPhone.getText().toString().equals("") || editEmail.getText().toString().equals("")){
                     makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                 }
                 else {
