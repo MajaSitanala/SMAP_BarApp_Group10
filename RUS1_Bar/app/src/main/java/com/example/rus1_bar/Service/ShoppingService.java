@@ -64,6 +64,9 @@ public class ShoppingService extends Service implements Serializable {
     public void onCreate() {
         super.onCreate();
 
+        //This is the current set Rustur, change this name when setting new Rustur, and use this when writing to FireStore
+        currentRustur = new Rustur("Test_RUSTUR_From_Shopping");
+
         firebaseRepository = new FirebaseRepository();
         firebaseFirestore = firebaseRepository.getFireStore_fromRepository();//FirebaseFirestore.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();//firebaseRepository.getFireDB_fromRepository();
@@ -71,8 +74,7 @@ public class ShoppingService extends Service implements Serializable {
         purchaseRoomRepository = new PurchaseRoomRepository(this.getApplication());
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
 
-        //This is the current set Rustur, change this name when setting new Rustur, and use this when writing to FireStore
-        currentRustur = new Rustur("Test_RUSTUR_From_Shopping");
+
 
         /*
         // Notification intent
@@ -263,5 +265,10 @@ public class ShoppingService extends Service implements Serializable {
     public void setShoppingViewModel_inService(ShoppingViewModel shoppingViewModel)
     {
         this.shoppingViewModel = shoppingViewModel;
+    }
+
+    public Rustur getCurrentRustur()
+    {
+        return this.currentRustur;
     }
 }

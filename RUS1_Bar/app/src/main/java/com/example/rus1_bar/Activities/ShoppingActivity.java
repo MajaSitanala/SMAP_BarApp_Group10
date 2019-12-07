@@ -35,6 +35,7 @@ import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
 import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
+import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
@@ -63,6 +64,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     private static final String TUTOR_OBJECT = "Current Tutor Object";
     private String currentTutorName;
     private Tutor currentTutorClicked;
+    private Rustur rustur;
 
     private String mCategoryame;
 
@@ -81,7 +83,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
         if(savedInstanceState != null)
         {
-            shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
+            //shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
         }
 
         navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
@@ -102,6 +104,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         Intent mainIntent = getIntent();
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
+
         //currentTutor.setText(currentTutorName);
 
 
@@ -169,6 +172,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     {
         shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
 
+        rustur = shoppingService.getCurrentRustur();
+
 
         // Shopping card fragment (not navigation componment)
         ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
@@ -203,7 +208,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                         mPurchace.addProductToPurchace(p);
                     }
 
-                    shoppingViewModel.insertPurchace_CloudFirestore(currentTutorClicked, mPurchace);
+                    shoppingViewModel.insertPurchace_CloudFirestore(rustur, currentTutorClicked, mPurchace);
                     shoppingViewModel.deleteAllProductsInPurchase();
                     finish();
                 }

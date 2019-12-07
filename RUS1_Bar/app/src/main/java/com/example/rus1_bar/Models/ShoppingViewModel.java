@@ -76,9 +76,9 @@ public class ShoppingViewModel extends AndroidViewModel implements Serializable
         return allProductsinPurchase;
     }
 
-    public void insertPurchace_CloudFirestore(Tutor tutor, Purchase purchase)
+    public void insertPurchace_CloudFirestore(Rustur rustur, Tutor tutor, Purchase purchase)
     {
-        firebaseRepository.insertPurchase(shoppingService.currentRustur, tutor, purchase);
+        firebaseRepository.insertPurchase(rustur, tutor, purchase);
     }
 
 
