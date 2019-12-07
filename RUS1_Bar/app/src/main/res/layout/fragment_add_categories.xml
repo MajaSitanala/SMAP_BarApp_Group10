@@ -68,6 +68,7 @@
 
         <Button
             android:id="@+id/addCategoryCancelBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addCategoriesCancelBtn"
@@ -78,6 +79,7 @@
 
         <Button
             android:id="@+id/addCategoryAddBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addCategoriesAddBtn"
@@ -98,6 +100,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addCategoryTitle"
+            android:textColor="@color/DarkPurple"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline123"
             app:layout_constraintEnd_toStartOf="@+id/guideline119"
             app:layout_constraintStart_toStartOf="@+id/guideline116"
@@ -119,6 +123,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addCategoryName"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline129"
             app:layout_constraintEnd_toStartOf="@+id/guideline125"
             app:layout_constraintStart_toStartOf="@+id/guideline116"

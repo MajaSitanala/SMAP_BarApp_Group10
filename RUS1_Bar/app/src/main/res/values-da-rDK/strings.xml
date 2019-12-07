@@ -7,6 +7,7 @@
     <string name="hello_blank_fragment">Hej tomt Fragment</string>
     <string name="Cancel">Annuller</string>
     <string name="Buy">Køb</string>
+    <string name="Ok">Ok</string>
     <string name="RUS1_login_Text">RUS 1 - Bar</string>
     <string name="adminSettingTitle">Admin Indstillinger</string>
     <string name="tutorSettingsBtn">Tutor Indstillinger</string>
@@ -28,11 +29,14 @@
     <string name="billSettingsExportBillBtn">Exporter Regning</string>
     <string name="billSettingsCancelBtn">Annuller</string>
     <string name="rusturSettingsAddRusturBtn">Tilføj Rustur</string>
-    <string name="rusturSettingsEditRusturBtn">Ret Rustur</string>
+    <string name="rusturSettingsEditRusturBtn">Fjern Rustur</string>
     <string name="rusturSettingsSetCurrentBtn">Sæt Nuværende Rustur</string>
     <string name="rusturSettingsEndRusturBtn">Slut Rustur</string>
     <string name="rusturSettingsCancelBtn">Annuller</string>
     <string name="rusturSettingsTitle">Rustur Indstillinger</string>
+    <string name="rusturDeleteMsg">Fjern gennem FireBase Console</string>
+    <string name="rusturSetMsg">Tryk på en rustur, for at sætte som nuværende.</string>
+    <string name="rusturTitle">Rustur-navn</string>
     <string name="TutorName">TutorNavn</string>
     <string name="ItemQuantity">Antal</string>
     <string name="button_shopping_buy">Køb</string>

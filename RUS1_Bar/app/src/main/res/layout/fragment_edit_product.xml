@@ -12,6 +12,7 @@
 
         <Button
             android:id="@+id/editProductCancelBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductCancelBtn"
@@ -22,6 +23,7 @@
 
         <Button
             android:id="@+id/editProductDeleteBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductDeleteBtn"
@@ -32,6 +34,7 @@
 
         <Button
             android:id="@+id/editProductEditBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductEditBtn"
@@ -45,6 +48,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductTitle"
+            android:textColor="@color/DarkPurple"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline196"
             app:layout_constraintEnd_toStartOf="@+id/guideline198"
             app:layout_constraintStart_toStartOf="@+id/guideline197"
@@ -55,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductName"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline205"
             app:layout_constraintEnd_toStartOf="@+id/guideline212"
             app:layout_constraintHorizontal_bias="0.455"
@@ -66,6 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductCategory"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline208"
             app:layout_constraintEnd_toStartOf="@+id/guideline212"
             app:layout_constraintStart_toStartOf="@+id/guideline211"
@@ -76,6 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/editProductEditPrice"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline202"
             app:layout_constraintEnd_toStartOf="@+id/guideline212"
             app:layout_constraintStart_toStartOf="@+id/guideline211"

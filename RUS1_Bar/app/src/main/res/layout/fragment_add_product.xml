@@ -12,6 +12,7 @@
 
         <Button
             android:id="@+id/addProductCancelBtn"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addProductCancelBtn"
@@ -22,6 +23,7 @@
 
         <Button
             android:id="@+id/addProductAddBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addProductAddBtn"
@@ -46,6 +48,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addProductTitle"
+            android:textColor="@color/DarkPurple"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline181"
             app:layout_constraintEnd_toStartOf="@+id/guideline176"
             app:layout_constraintStart_toStartOf="@+id/guideline174"
@@ -56,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addProductName"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline186"
             app:layout_constraintEnd_toStartOf="@+id/guideline187"
             app:layout_constraintStart_toStartOf="@+id/guideline188"
@@ -66,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addProductCategory"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline191"
             app:layout_constraintEnd_toStartOf="@+id/guideline187"
             app:layout_constraintStart_toStartOf="@+id/guideline188"
@@ -76,6 +82,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/addProductPrice"
+            android:textColor="@color/DarkPurple"
             app:layout_constraintBottom_toTopOf="@+id/guideline194"
             app:layout_constraintEnd_toStartOf="@+id/guideline187"
             app:layout_constraintStart_toStartOf="@+id/guideline188"

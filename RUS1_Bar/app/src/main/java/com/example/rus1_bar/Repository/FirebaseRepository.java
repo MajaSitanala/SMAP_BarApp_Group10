@@ -3,6 +3,7 @@ package com.example.rus1_bar.Repository;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class FirebaseRepository {
     private FirebaseFirestore fireStore;
     private DatabaseReference databaseTutors;
     private DatabaseReference databaseCategory;
+    private DatabaseReference databaseRustur;
     private StorageReference ImageDB;
 
     private List<Purchase> fullPurchaseList;
@@ -55,6 +58,7 @@ public class FirebaseRepository {
         FireDB = FirebaseDatabase.getInstance();
         databaseTutors = FireDB.getReference("tutors");
         databaseCategory = FireDB.getReference("categories");
+        databaseRustur = FireDB.getReference("rustur");
         fireStore = FirebaseFirestore.getInstance();
         ImageDB = FirebaseStorage.getInstance().getReference();
         fullPurchaseList = new ArrayList<>();
@@ -86,16 +90,38 @@ public class FirebaseRepository {
         databaseTutors.child(tutor.getNickname()).removeValue();
     }
 
+    public void insertFIRESTORERustur(Rustur rustur){
+        fireStore.collection(rustur.getRusturName()).add("DummyData");
+    }
+
+    public void insertRustur(Rustur rustur){
+        databaseRustur.child(rustur.getRusturName()).setValue(rustur);
+    }
+
+    public void deleteRustur(Rustur rustur){
+        databaseRustur.child(rustur.getRusturName()).removeValue();
+    }
+
     public void insertPurchase(Rustur rustur, Tutor tutor, Purchase purchase){
         fireStore.collection(rustur.getRusturName()).document(tutor.getNickname())
                 .collection("Purchases").add(purchase);
     }
 
-    
-
     public void saveTutorImage(Tutor tutor, Uri imageUri){
         if(tutor.getImagename() != null){
             StorageReference pic = ImageDB.child("tutors/"+tutor.getImagename()+".jpg");
+            pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("UPLOAD"," Completed for: "+taskSnapshot);
+                }
+            });
+        }
+    }
+
+    public void saveProductImage(Category category, Product product, Uri imageUri){
+        if(product.getImageName()!= null){
+            StorageReference pic = ImageDB.child("categories/"+category.getCategoryName()+"/"+product.getProductName()+".png");
             pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -120,28 +146,18 @@ public class FirebaseRepository {
     //TODO: Handle Exceptions when loading pictures
     public StorageReference getCategoryImage(String categoryName){
         StorageReference jpg = ImageDB.child("categories/"+categoryName+".jpg");
-        StorageReference png = ImageDB.child("categories/"+categoryName+".png");
-        if(jpg != null){return jpg;
-        }else if(png != null){return png;}
-        else {return ImageDB.child("categories/defaultprod.jpg");}
+        return jpg;
     }
 
     public StorageReference getProductImage(String productImageName, String categoryName){
-        StorageReference jpg = ImageDB.child("categories/"+categoryName+"/"+productImageName+".jpg");
-        StorageReference png = ImageDB.child("categories/"+categoryName+"/"+productImageName+".png");
+        StorageReference png = ImageDB.child("categories").child(categoryName).child(productImageName+".png");
         Log.e("PRODUCT:",productImageName);
-        if(jpg != null){return jpg;
-        }else if(png != null){return png;}
-        else {return ImageDB.child("categories/defaultprod.jpg");}
+        return png;
     }
 
     public StorageReference getTutorImage(String tutorImageName){
-
         StorageReference jpg = ImageDB.child("tutors/"+tutorImageName+".jpg");
-        StorageReference png = ImageDB.child("tutors/"+tutorImageName+".png");
-        if(jpg != null){return jpg;
-        }else if(png != null){return png;}
-        else {return ImageDB.child("tutors/defaultimg.png");}
+        return jpg;
     }
 
     public void SaveAllPurchases(Rustur rustur, Context context){
