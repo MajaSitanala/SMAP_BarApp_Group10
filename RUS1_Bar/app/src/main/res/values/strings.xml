@@ -26,6 +26,7 @@
     <!-- Tutor Settings Fragment -->
     <string name="tutorAddBtn">Add Tutor</string>
     <string name="tutorlistTextView">Tutor List</string>
+    <string name="cropCancel">Cancelled Crop Image</string>
 
     <!-- Product Settings Fragment -->
     <string name="categoryAddButton">Add Category</string>

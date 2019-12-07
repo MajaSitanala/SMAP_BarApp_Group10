@@ -70,6 +70,7 @@
     <string name="editTutorNick">Strretnavn</string>
     <string name="editTutorPhone">Tlf. nr.</string>
     <string name="editTutorTitle">Rediger Tutor</string>
+    <string name="cropCancel">Afbrød billedbeskæring</string>
     <string name="appbar_action_settings" translatable="false">Indstillinger</string>
     <string name="noProductsInBasket">Ingen produkter fundet, tryk Annuller!</string>
     <string name="savedInstanceState_ShoppingActivity">saveInstanceState of shoppingViewModel</string>

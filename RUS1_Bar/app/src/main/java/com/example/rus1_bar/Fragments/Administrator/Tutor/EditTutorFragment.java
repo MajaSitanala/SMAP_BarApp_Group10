@@ -217,7 +217,10 @@ public class EditTutorFragment extends Fragment {
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);
-            tutorImage.setImageURI(cropResult.getUri());
+            if(cropResult!=null){
+                tutorImage.setImageURI(cropResult.getUri());
+            }else {Toast.makeText(getActivity(),R.string.cropCancel, Toast.LENGTH_LONG).show();}
+
         }
     }
 

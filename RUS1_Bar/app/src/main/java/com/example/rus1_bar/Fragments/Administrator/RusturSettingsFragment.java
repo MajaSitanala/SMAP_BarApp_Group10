@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rus1_bar.Activities.MainActivity;
-import com.example.rus1_bar.Adapters.CategoryDisplayAdapter;
+import com.example.rus1_bar.Adapters.CategoryRecyclerDisplayAdapter;
 import com.example.rus1_bar.Adapters.RusturRecycleAdapter;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Rustur;
