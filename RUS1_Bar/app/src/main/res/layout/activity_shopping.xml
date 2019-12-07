@@ -87,7 +87,7 @@
         android:name="com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/Grey"
+        android:background="@drawable/beercartproject02"
         app:layout_constraintBottom_toTopOf="@+id/guideline72"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
