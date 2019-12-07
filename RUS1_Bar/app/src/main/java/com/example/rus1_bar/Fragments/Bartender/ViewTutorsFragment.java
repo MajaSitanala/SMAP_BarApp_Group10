@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,8 +79,17 @@ public class ViewTutorsFragment extends Fragment {
         tutorRecyclerView = rootView.findViewById(R.id.tutorRecyclerView);
 
         //Creates the grid layout
-        tutorLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
-        tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+        if(rootView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            tutorLayoutManager = new GridLayoutManager(getActivity(), 4);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+        }
+        else
+        {
+            tutorLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            tutorRecyclerView.setLayoutManager(tutorLayoutManager);
+        }
+
 
 
         // Inflate the layout for this fragment

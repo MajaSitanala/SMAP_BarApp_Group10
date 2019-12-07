@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +96,20 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
             txt_tutorName = itemView.findViewById(R.id.txt_tutorName);
             img_tutorImage = itemView.findViewById(R.id.img_tutorImage);
             cardView_tutorDisplay = itemView.findViewById(R.id.cardview_tutor);
+
+            txt_tutorName = itemView.findViewById(R.id.txt_tutorName);
+            img_tutorImage = itemView.findViewById(R.id.img_tutorImage);
+            cardView_tutorDisplay = itemView.findViewById(R.id.cardview_tutor);
+
+            // https://stackoverflow.com/questions/19639691/android-getheight-and-getwidth
+            DisplayMetrics viewMetrics = cardView_tutorDisplay.getResources().getDisplayMetrics();
+            int displayWith = viewMetrics.widthPixels;
+            int imagesize = ((displayWith-30)/3);
+
+            img_tutorImage.getLayoutParams().width = imagesize;
+            img_tutorImage.getLayoutParams().height = imagesize;     //30 is the collected the margin size
+            img_tutorImage.requestLayout();
+
         }
 
     }
