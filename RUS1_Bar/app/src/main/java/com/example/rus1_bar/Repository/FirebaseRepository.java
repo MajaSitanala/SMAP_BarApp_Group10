@@ -91,7 +91,7 @@ public class FirebaseRepository {
     }
 
     public void insertFIRESTORERustur(Rustur rustur){
-        fireStore.collection(rustur.getRusturName()).add("DummyData");
+        fireStore.collection(rustur.getRusturName()).add(rustur);
     }
 
     public void insertRustur(Rustur rustur){
