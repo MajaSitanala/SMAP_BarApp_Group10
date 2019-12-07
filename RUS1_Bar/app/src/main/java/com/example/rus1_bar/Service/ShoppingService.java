@@ -21,6 +21,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
+import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
@@ -55,6 +56,8 @@ public class ShoppingService extends Service implements Serializable {
     private FirebaseAuth firebaseAuth;
     private PurchaseRoomRepository purchaseRoomRepository;
 
+    public Rustur currentRustur;
+
     private ShoppingViewModel shoppingViewModel;
 
     @Override
@@ -66,8 +69,10 @@ public class ShoppingService extends Service implements Serializable {
         firebaseDatabase = FirebaseDatabase.getInstance();//firebaseRepository.getFireDB_fromRepository();
         firebaseAuth = FirebaseAuth.getInstance();
         purchaseRoomRepository = new PurchaseRoomRepository(this.getApplication());
-
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
+
+        //This is the current set Rustur, change this name when setting new Rustur, and use this when writing to FireStore
+        currentRustur = new Rustur("Test_RUSTUR_From_Shopping");
 
         /*
         // Notification intent

@@ -15,6 +15,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/categorySettingsTitle"
+            android:textColor="@color/DarkPurple"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline34"
             app:layout_constraintEnd_toStartOf="@+id/guideline111"
             app:layout_constraintStart_toStartOf="@+id/guideline27"
@@ -23,6 +25,7 @@
 
         <Button
             android:id="@+id/categorySettingsAddBtn"
+            style="@style/btnGoTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/categorySettingsAddBtn"
@@ -33,6 +36,7 @@
 
         <Button
             android:id="@+id/categorySettingsCancel"
+            style="@style/btnBackTheme"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/categorySettingsCancelBtn"
@@ -123,7 +127,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categorySettingsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/Grey" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline

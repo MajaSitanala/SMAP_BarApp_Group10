@@ -89,6 +89,7 @@ public class ProductSettingsFragment extends Fragment {
             //Cancel button go back
             View.OnClickListener cancelClick = Navigation.createNavigateOnClickListener(R.id.action_productSettingsFragment_to_settingsOverviewFragment);
             cancelBtn = rootView.findViewById(R.id.productsettingsCancelBtn);
+            cancelBtn.setOnClickListener(cancelClick);
 
             // Recycler View setup
             productRecyclerView = rootView.findViewById(R.id.productSettingsRecycleView);

@@ -46,6 +46,7 @@ public class FirebaseRepository {
     private FirebaseFirestore fireStore;
     private DatabaseReference databaseTutors;
     private DatabaseReference databaseCategory;
+    private DatabaseReference databaseRustur;
     private StorageReference ImageDB;
 
     private List<Purchase> fullPurchaseList;
@@ -55,6 +56,7 @@ public class FirebaseRepository {
         FireDB = FirebaseDatabase.getInstance();
         databaseTutors = FireDB.getReference("tutors");
         databaseCategory = FireDB.getReference("categories");
+        databaseRustur = FireDB.getReference("rustur");
         fireStore = FirebaseFirestore.getInstance();
         ImageDB = FirebaseStorage.getInstance().getReference();
         fullPurchaseList = new ArrayList<>();
@@ -86,12 +88,22 @@ public class FirebaseRepository {
         databaseTutors.child(tutor.getNickname()).removeValue();
     }
 
+    public void insertFIRESTORERustur(Rustur rustur){
+        fireStore.collection(rustur.getRusturName()).add("DummyData");
+    }
+
+    public void insertRustur(Rustur rustur){
+        databaseRustur.child(rustur.getRusturName()).setValue(rustur);
+    }
+
+    public void deleteRustur(Rustur rustur){
+        databaseRustur.child(rustur.getRusturName()).removeValue();
+    }
+
     public void insertPurchase(Rustur rustur, Tutor tutor, Purchase purchase){
         fireStore.collection(rustur.getRusturName()).document(tutor.getNickname())
                 .collection("Purchases").add(purchase);
     }
-
-    
 
     public void saveTutorImage(Tutor tutor, Uri imageUri){
         if(tutor.getImagename() != null){
@@ -127,8 +139,8 @@ public class FirebaseRepository {
     }
 
     public StorageReference getProductImage(String productImageName, String categoryName){
-        StorageReference jpg = ImageDB.child("categories/"+categoryName+"/"+productImageName+".jpg");
-        StorageReference png = ImageDB.child("categories/"+categoryName+"/"+productImageName+".png");
+        StorageReference jpg = ImageDB.child("categories").child(categoryName).child(productImageName+".jpg");
+        StorageReference png = ImageDB.child("categories").child(categoryName).child(productImageName+".png");
         Log.e("PRODUCT:",productImageName);
         if(jpg != null){return jpg;
         }else if(png != null){return png;}
