@@ -95,9 +95,15 @@ public class BillSettingsFragment extends Fragment {
 
             cancelBtn = rootView.findViewById(R.id.billSettingsCancelBtn);
             cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_billSettingsFragment_to_settingsOverviewFragment));
+
+            sendBillBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
-
 
     private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
         @Override
