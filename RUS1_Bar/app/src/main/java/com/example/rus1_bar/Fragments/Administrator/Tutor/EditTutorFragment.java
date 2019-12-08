@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -70,6 +71,7 @@ public class EditTutorFragment extends Fragment {
 
     AlertDialog diaBox;
     private View rootView;
+    private boolean newImageSat;
 
     public EditTutorFragment() {
         // Required empty public constructor
@@ -120,10 +122,11 @@ public class EditTutorFragment extends Fragment {
             editPhone.setText(Integer.toString(currentTutor.getPhoneNr()));
 
             tutorImage = rootView.findViewById(R.id.editTutorImage);
-            if (currentTutor.getImagename() != null) {
+            if ((currentTutor.getImagename() != null) && (newImageSat==false)) {
                 firebaseRepo.getTutorImage(currentTutor.getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        newImageSat = true;
                         Picasso.with(rootView.getContext()).load(uri).resize(600, 600).centerInside().into(tutorImage);
                     }
                 });
@@ -139,9 +142,15 @@ public class EditTutorFragment extends Fragment {
             deleteBtn = rootView.findViewById(R.id.editTutorDeleteBtn);
             editBtn = rootView.findViewById(R.id.editTutorEditBtn);
 
-
-            View.OnClickListener editTutorCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editTutorFragment_to_tutorSettingsFragment);
-            cancelBtn.setOnClickListener(editTutorCancelClick);
+            NavController navController = Navigation.findNavController((this.getActivity()), R.id.nav_host_fragment);
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    newImageSat = false;
+                    navController.navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+                }
+            });
 
 
             deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +169,7 @@ public class EditTutorFragment extends Fragment {
                     if (editName.getText().toString().equals("") || editNick.getText().toString().equals("") || editPhone.getText().toString().equals("") || editEmail.getText().toString().equals("")){
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     } else {
+                        newImageSat = false;
                         currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
                         currentTutor.setImagename(guid);
                         if (imageUri != null) {
@@ -183,6 +193,7 @@ public class EditTutorFragment extends Fragment {
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        newImageSat = false;
                         firebaseRepo.deleteTutor(currentTutor);
                         Navigation.findNavController(getView()).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
                     }

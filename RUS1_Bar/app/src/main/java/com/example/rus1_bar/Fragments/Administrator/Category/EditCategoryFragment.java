@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.rus1_bar.Activities.MainActivity;
@@ -66,6 +67,7 @@ public class EditCategoryFragment extends Fragment {
     ShoppingService shoppingService;
 
     private View rootView;
+    private boolean newImageSat;
 
     public EditCategoryFragment() {
         // Required empty public constructor
@@ -77,6 +79,29 @@ public class EditCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_edit_category, container, false);
+
+        guid  = UUID.randomUUID().toString();
+        currentCategory = (Category) getArguments().getSerializable("category");
+
+        editName = rootView.findViewById(R.id.editCategoryEditName);
+        editName.setText(currentCategory.getCategoryName());
+
+        cancelBtn = rootView.findViewById(R.id.editCategoryCancelBtn);
+        deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
+        editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
+
+        //TODO: Need to implement getImageName in Category
+        categoryImage = rootView.findViewById(R.id.editCategoryImage);
+
+        categoryImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                newImageSat = true;
+                openGallery();
+            }
+        });
+
 
         return rootView;
     }
@@ -98,16 +123,9 @@ public class EditCategoryFragment extends Fragment {
         if (getActivity()!=null)
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
-            guid  = UUID.randomUUID().toString();
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();
-            currentCategory = (Category) getArguments().getSerializable("category");
 
-            editName = rootView.findViewById(R.id.editCategoryEditName);
-            editName.setText(currentCategory.getCategoryName());
-
-            //TODO: Need to implement getImageName in Category
-            categoryImage = rootView.findViewById(R.id.editCategoryImage);
-            if(currentCategory.getImageName() != null){
+            if((currentCategory.getImageName() != null) && (newImageSat == false)){
                 firebaseRepo.getCategoryImage(currentCategory.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -115,28 +133,23 @@ public class EditCategoryFragment extends Fragment {
                     }
                 });
             }
-            categoryImage.setOnClickListener(new View.OnClickListener() {
+
+            NavController navController = Navigation.findNavController((this.getActivity()), R.id.nav_host_fragment);
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    openGallery();
+                public void onClick(View v)
+                {
+                    newImageSat = false;
+                    navController.navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                 }
             });
 
-            cancelBtn = rootView.findViewById(R.id.editCategoryCancelBtn);
-            deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
-            editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
-
-
-
-            View.OnClickListener editCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
-            cancelBtn.setOnClickListener(editCategoryCancelClick);
 
             deleteBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
                     diaBox = AskOption();
                     diaBox.show();
-
                 }
             });
 
@@ -148,11 +161,25 @@ public class EditCategoryFragment extends Fragment {
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
                     else {
+                        Category oldCategory = currentCategory;
+                        firebaseRepo.deleteCategory(currentCategory);
+
                         currentCategory = new Category(editName.getText().toString());
-                        currentCategory.setImageName(guid);
-                        if (imageUri != null){
-                            firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
+
+                        if (newImageSat == false)
+                        {
+                            currentCategory = oldCategory;
+                            currentCategory.setCategoryName(editName.getText().toString());
                         }
+                        else
+                        {
+                            currentCategory.setImageName(guid);
+                            if (imageUri != null){
+                                firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
+                            }
+                        }
+
+                        newImageSat = false;
                         firebaseRepo.insertCategory(currentCategory);
                         Navigation.findNavController(view).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                     }
@@ -170,6 +197,7 @@ public class EditCategoryFragment extends Fragment {
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        newImageSat = false;
                         firebaseRepo.deleteCategory(currentCategory);
                         Navigation.findNavController(getView()).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                     }

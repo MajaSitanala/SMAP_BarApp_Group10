@@ -75,6 +75,24 @@ public class AddCategoriesFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_add_categories, container, false);
 
+        editName = rootView.findViewById(R.id.addCategoryEditName);
+
+        addBtn = rootView.findViewById(R.id.addCategoryAddBtn);
+        cancelBtn = rootView.findViewById(R.id.addCategoryCancelBtn);
+
+        guid  = UUID.randomUUID().toString();
+        newCategory = new Category();
+
+        categoryImage = rootView.findViewById(R.id.addCategoryImage);
+        categoryImage.setImageResource(R.drawable.defaultimg);
+        categoryImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
+            }
+        });
+
+
         return rootView;
     }
 
@@ -97,34 +115,16 @@ public class AddCategoriesFragment extends Fragment {
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
-
-            editName = rootView.findViewById(R.id.addCategoryEditName);
-
-            addBtn = rootView.findViewById(R.id.addCategoryAddBtn);
-            cancelBtn = rootView.findViewById(R.id.addCategoryCancelBtn);
-
-            guid  = UUID.randomUUID().toString();
-            newCategory = new Category();
-
-            categoryImage = rootView.findViewById(R.id.addCategoryImage);
-            categoryImage.setImageResource(R.drawable.defaultimg);
-            categoryImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openGallery();
-                }
-            });
-
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();//new FirebaseRepository();
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                Navigation.findNavController(v).navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
-            }
-        });
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    Navigation.findNavController(v).navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
+                }
+            });
 
             View.OnClickListener addCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
             cancelBtn.setOnClickListener(addCategoryCancelClick);

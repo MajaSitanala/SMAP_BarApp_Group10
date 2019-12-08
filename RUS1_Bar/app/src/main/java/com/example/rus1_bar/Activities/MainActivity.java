@@ -171,6 +171,11 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
                 break;
             }
+            case "fragment_edit_tutor":
+            {
+                navController.navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+                break;
+            }
             case "fragment_category_settings":
             {
                 navController.navigate(R.id.action_categorySettingsFragment_to_settingsOverviewFragment);
@@ -181,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_addCategoriesFragment_to_categorySettingsFragment);
                 break;
             }
+            case "fragment_edit_category":
+            {
+                navController.navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
+                break;
+            }
             case "fragment_product_settings":
             {
                 navController.navigate(R.id.action_productSettingsFragment_to_settingsOverviewFragment);
@@ -189,6 +199,11 @@ public class MainActivity extends AppCompatActivity {
             case "fragment_add_product":
             {
                 navController.navigate(R.id.action_addProductFragment_to_productSettingsFragment);
+                break;
+            }
+            case "fragment_edit_product":
+            {
+                navController.navigate(R.id.action_editProductFragment_to_productSettingsFragment);
                 break;
             }
             case "fragment_rustur_settings":
