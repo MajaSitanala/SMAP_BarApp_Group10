@@ -67,7 +67,6 @@ public class EditCategoryFragment extends Fragment {
     ShoppingService shoppingService;
 
     private View rootView;
-
     private boolean newImageSat;
 
     public EditCategoryFragment() {
@@ -136,15 +135,12 @@ public class EditCategoryFragment extends Fragment {
             }
 
             NavController navController = Navigation.findNavController((this.getActivity()), R.id.nav_host_fragment);
-
-            //View.OnClickListener editCategoryCancelClick = Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
             cancelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
                     newImageSat = false;
                     navController.navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
-                    //Navigation.createNavigateOnClickListener(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                 }
             });
 
@@ -165,12 +161,25 @@ public class EditCategoryFragment extends Fragment {
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
                     else {
-                        newImageSat = false;
+                        Category oldCategory = currentCategory;
+                        firebaseRepo.deleteCategory(currentCategory);
+
                         currentCategory = new Category(editName.getText().toString());
-                        currentCategory.setImageName(guid);
-                        if (imageUri != null){
-                            firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
+
+                        if (newImageSat == false)
+                        {
+                            currentCategory = oldCategory;
+                            currentCategory.setCategoryName(editName.getText().toString());
                         }
+                        else
+                        {
+                            currentCategory.setImageName(guid);
+                            if (imageUri != null){
+                                firebaseRepo.saveCategoryImage(currentCategory, cropResult.getUri());
+                            }
+                        }
+
+                        newImageSat = false;
                         firebaseRepo.insertCategory(currentCategory);
                         Navigation.findNavController(view).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
                     }
