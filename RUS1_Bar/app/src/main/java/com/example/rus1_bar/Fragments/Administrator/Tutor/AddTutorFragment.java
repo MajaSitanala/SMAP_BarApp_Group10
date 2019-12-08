@@ -162,20 +162,24 @@ public class AddTutorFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE && data!=null){
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE && data != null) {
             imageUri = data.getData();
             //Source: https://www.youtube.com/watch?v=buwyfcN1pLk
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setMaxCropResultSize(1920, 1080)
-                    .setAspectRatio(1,1)
+                    .setAspectRatio(1, 1)
                     .start(getContext(), this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);
-            tutorImage.setImageURI(cropResult.getUri());
+            if (cropResult != null) {
+                tutorImage.setImageURI(cropResult.getUri());
+            } else {
+                Toast.makeText(getActivity(), R.string.cropCancel, Toast.LENGTH_LONG).show();
+            }
         }
     }
 

@@ -251,7 +251,6 @@ public class EditTutorFragment extends Fragment {
             if(cropResult!=null){
                 tutorImage.setImageURI(cropResult.getUri());
             }else {Toast.makeText(getActivity(),R.string.cropCancel, Toast.LENGTH_LONG).show();}
-
         }
     }
 

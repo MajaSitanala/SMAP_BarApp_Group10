@@ -170,9 +170,14 @@ public class AddCategoriesFragment extends Fragment {
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);
-            categoryImage.setImageURI(cropResult.getUri());
+            if (cropResult != null) {
+                categoryImage.setImageURI(cropResult.getUri());
+            } else {
+                Toast.makeText(getActivity(), R.string.cropCancel, Toast.LENGTH_LONG).show();
+            }
         }
     }
+
 
     private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
         @Override
