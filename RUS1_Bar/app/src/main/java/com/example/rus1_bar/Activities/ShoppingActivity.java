@@ -182,8 +182,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 .add(R.id.nav_shopping_cart_fragment, shoppingCardFragment)// new ShoppingCardFragment())
                 .commit();
 
-
-
         btn_cncl = findViewById(R.id.btn_shopping_cancle);
         btn_cncl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,17 +276,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         shoppingViewModel.deleteProductInPurchase(product);
     }
 
-    @Override
-    public List<Product> fromActivity_getShoppingProducts() {
-
-        //List<Product> mProductdummy = mPurchace.getBoughtProducts();
-        return null;
-    }
-
-    @Override
-    public ShoppingViewModel fromActivity_GetShoppingViewModel() {
-        return shoppingViewModel;
-    }
 
     @Override
     public void swipeToDelete(Product product) {

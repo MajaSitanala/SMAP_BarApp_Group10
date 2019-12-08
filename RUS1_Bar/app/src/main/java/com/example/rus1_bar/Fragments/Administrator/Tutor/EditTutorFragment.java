@@ -126,14 +126,16 @@ public class EditTutorFragment extends Fragment {
                 firebaseRepo.getTutorImage(currentTutor.getImagename()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        newImageSat = true;
+
                         Picasso.with(rootView.getContext()).load(uri).resize(600, 600).centerInside().into(tutorImage);
                     }
                 });
             }
             tutorImage.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view)
+                {
+                    newImageSat = true;
                     openGallery();
                 }
             });
@@ -169,12 +171,30 @@ public class EditTutorFragment extends Fragment {
                     if (editName.getText().toString().equals("") || editNick.getText().toString().equals("") || editPhone.getText().toString().equals("") || editEmail.getText().toString().equals("")){
                         makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     } else {
-                        newImageSat = false;
+
+                        Tutor oldTutor = currentTutor;
+                        firebaseRepo.deleteTutor(currentTutor);
+
                         currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
-                        currentTutor.setImagename(guid);
-                        if (imageUri != null) {
-                            firebaseRepo.saveTutorImage(currentTutor, cropResult.getUri());
+
+                        if (newImageSat == false)
+                        {
+                            currentTutor = oldTutor;
+                            currentTutor.setTutorName(editName.getText().toString());
+                            currentTutor.setNickname(editNick.getText().toString());
+                            currentTutor.setPhoneNr(Integer.parseInt(editPhone.getText().toString()));
+                            currentTutor.setMail(editEmail.getText().toString());
                         }
+                        else
+                        {
+                            currentTutor.setImagename(guid);
+                            if (imageUri != null) {
+                                //TODO: maybe delete old picure before saving??????!?!?!?!
+                                firebaseRepo.saveTutorImage(currentTutor, cropResult.getUri());
+                            }
+                        }
+
+                        newImageSat = false;
                         firebaseRepo.insertTutor(currentTutor);
                         Navigation.findNavController(view).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
                     }

@@ -1,13 +1,17 @@
 package com.example.rus1_bar.Fragments.Bartender;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.ShoppingViewModel;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Service.ShoppingService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ShoppingCardFragment extends Fragment{
+
+    private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity";
 
 
     private FragmentViewShoppingCardListener listener;
@@ -42,6 +50,10 @@ public class ShoppingCardFragment extends Fragment{
     //RecyclerView.Adapter shoppingCardRecyclerAdapter;
     RecyclerView.LayoutManager shoppingCardLayoutManager;
 
+    ShoppingService shoppingService;
+
+    View rootView;
+
     public ShoppingCardFragment() {
         // Required empty public constructor
     }
@@ -51,7 +63,7 @@ public class ShoppingCardFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // rootView is needed when using fingViewById because otherwise the views have not been created by the time the views are called.
-        View rootView = inflater.inflate(R.layout.fragment_shopping_card, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
+        rootView = inflater.inflate(R.layout.fragment_shopping_card, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
 
 
         //Test data for the card view
@@ -62,48 +74,20 @@ public class ShoppingCardFragment extends Fragment{
 
 
 
-        // Recycler View setup
-        shoppingCardRecyclerView = rootView.findViewById(R.id.shoppingCardRecyclerView);
-
-
-        // Creates the linear layout
-        shoppingCardLayoutManager = new LinearLayoutManager(getActivity());                                                                //https://youtu.be/SD2t75T5RdY?t=1302
-        shoppingCardRecyclerView.setLayoutManager(shoppingCardLayoutManager);
-
-        // Recycler adapter setup
-        shoppingCardRecyclerAdapter = new ShoppingCardRecyclerAdapter(getActivity(), mProductList);
-        shoppingCardRecyclerView.setAdapter(shoppingCardRecyclerAdapter);
-
-
-        // Using the view model from the Shopping activity
-        shoppingViewModel = listener.fromActivity_GetShoppingViewModel();
-        shoppingViewModel.getAllProductsinPurchase().observe(this, products ->
-        {
-            mProductList.clear();
-            for (Product p : products)
-            {
-                mProductList.add(p);
-            }
-            shoppingCardRecyclerAdapter.notifyDataSetChanged();
-
-        });
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                listener.swipeToDelete(shoppingCardRecyclerAdapter.getProductAt(viewHolder.getAdapterPosition()));
-                //Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(shoppingCardRecyclerView);
-
-
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(ServiceConnected, new IntentFilter(SERVICE_CONNECTED_MAIN_ACTIVITY));
+
+        if (((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity() != null)
+        {
+            initShoppingCardFragment();
+        }
     }
 
 
@@ -140,6 +124,57 @@ public class ShoppingCardFragment extends Fragment{
         listener = null;
     }
 
+
+    private void initShoppingCardFragment()
+    {
+        if(getActivity() != null)
+        {
+            shoppingService = ((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity();
+
+            // Recycler View setup
+            shoppingCardRecyclerView = rootView.findViewById(R.id.shoppingCardRecyclerView);
+
+
+            // Creates the linear layout
+            shoppingCardLayoutManager = new LinearLayoutManager(getActivity());                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            shoppingCardRecyclerView.setLayoutManager(shoppingCardLayoutManager);
+
+            // Recycler adapter setup
+            shoppingCardRecyclerAdapter = new ShoppingCardRecyclerAdapter(getActivity(), mProductList);
+            shoppingCardRecyclerView.setAdapter(shoppingCardRecyclerAdapter);
+
+
+            // Using the view model from the Shopping activity
+            shoppingViewModel = shoppingService.getShoppingViewModel_fromService();
+            shoppingViewModel.getAllProductsinPurchase().observe(this, products ->
+            {
+                mProductList.clear();
+                for (Product p : products)
+                {
+                    mProductList.add(p);
+                }
+                shoppingCardRecyclerAdapter.notifyDataSetChanged();
+
+            });
+
+            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    listener.swipeToDelete(shoppingCardRecyclerAdapter.getProductAt(viewHolder.getAdapterPosition()));
+                    //Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show();
+                }
+            }).attachToRecyclerView(shoppingCardRecyclerView);
+
+
+
+        }
+    }
+
     /**
      * Interface to comunicate with Shopping Activity
      *
@@ -148,12 +183,18 @@ public class ShoppingCardFragment extends Fragment{
     public interface FragmentViewShoppingCardListener
     {
         // Meathod to be overwritten that gets category data from the Activity that gets it from the database.
-        List<Product> fromActivity_getShoppingProducts();
-
-        ShoppingViewModel fromActivity_GetShoppingViewModel();
         void swipeToDelete(Product product);
 
     }
+
+    private BroadcastReceiver ServiceConnected = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initShoppingCardFragment();
+        }
+    };
+
 
 
     private void fillTestShoppingCardList()
