@@ -16,11 +16,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/billSettingsSendBillBtn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline16"
+            app:layout_constraintBottom_toTopOf="@+id/guideline15"
             app:layout_constraintEnd_toStartOf="@+id/guideline9"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toTopOf="@+id/guideline15"
+            app:layout_constraintTop_toTopOf="@+id/guideline14"
             app:layout_constraintVertical_bias="0.111" />
 
         <Button
@@ -29,10 +29,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="@string/billSettingsExportBillBtn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline18"
+            app:layout_constraintBottom_toTopOf="@+id/guideline17"
             app:layout_constraintEnd_toStartOf="@+id/guideline9"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toTopOf="@+id/guideline17" />
+            app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
         <TextView
             android:id="@+id/billSettingsTitle"

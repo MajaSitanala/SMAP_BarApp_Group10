@@ -54,7 +54,6 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardwiev_item_product, parent, false);
-        //final NavController navController = Navigation.findNavController(ShoppingActivity.this, R.id.nav_host_fragment);
         return new ProductDisplayAdapter.MyViewHolder(view);
     }
 
@@ -75,7 +74,6 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
 
         holder.cardViewProduct.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            //Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onclickAddProduct(t);
             this.notifyDataSetChanged();
         });

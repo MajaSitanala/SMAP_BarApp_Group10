@@ -13,12 +13,12 @@
     <option name="delegatedBuild" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RUS1_Bar/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="136">
+              <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -46,101 +46,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="rus1_bar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="RUS1_Bar" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AppProjectFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AppProjectFinal" type="462c0819:PsiDirectoryNode" />
-              <item name="Synopsis" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -208,8 +116,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RUS1_Bar/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="136">
+          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
         </state>
       </provider>
     </entry>
