@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -84,7 +85,6 @@ public class ViewProductsFragment extends Fragment {
         cat = getArguments().getString("category");//listener.getCategoryString();//
 
 
-
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
     }
@@ -111,10 +111,18 @@ public class ViewProductsFragment extends Fragment {
             // Recycler View setup
             productRecyclerView = rootView.findViewById(R.id.productRecyclerView);
 
-
             //Creates the grid layout
-            productLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
-            productRecyclerView.setLayoutManager(productLayoutManager);
+            if(rootView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                productLayoutManager = new GridLayoutManager(getActivity(), 4);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+                productRecyclerView.setLayoutManager(productLayoutManager);
+            }
+            else
+            {
+                productLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+                productRecyclerView.setLayoutManager(productLayoutManager);
+            }
+
 
             //Init Database ref
             FireDB = shoppingService.getFirebaseDatabase_fromService();

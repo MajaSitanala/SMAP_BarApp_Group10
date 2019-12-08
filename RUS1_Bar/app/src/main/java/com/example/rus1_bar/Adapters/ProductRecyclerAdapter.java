@@ -1,7 +1,9 @@
 package com.example.rus1_bar.Adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,6 +140,29 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
             cardViewProduct = (CardView) itemView.findViewById(R.id.cardview_product);
             btn_minus = itemView.findViewById(R.id.btn_remove_product);
             btn_plus = itemView.findViewById(R.id.btn_add_product);
+
+            // https://stackoverflow.com/questions/19639691/android-getheight-and-getwidth
+            DisplayMetrics viewMetrics = itemView.getResources().getDisplayMetrics();
+            int displayWith = viewMetrics.widthPixels;
+
+            // https://stackoverflow.com/questions/3674933/find-out-if-android-device-is-portrait-or-landscape-for-normal-usage
+            if(itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                int imagesize = ((displayWith/4)-200);   //133 is the collected the margin size
+
+                cardViewProduct.getLayoutParams().width = imagesize;
+                img_productImage.getLayoutParams().width = imagesize;
+                img_productImage.getLayoutParams().height = imagesize;
+                img_productImage.requestLayout();
+            }
+            else
+            {
+                int imagesize = ((displayWith-30)/3);   //30 is the collected the margin size
+
+                img_productImage.getLayoutParams().width = imagesize;
+                img_productImage.getLayoutParams().height = imagesize;
+                img_productImage.requestLayout();
+            }
         }
 
     }

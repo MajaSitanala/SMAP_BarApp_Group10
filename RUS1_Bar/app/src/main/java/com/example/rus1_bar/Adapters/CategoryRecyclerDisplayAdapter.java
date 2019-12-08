@@ -1,8 +1,10 @@
 package com.example.rus1_bar.Adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +91,29 @@ public class CategoryRecyclerDisplayAdapter extends RecyclerView.Adapter<Categor
             txt_categoryName = (TextView) itemView.findViewById(R.id.txt_categoryName);
             img_categoryImage = (ImageView) itemView.findViewById(R.id.img_categoryImage);
             cardViewCategory = (CardView) itemView.findViewById(R.id.cardview_category);
+
+            // https://stackoverflow.com/questions/19639691/android-getheight-and-getwidth
+            DisplayMetrics viewMetrics = cardViewCategory.getResources().getDisplayMetrics();
+            int displayWith = viewMetrics.widthPixels;
+
+            // https://stackoverflow.com/questions/3674933/find-out-if-android-device-is-portrait-or-landscape-for-normal-usage
+            if(itemView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            {
+                int imagesize = ((displayWith/4)-200);   //133 is the collected the margin size
+
+                cardViewCategory.getLayoutParams().width = imagesize;
+                img_categoryImage.getLayoutParams().width = imagesize;
+                img_categoryImage.getLayoutParams().height = imagesize;
+                img_categoryImage.requestLayout();
+            }
+            else
+            {
+                int imagesize = ((displayWith-30)/3);   //30 is the collected the margin size
+
+                img_categoryImage.getLayoutParams().width = imagesize;
+                img_categoryImage.getLayoutParams().height = imagesize;
+                img_categoryImage.requestLayout();
+            }
         }
     }
 }

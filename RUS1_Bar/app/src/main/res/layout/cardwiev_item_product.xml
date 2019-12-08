@@ -5,9 +5,10 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    android:layout_width="120dp"
-    android:layout_height="160dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:layout_columnWeight="1"
     cardview:cardCornerRadius="4dp">
 
     <LinearLayout
@@ -25,12 +26,12 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/btn_remove_product"
                 android:layout_width="25dp"
-                android:layout_height="match_parent"
+                android:layout_height="25dp"
                 android:layout_below="@+id/img_productImage"
                 android:layout_alignBottom="@+id/txt_productName"
                 android:layout_alignParentStart="true"
@@ -47,7 +48,7 @@
             <TextView
                 android:id="@+id/txt_productName"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/img_productImage"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="2dp"

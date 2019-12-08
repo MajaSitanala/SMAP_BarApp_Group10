@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -70,8 +71,18 @@ public class ViewCategoriesFragment extends Fragment {
         categoryRecyclerView = rootView.findViewById(R.id.categoryRecyclerView);
 
         //Creates the grid layout
-        categoryLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
-        categoryRecyclerView.setLayoutManager(categoryLayoutManager);
+        //Creates the grid layout
+        if(rootView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            categoryLayoutManager = new GridLayoutManager(getActivity(), 4);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            categoryRecyclerView.setLayoutManager(categoryLayoutManager);
+        }
+        else
+        {
+            categoryLayoutManager = new GridLayoutManager(getActivity(), 3);                                                                //https://youtu.be/SD2t75T5RdY?t=1302
+            categoryRecyclerView.setLayoutManager(categoryLayoutManager);
+        }
+
 
         //Recycler adapter setup
         categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), testCategoryList);

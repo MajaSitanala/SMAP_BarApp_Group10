@@ -268,10 +268,10 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 updateCartUI(intemsInCart-1, totalSum-product.getPrice());
                 return;
             }
-        }
-        if (intemsInCart>=1)
-        {
-            updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
+            else if (p.getProductName().equals(product.getProductName()) && intemsInCart>=1)
+            {
+                updateCartUI(intemsInCart-product.getQuantity(), totalSum-product.getPrice());
+            }
         }
         shoppingViewModel.deleteProductInPurchase(product);
     }
