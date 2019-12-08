@@ -101,7 +101,7 @@
     <string name="noProductsInBasket">No products to buy, press Cancel!</string>
     <string name="appbar_action_login">Login</string>
     <string name="savedInstanceState_ShoppingActivity">saveInstanceState of shoppingViewModel</string>
-    <string name="SavedInstanceState_MainActivity">SavedInstance Sate Main Activity</string>
+    <string name="SavedInstanceState_MainActivity" translatable="false">SavedInstance Sate Main Activity</string>
 
     <!-- Category Settings -->
     <string name="categorySettings">Category Settings</string>
@@ -114,8 +114,8 @@
     <string name="addCategoriesAddBtn">Add</string>
     <string name="addCategoryTitle">Add Category</string>
     <string name="addCategoryName">Category Name</string>
-    <string name="addCategoryImage" />
-    <string name="addCategoryEditName" />
+    <string name="addCategoryImage" translatable="false">addCategoryImage</string>
+    <string name="addCategoryEditName" translatable="false">addCategoryEditName</string>
 
     <!-- Edit Category -->
     <string name="editCategoryTitle">Edit Category</string>
@@ -148,7 +148,10 @@
     <string name="editProductEditPrice">Product Price</string>
     <string name="administrator">Administrator</string>
     <string name="bartender">Bartender</string>
-
+    <string name="ExportingToMail">Exporting Bill. Hang on...</string>
+    <string name="BarRusMail" translatable="false">bar@rus1katriebjerg.dk</string>
+    <string name="youregood">Aaand you\'re good. Done.</string>
+    <string name="KasserRusMail" translatable="false">Kasser@Rus1Katrinebjerg.dk</string>
 
 
 </resources>

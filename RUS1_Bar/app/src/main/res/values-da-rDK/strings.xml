@@ -110,6 +110,8 @@
     <string name="editProductEditPrice">Produkt Pris</string>
     <string name="items_in_cart">"Varer i kurv: "</string>
     <string name="total_sum">"Total sum: "</string>
+    <string name="ExportingToMail">Eksporterer Barregning. Vent venligst.</string>
+    <string name="youregood">Tak for din tålmodighed.</string>
 
 
 </resources>

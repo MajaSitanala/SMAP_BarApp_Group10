@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,9 @@ import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Service.ShoppingService;
+
+import java.io.File;
+import java.net.URI;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +55,6 @@ public class BillSettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
-
 
     @Override
     public void onStart() {
@@ -99,6 +102,28 @@ public class BillSettingsFragment extends Fragment {
             sendBillBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    /** // https://developer.android.com/training/sharing/send
+
+                    Toast.makeText(getActivity(),R.string.ExportingToMail,Toast.LENGTH_LONG).show();
+
+                    //Uri uriToBillCSV = Uri.parse(""); //
+                    Uri uriToBillCSV = Uri.fromFile(new File(""));    //TODO: Insert link to Bar Bill CSV from Broberg
+
+                    Intent mailIntent = new Intent();
+                    mailIntent.setAction(Intent.ACTION_SEND);
+                    //mailIntent.putExtra(String, ); TODO: Might have to add string for certain mail applications (for extra mail recipients)
+                    mailIntent.putExtra(Intent.EXTRA_SUBJECT, "RUS-1 Bar Bill:");
+                    mailIntent.putExtra(Intent.EXTRA_TEXT, "Sent from Android");
+                    mailIntent.setType("text/plain");
+
+                    Intent attachIntent = new Intent();
+                    attachIntent.setAction(Intent.ACTION_SEND);
+                    attachIntent.putExtra(Intent.EXTRA_STREAM, uriToBillCSV);
+                    attachIntent.setType("csv");
+                    startActivity(Intent.createChooser(mailIntent, getResources().getText(R.string.send_to))); // TODO: send_to midlertidig mail - nemt at hardcode extra mailrecipients. måske også hente fra database?
+
+                    Toast.makeText(getActivity(),R.string.youregood,Toast.LENGTH_LONG).show(); */
 
                 }
             });
