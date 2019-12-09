@@ -152,6 +152,8 @@
     <string name="BarRusMail" translatable="false">bar@rus1katriebjerg.dk</string>
     <string name="youregood">Aaand you\'re good. Done.</string>
     <string name="KasserRusMail" translatable="false">Kasser@Rus1Katrinebjerg.dk</string>
+    <string name="send_to" translatable="false">Mail</string>
+    <string name="BarappRusMail" translatable="false">Rus1.Barapp@gmail.com</string>
 
 
 </resources>
