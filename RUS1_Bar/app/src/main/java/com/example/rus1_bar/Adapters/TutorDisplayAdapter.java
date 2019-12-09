@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
@@ -32,10 +33,10 @@ public class TutorDisplayAdapter extends RecyclerView.Adapter<TutorDisplayAdapte
     private FirebaseRepository repository;
 
 
-    public TutorDisplayAdapter(Context mContext, List<Tutor> mTutorList) {
+    public TutorDisplayAdapter(Context mContext, List<Tutor> mTutorList, ShoppingService shoppingService) {
         this.mContext = mContext;
         this.mTutorList = mTutorList;
-        this.repository = new FirebaseRepository();
+        this.repository = shoppingService.getFirebaseRepository_fromService();
     }
 
     @NonNull

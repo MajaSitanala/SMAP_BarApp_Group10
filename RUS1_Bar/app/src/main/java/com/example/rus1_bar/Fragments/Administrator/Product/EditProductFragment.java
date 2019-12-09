@@ -33,6 +33,8 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
@@ -52,6 +54,8 @@ public class EditProductFragment extends Fragment
     private Button deleteBtn;
     private Button editBtn;
 
+    private Boolean categyNameCheck;
+
     private static final int PICK_IMAGE = 101;
     private ImageView productImage;
     private Uri imageUri;
@@ -69,6 +73,7 @@ public class EditProductFragment extends Fragment
     private AlertDialog diaBox;
 
     ShoppingService shoppingService;
+    private List<String> mCategorynameList = new ArrayList<String>();
 
     private View rootView;
     private boolean newImageSat;
@@ -87,6 +92,8 @@ public class EditProductFragment extends Fragment
         guid  = UUID.randomUUID().toString();
         currentProduct = (Product) getArguments().getSerializable("product");
         categoryName = (String) getArguments().getSerializable("category_name");
+        mCategorynameList = (ArrayList<String>) getArguments().getStringArrayList("category_list");
+
 
 
         editName = rootView.findViewById(R.id.editProductEditName);
@@ -166,31 +173,47 @@ public class EditProductFragment extends Fragment
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
-                    if (editName.getText().toString().equals("")){
-                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Product oldProduct = currentProduct;
-                        firebaseRepo.deleteProduct(currentProduct, categoryName);
-
-                        currentProduct = new Product(editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
-
-                        if (newImageSat == false)
+                    for(String categoryName : mCategorynameList)
+                    {
+                        if (editCategoryOfproduct.getText().toString().equals(categoryName))
                         {
-                            currentProduct = oldProduct;
-                            currentProduct.setProductName(editName.getText().toString());
+                            categyNameCheck = true;
+                            if ((editName.getText().toString().equals("")) || (editCategoryOfproduct.getText().toString().equals("")) || (editPrice.getText().toString().equals("")))
+                            {
+                                Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Product oldProduct = currentProduct;
+                                firebaseRepo.deleteProduct(currentProduct, categoryName);
+
+                                currentProduct = new Product(editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
+
+                                if (newImageSat == false)
+                                {
+                                    currentProduct = oldProduct;
+                                    currentProduct.setProductName(editName.getText().toString());
+                                }
+                                else
+                                {
+                                    currentProduct.setImageName(guid);
+                                    if (imageUri != null){
+                                        firebaseRepo.saveProductImage(currentProduct, cropResult.getUri());
+                                    }
+                                }
+
+                                newImageSat = false;
+                                firebaseRepo.insertProduct(currentProduct, categoryName);
+                                Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_productSettingsFragment);
+                            }
                         }
                         else
                         {
-                            currentProduct.setImageName(guid);
-                            if (imageUri != null){
-                                firebaseRepo.saveProductImage(currentProduct, cropResult.getUri());
-                            }
+                            categyNameCheck = false;
                         }
-
-                        newImageSat = false;
-                        firebaseRepo.insertProduct(currentProduct, categoryName);
-                        Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_productSettingsFragment);
+                    }
+                    if (categyNameCheck==false)
+                    {
+                        Toast.makeText(getContext(), "No catagoty named "+editCategoryOfproduct.getText().toString(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -202,13 +225,13 @@ public class EditProductFragment extends Fragment
     {
         AlertDialog deleteDialogBox = new AlertDialog.Builder(getContext()) //Might have to be (this) instead of getContext
                 .setTitle("Delete")
-                .setMessage("Do you want to delete this Category?")
+                .setMessage("Do you want to delete this Product?")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         newImageSat = false;
                         firebaseRepo.deleteProduct(currentProduct, categoryName);
-                        Navigation.findNavController(getView()).navigate(R.id.action_editCategoryFragment_to_categorySettingsFragment);
+                        Navigation.findNavController(getView()).navigate(R.id.action_editProductFragment_to_productSettingsFragment);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

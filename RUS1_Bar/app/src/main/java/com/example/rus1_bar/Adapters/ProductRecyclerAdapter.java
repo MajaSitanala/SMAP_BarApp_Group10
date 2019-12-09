@@ -3,6 +3,7 @@ package com.example.rus1_bar.Adapters;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
@@ -49,10 +51,10 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
     private String categoryID;
 
 
-    public ProductRecyclerAdapter(Context mContext, List<Product> mProductList,String CategoryId) {
+    public ProductRecyclerAdapter(Context mContext, List<Product> mProductList, String CategoryId, ShoppingService shoppingService) {
         this.mContext = mContext;
         this.mProductList = mProductList;
-        this.repository = new FirebaseRepository();
+        this.repository = shoppingService.getFirebaseRepository_fromService();
         this.categoryID = CategoryId;
 
         if (mContext instanceof AdapterProductListner)
@@ -98,7 +100,6 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
         holder.btn_minus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            //Toast.makeText(view.getContext(), "You tried to remove " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onClickRemoveProduct(t);
             this.notifyDataSetChanged();
 
@@ -106,14 +107,12 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
         holder.btn_plus.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            //Toast.makeText(view.getContext(), "You tried to add " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onclickAddProduct(t);
             this.notifyDataSetChanged();
         });
 
         holder.cardViewProduct.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            //Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listner.onclickAddProduct(t);
             this.notifyDataSetChanged();
         });

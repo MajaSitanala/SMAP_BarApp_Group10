@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAdapter.MyViewHolder>{
@@ -37,7 +38,7 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
     private List<Product> mProductList;
     private FirebaseRepository repository;
     private List<StorageReference> mImageList;
-    private List<String> mCategorynameList;
+    private List<String> mCategorynameList = new ArrayList<String>();
 
 
 
@@ -85,6 +86,7 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
             Bundle bundle = new Bundle();
             bundle.putSerializable("product", t);
             bundle.putSerializable("category_name",mCategorynameList.get(position));
+            bundle.putStringArrayList("category_list", (ArrayList<String>) mCategorynameList);
 
             Navigation.findNavController(view).navigate(R.id.editProductFragment,bundle);
         });

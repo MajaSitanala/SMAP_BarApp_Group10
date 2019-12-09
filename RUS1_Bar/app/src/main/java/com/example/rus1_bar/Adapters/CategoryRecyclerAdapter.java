@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
+import com.example.rus1_bar.Service.ShoppingService;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
@@ -32,10 +33,10 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     private List<Category> mCategoryList;
     private FirebaseRepository repository;
 
-    public CategoryRecyclerAdapter(Context mContext, List<Category> mCategoryList) {
+    public CategoryRecyclerAdapter(Context mContext, List<Category> mCategoryList, ShoppingService shoppingService) {
         this.mContext = mContext;
         this.mCategoryList = mCategoryList;
-        this.repository = new FirebaseRepository();
+        this.repository = shoppingService.getFirebaseRepository_fromService();
     }
 
 

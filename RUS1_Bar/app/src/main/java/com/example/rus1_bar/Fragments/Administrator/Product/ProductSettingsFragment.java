@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
+import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
@@ -108,6 +109,27 @@ public class ProductSettingsFragment extends Fragment {
 
             View.OnClickListener addProductClick = Navigation.createNavigateOnClickListener(R.id.action_productSettingsFragment_to_addProductFragment);
             addProductBtn.setOnClickListener(addProductClick);
+
+            //(R.id.nav_host_fragment)
+
+
+            /*
+            addProductBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("category_name_list",(ArrayList<String>)categoryNameList);
+                    Navigation.findNavController(R.id.nav_host_fragment).navigate(R.id.viewProductsFragment,bundle);
+                }
+            });
+
+             */
+
+
+
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("category_list", (ArrayList<String>) categoryNameList);
 
             productLayoutManager = new GridLayoutManager(getActivity(), 1);
             productRecyclerView.setLayoutManager(productLayoutManager);

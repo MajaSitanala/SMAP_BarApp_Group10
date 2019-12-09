@@ -78,11 +78,6 @@ public class ViewCategoriesFragment extends Fragment {
             categoryRecyclerView.setLayoutManager(categoryLayoutManager);
         }
 
-
-        //Recycler adapter setup
-        categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), testCategoryList);
-        categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
-
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);
     }
@@ -106,6 +101,10 @@ public class ViewCategoriesFragment extends Fragment {
         {
             // Service reference
             shoppingService = ((ShoppingActivity)getActivity()).getShoppingService_fromShoppingActivity();
+
+            //Recycler adapter setup
+            categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), testCategoryList, shoppingService);
+            categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
 
             //Get categories from db
             FireDB = shoppingService.getFirebaseDatabase_fromService();

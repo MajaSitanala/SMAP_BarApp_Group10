@@ -143,7 +143,7 @@ public class ViewProductsFragment extends Fragment {
             });
 
             //Recycler adapter setup
-            productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList,cat);
+            productRecyclerAdapter = new ProductRecyclerAdapter(getActivity(), testProductList, cat, shoppingService);
             productRecyclerView.setAdapter(productRecyclerAdapter);
         }
     }

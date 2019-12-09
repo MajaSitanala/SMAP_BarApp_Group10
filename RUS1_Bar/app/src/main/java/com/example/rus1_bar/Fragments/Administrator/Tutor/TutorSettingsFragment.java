@@ -105,7 +105,7 @@ public class TutorSettingsFragment extends Fragment {
             tutorRecyclerView.setLayoutManager(tutorLayoutManager);
 
             //Recycler adapter setup
-            tutorRecyclerAdapter = new TutorDisplayAdapter(getActivity(), mTutorList);
+            tutorRecyclerAdapter = new TutorDisplayAdapter(getActivity(), mTutorList, shoppingService);
 
             tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
 

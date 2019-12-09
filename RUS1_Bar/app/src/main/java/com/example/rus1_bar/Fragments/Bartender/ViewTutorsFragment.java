@@ -130,7 +130,7 @@ public class ViewTutorsFragment extends Fragment {
             });
 
             //Recycler adapter setup
-            tutorRecyclerAdapter = new TutorRecyclerAdapter(getActivity(), testTutorList);
+            tutorRecyclerAdapter = new TutorRecyclerAdapter(getActivity(), testTutorList, shoppingService);
 
             tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
         }

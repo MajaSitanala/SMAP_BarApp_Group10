@@ -122,7 +122,7 @@ public class CategorySettingsFragment extends Fragment {
                 }
             });
 
-            categoryRecyclerAdapter = new CategoryRecyclerDisplayAdapter(getActivity(), mCategoryList);
+            categoryRecyclerAdapter = new CategoryRecyclerDisplayAdapter(getActivity(), mCategoryList, shoppingService);
             categoryRecyclerView.setAdapter(categoryRecyclerAdapter);
         }
     }

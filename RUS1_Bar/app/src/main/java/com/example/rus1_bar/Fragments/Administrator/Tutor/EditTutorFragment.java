@@ -169,8 +169,9 @@ public class EditTutorFragment extends Fragment {
                 public void onClick(View view) {
                     //Error handling for empty fields.
                     if (editName.getText().toString().equals("") || editNick.getText().toString().equals("") || editPhone.getText().toString().equals("") || editEmail.getText().toString().equals("")){
-                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
-                    } else {
+                        Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
 
                         Tutor oldTutor = currentTutor;
                         firebaseRepo.deleteTutor(currentTutor);
