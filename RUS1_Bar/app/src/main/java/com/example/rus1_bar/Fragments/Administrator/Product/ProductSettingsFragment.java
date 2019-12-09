@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +22,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Adapters.CategoryRecyclerDisplayAdapter;
+import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
+import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ProductSettingsCategoryRecyclerAdapter;
 import com.example.rus1_bar.Models.Category;
+import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
+import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Service.ShoppingService;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +53,10 @@ public class ProductSettingsFragment extends Fragment {
     private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
     private List<Category> mCategoryList = new ArrayList<>();
+    private List<String> mCategoryStringList = new ArrayList<>();
+    private List<Product> mProductList = new ArrayList<>();
+    private List<StorageReference> mProductImageList = new ArrayList<>();
+    private List<String> categoryNameList = new ArrayList<>();
 
     Button cancelBtn;
     Button addProductBtn;
@@ -48,14 +64,15 @@ public class ProductSettingsFragment extends Fragment {
     RecyclerView productRecyclerView;
     RecyclerView.Adapter productRecyclerAdapter;
     RecyclerView.LayoutManager productLayoutManager;
+    FirebaseRepository firebaseRepository;
 
     // Database
     private DatabaseReference databaseCategoryDisplay;
     private FirebaseDatabase FireDB;
 
-    ShoppingService shoppingService;
-
+    private ShoppingService shoppingService;
     private View rootView;
+    private Category cat;
 
     public ProductSettingsFragment() {
         // Required empty public constructor
@@ -88,6 +105,7 @@ public class ProductSettingsFragment extends Fragment {
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
+            firebaseRepository = shoppingService.getFirebaseRepository_fromService();
 
             cancelBtn = rootView.findViewById(R.id.productsettingsCancelBtn);
             addProductBtn = rootView.findViewById(R.id.productSettingsAddBtn);
@@ -105,24 +123,62 @@ public class ProductSettingsFragment extends Fragment {
             //Get categories from db
             FireDB = shoppingService.getFirebaseDatabase_fromService();
             databaseCategoryDisplay = FireDB.getReference("categories");
-            databaseCategoryDisplay.addValueEventListener(new ValueEventListener() {
+            databaseCategoryDisplay.addValueEventListener(new ValueEventListener()
+            {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()){
-                        Category cat = categorySnapshot.getValue(Category.class);
-                        mCategoryList.add(cat);
-                        productRecyclerAdapter.notifyDataSetChanged();
-                    }
-                }
 
+                    for (DataSnapshot categorySnapshot : dataSnapshot.getChildren()){
+                        cat = categorySnapshot.getValue(Category.class);
+                        mCategoryList.add(cat);
+                        mCategoryStringList.add(cat.getCategoryName());
+                        //productRecyclerAdapter.notifyDataSetChanged();
+                    }
+
+
+                   for (Category category : mCategoryList)
+                    {
+                        DatabaseReference databaseProduct = FireDB.getReference("categories").child(category.getCategoryName());
+                        ValueEventListener productListenter = new ValueEventListener()
+                        {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                    for (DataSnapshot productSnapshot : dataSnapshot.getChildren())
+                                    {
+
+                                        try {
+                                            Product product = productSnapshot.getValue(Product.class);
+                                            mProductList.add(product);
+                                            categoryNameList.add(category.getCategoryName());
+
+                                            productRecyclerAdapter.notifyDataSetChanged();
+                                        }
+                                        catch (DatabaseException E)
+                                        {
+                                            Log.e("DB x: " + E, "Error fom try catch.");
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+                                Log.e("PRODUCT fromService ", "Error did not load the products");
+                            }
+                        };
+                        databaseProduct.addValueEventListener(productListenter);
+                    }
+
+                }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
 
-            productRecyclerAdapter = new ProductSettingsCategoryRecyclerAdapter(getActivity(), mCategoryList);
+            productRecyclerAdapter = new ProductDisplayAdapter(getActivity(), mProductList, categoryNameList, shoppingService);
             productRecyclerView.setAdapter(productRecyclerAdapter);
         }
     }
@@ -134,4 +190,64 @@ public class ProductSettingsFragment extends Fragment {
             initProductSettingsFragment();
         }
     };
+
+
+
+/*
+    public List<Product> getAllProductsInDatabase()
+    {
+        List<Category> allCategoriesInDatabase = new ArrayList<>();
+        List<Product> allProductsInDatabase = new ArrayList<>();
+
+        //Get categories from db
+        DatabaseReference databaseCategory = this.firebaseDatabase.getReference("categories");
+        databaseCategory.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e("Category fromService ", "inside");
+                allCategoriesInDatabase.clear();
+                for (DataSnapshot categorySnapshot : dataSnapshot.getChildren())
+                {
+                    Category cat = categorySnapshot.getValue(Category.class);
+                    allCategoriesInDatabase.add(cat);
+
+                    //Init Database ref
+                    DatabaseReference databaseProduct = firebaseDatabase.getReference("categories").child(cat.getCategoryName());
+                    databaseProduct.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            allProductsInDatabase.clear();
+                            for (DataSnapshot productSnapshot : dataSnapshot.getChildren())
+                            {
+                                try {
+                                    Product product = productSnapshot.getValue(Product.class);
+                                    allProductsInDatabase.add(product);
+                                }
+                                catch (DatabaseException E)
+                                {
+                                    Log.e("DB x: " + E, "Error fom try catch.");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError)
+                        {
+                            Log.e("PRODUCT fromService ", "Error did not load the products");
+                        }
+                    });
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+                Log.e("Category fromService ", "Error did not load the categories");
+            }
+        });
+
+        return allProductsInDatabase;
+    }
+
+ */
 }

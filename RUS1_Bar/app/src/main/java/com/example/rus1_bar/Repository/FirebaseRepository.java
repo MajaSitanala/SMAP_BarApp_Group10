@@ -68,10 +68,10 @@ public class FirebaseRepository {
         databaseCategory.child(category.getCategoryName()).setValue(category);
     }
 
-    public void insertProduct(Product product, Category cat) {
+    public void insertProduct(Product product, String cat) {
         String Id = databaseCategory.push().getKey();
         product.setProductID(Id);
-        databaseCategory.child(cat.getCategoryName()).child(product.getProductName()).setValue(product);
+        databaseCategory.child(cat).child(product.getProductName()).setValue(product);
     }
 
     public void insertTutor(Tutor tutor){
@@ -82,8 +82,8 @@ public class FirebaseRepository {
         databaseCategory.child(category.getCategoryName()).removeValue();
     }
 
-    public void deleteProduct(Product product, Category category){
-        databaseCategory.child(category.getCategoryName()).child(product.getProductName()).removeValue();
+    public void deleteProduct(Product product, String category){
+        databaseCategory.child(category).child(product.getProductName()).removeValue();
     }
 
     public void deleteTutor(Tutor tutor){

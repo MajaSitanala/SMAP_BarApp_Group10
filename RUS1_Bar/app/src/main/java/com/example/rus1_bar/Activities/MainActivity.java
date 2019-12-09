@@ -198,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_rusturSettingsFragment_to_settingsOverviewFragment);
                 break;
             }
-
             // TODO: Rustur's settings.
 
             case "fragment_bill_settings":
