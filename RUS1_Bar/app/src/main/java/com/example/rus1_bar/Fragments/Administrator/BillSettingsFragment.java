@@ -37,6 +37,8 @@ public class BillSettingsFragment extends Fragment {
     Button cancelBtn;
 
     String name = "Rus1.Barapp@gmail.com";
+    String kasserMail = "kasser@rus1katriebjerg.dk";
+    String barMail = "bar@rus1katriebjerg.dk";
 
     private ShoppingService shoppingService;
     private View rootView;
@@ -94,22 +96,22 @@ public class BillSettingsFragment extends Fragment {
                     Intent mailIntent = new Intent();
                     mailIntent.setAction(Intent.ACTION_SEND);
                     mailIntent.setType("*/*");
-                    mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {name,name});
-
-                    mailIntent.putExtra(Intent.EXTRA_CC, getResources().getText(R.string.BarappRusMail));
-                    mailIntent.putExtra(Intent.EXTRA_SUBJECT, "RUS-1 Bar Bill:");
-                    mailIntent.putExtra(Intent.EXTRA_TEXT, "Sent from Android");
+                    mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {name}); // insert primary reciever E-mail address here
+                    mailIntent.putExtra(Intent.EXTRA_CC, new String[] {barMail}); // insert CC
+                    mailIntent.putExtra(Intent.EXTRA_BCC, new String[] {kasserMail}); // insert BCC - new String[] {kasserMail} can take more mails, as such {kasserMail, mail, mail} etc.
+                    mailIntent.putExtra(Intent.EXTRA_SUBJECT, "RUS-1 Bar Bill:"); // insert subject
+                    mailIntent.putExtra(Intent.EXTRA_TEXT, "Sent from Android"); // insert actual text in mail
 
                     Intent attachIntent = new Intent();
                     attachIntent.setAction(Intent.ACTION_SEND);
-                    attachIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // might not be necessary
+                    attachIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // might not be necessary, as we call permission in manifest.
                     attachIntent.putExtra(Intent.EXTRA_STREAM, uriToBillCSV);
                     attachIntent.setType("csv");
                     startActivity(Intent.createChooser(mailIntent, getResources().getText(R.string.send_to)));
 
                     //endregion
 
-                    Toast.makeText(getActivity(),R.string.youregood,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),R.string.ExportingToMail,Toast.LENGTH_LONG).show();
 
                 }
             });
