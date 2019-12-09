@@ -9,12 +9,8 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-// Refference: tutorial at https://www.youtube.com/watch?v=SD2t75T5RdY
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -25,11 +21,11 @@ import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
 import java.util.List;
+
+// Refference: tutorial at https://www.youtube.com/watch?v=SD2t75T5RdY
 
 public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdapter.MyViewHolder> {
 
@@ -56,7 +52,6 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardview_item_tutor, parent, false);
-        //final NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
         return new MyViewHolder(view);
     }
 
@@ -75,20 +70,13 @@ public class TutorRecyclerAdapter extends RecyclerView.Adapter<TutorRecyclerAdap
 
         }
 
-
-        //TODO: use this onclick listener to go to another fragment or activity
         holder.cardViewTutor.setOnClickListener(view -> {
             Tutor t = mTutorList.get(position);
-            //Toast.makeText(view.getContext(), "You clicked " + t.getNickname(), Toast.LENGTH_SHORT).show();
 
             Intent listIntent = new Intent(mContext, ShoppingActivity.class);
-            //listIntent.putExtra(TUTOR_NICK, t.getNickname());
             listIntent.putExtra(TUTOR_OBJECT, t);
             ((Activity)mContext).startActivityForResult(listIntent, REQUEST_TUTOR_PURCHASE);
 
-
-            //navController = Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-            //Navigation.createNavigateOnClickListener(R.id.action_viewTutorsFragment_to_viewCategoriesFragment);
         });
     }
 

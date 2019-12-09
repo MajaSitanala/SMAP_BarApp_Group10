@@ -4,15 +4,11 @@ package com.example.rus1_bar.Repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import android.os.ResultReceiver;
-
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.rus1_bar.Database.PurchaseRoomDao;
 import com.example.rus1_bar.Database.PurchaseRoomDatabase;
 import com.example.rus1_bar.Models.Product;
-import com.example.rus1_bar.Models.Purchase;
 
 import java.util.List;
 
@@ -64,7 +60,6 @@ public class PurchaseRoomRepository
         @Override
         protected Void doInBackground(Product... products)
         {
-            //TODO: Maybe make a loop
             purchaseRoomDao.insertProducts(products[0]);
             return null;
         }
@@ -82,7 +77,6 @@ public class PurchaseRoomRepository
         @Override
         protected Void doInBackground(Product... products)
         {
-            //TODO: Maybe make a loop
             purchaseRoomDao.updateProducts(products[0]);
             return null;
         }
@@ -100,7 +94,6 @@ public class PurchaseRoomRepository
         @Override
         protected Void doInBackground(Product... products)
         {
-            //TODO: Maybe make a loop
             purchaseRoomDao.deleteProducts(products[0]);
             return null;
         }

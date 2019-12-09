@@ -82,6 +82,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
         holder.txt_productName.setText(mProductList.get(position).getProductName());
         holder.img_productImage.setImageResource(mProductList.get(position).getPicture());
+
         if(mProductList.get(position).getImageName() != null && categoryID !=  null){
             repository.getProductImage(mProductList.get(position).getImageName(), categoryID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override

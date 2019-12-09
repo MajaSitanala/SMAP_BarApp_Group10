@@ -1,29 +1,18 @@
 package com.example.rus1_bar.Service;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.ShoppingViewModel;
-import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Repository.PurchaseRoomRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,14 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-/**
- * Inspiration found from Code in flow at https://codinginflow.com/tutorials/android/foreground-service for the test notification.
- */
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.rus1_bar.Service.AppShopping.TEST_CHANNEL_ID;
+/**
+ * Inspiration found from Code in flow at https://codinginflow.com/tutorials/android/foreground-service for the test notification.
+ */
 
 public class ShoppingService extends Service implements Serializable {
 
@@ -73,29 +62,6 @@ public class ShoppingService extends Service implements Serializable {
         firebaseAuth = FirebaseAuth.getInstance();
         purchaseRoomRepository = new PurchaseRoomRepository(this.getApplication());
         shoppingViewModel = new ShoppingViewModel(this.getApplication(), this);
-
-
-
-        /*
-        // Notification intent
-        Intent notificationIntent = new Intent(this, ShoppingActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-
-        //Notification creation
-        Notification notification = new NotificationCompat.Builder(this, TEST_CHANNEL_ID)
-                .setContentTitle("Test Service Running")
-                .setContentText("Yo yo yo yo")
-                .setSmallIcon(R.drawable.rusicon)
-                .setContentIntent(pendingIntent)
-                .build();
-
-        //Notification starts in the forground
-        startForeground(1, notification);
-
-         */
-
-
     }
 
     @Override

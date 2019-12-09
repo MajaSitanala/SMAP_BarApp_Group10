@@ -7,29 +7,23 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.Navigation;
-
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.rus1_bar.Models.Rustur;
-import com.example.rus1_bar.Models.Tutor;
+import android.os.Environment;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.Navigation;
+
 import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Service.ShoppingService;
 
 import java.io.File;
-import java.net.URI;
-
-import static android.content.Intent.EXTRA_CC;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,29 +82,12 @@ public class BillSettingsFragment extends Fragment {
 
                     // https://developer.android.com/training/sharing/send
 
-                    // Toast.makeText(getActivity(),R.string.ExportingToMail,Toast.LENGTH_LONG).show(); unnecessary for now - might be longer when .csv available.
-
                     //Uri uriToBillCSV = Uri.parse(""); //
                     Uri uriToBillCSV = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),shoppingService.getCurrentRustur() +".csv"));
 
                     //Mail Intent connected to gmail:
                     //Mailaddress: Rus1.Barapp@gmail.com
                     //PW: #WomenzRulez
-
-                    /**
-                    //region Custom Uri solution //not working
-                    Uri uri = Uri.parse("mailto:"+ name)
-                            .buildUpon()
-                            .appendQueryParameter("subject", "RUS-1 Bar Bill:")
-                            .appendQueryParameter("body", "Sent from Android")
-                            .build();
-
-                    Intent mailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto" + name));
-                    startActivity(Intent.createChooser(mailIntent, "Chooser Title"));
-                    //endregion
-
-                     */
-
 
                     //region Intent solution
 

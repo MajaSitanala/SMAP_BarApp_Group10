@@ -69,7 +69,6 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
             });
         }
 
-        //TODO: Make navigation to new recyclerView
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
 
@@ -109,7 +108,6 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
             img_productImage = itemView.findViewById(R.id.img_productImage);
             cardViewProduct = itemView.findViewById(R.id.cardview_tutor);
 
-            /*
             // https://stackoverflow.com/questions/19639691/android-getheight-and-getwidth
             DisplayMetrics viewMetrics = cardViewProduct.getResources().getDisplayMetrics();
             int displayWith = viewMetrics.widthPixels;
@@ -133,7 +131,7 @@ public class ProductSettingsCategoryRecyclerAdapter extends RecyclerView.Adapter
                 img_productImage.requestLayout();
             }
 
-             */
+
         }
     }
 }

@@ -3,12 +3,9 @@ package com.example.rus1_bar.Repository;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.ColumnInfo;
 
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
@@ -16,26 +13,19 @@ import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.Models.Tutor;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +58,10 @@ public class FirebaseRepository {
         databaseCategory.child(category.getCategoryName()).setValue(category);
     }
 
-    public void insertProduct(Product product, Category cat) {
+    public void insertProduct(Product product, String cat) {
         String Id = databaseCategory.push().getKey();
         product.setProductID(Id);
-        databaseCategory.child(cat.getCategoryName()).child(product.getProductName()).setValue(product);
+        databaseCategory.child(cat).child(product.getProductName()).setValue(product);
     }
 
     public void insertTutor(Tutor tutor){
@@ -82,8 +72,8 @@ public class FirebaseRepository {
         databaseCategory.child(category.getCategoryName()).removeValue();
     }
 
-    public void deleteProduct(Product product, Category category){
-        databaseCategory.child(category.getCategoryName()).child(product.getProductName()).removeValue();
+    public void deleteProduct(Product product, String category){
+        databaseCategory.child(category).child(product.getProductName()).removeValue();
     }
 
     public void deleteTutor(Tutor tutor){
@@ -142,7 +132,7 @@ public class FirebaseRepository {
             });
         }
     }
-    //TODO: Navigate correctly through DB
+
     public void saveProductImage(Product product, Uri imageUri){
         if(product.getImageName() != null){
             StorageReference pic = ImageDB.child("categories/"+product.getImageName()+".jpg");
@@ -155,7 +145,6 @@ public class FirebaseRepository {
         }
     }
 
-    //TODO: Handle Exceptions when loading pictures
     public StorageReference getCategoryImage(String categoryName){
         StorageReference jpg = ImageDB.child("categories/"+categoryName+".jpg");
         return jpg;
