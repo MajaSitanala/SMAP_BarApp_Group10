@@ -75,20 +75,7 @@ public class MainActivity extends AppCompatActivity {
         {
             //Todo: Hvis der er noget data som skal gemmes ved rotation
         }
-
-        // Initialize Firebase Auth
-       //mAuth = shoppingService.getFirebaseAuth_fromService();// FirebaseAuth.getInstance();
     }
-
-    /*
-    public ShoppingService test()
-    {
-        return  this.shoppingService;
-
-    }
-
-     */
-
 
     @Override
     public void onStart() {

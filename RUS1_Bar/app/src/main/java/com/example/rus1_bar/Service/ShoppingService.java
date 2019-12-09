@@ -133,7 +133,6 @@ public class ShoppingService extends Service implements Serializable {
         }
     }
 
-
     public List<Product> getAllProductsInDatabase()
     {
         List<Category> allCategoriesInDatabase = new ArrayList<>();
