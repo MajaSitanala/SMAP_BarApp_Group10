@@ -137,10 +137,11 @@ public class AddTutorFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
-                    if (editName.toString().equals("") || editNick.toString().equals("") || editPhone.toString().equals("") || editEmail.toString().equals("")){
-                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    if (editName.getText().toString().equals("") || editNick.getText().toString().equals("") || editPhone.getText().toString().equals("") || editEmail.getText().toString().equals("")){
+                        Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
                     else {
+                        /*
                         newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
                         newTutor.setImagename(guid);
                         if (imageUri != null){
@@ -148,6 +149,8 @@ public class AddTutorFragment extends Fragment {
                         }
                         firebaseRepo.insertTutor(newTutor);
                         Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
+
+                         */
                     }
                 }
             });

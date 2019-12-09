@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,10 +131,12 @@ public class AddCategoriesFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
-                    if (editName.toString().equals("")){
-                        makeText(getApplicationContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
+                    if (editName.getText().toString().equals(""))
+                    {
+                        Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
                     else {
+
                         newCategory = new Category(editName.getText().toString());
                         newCategory.setImageName(guid);
                         if (imageUri != null){
