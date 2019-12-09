@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ public class BillSettingsFragment extends Fragment {
     Button cancelBtn;
 
     String name = "Rus1.Barapp@gmail.com";
-
 
     private ShoppingService shoppingService;
     private View rootView;
@@ -91,7 +91,7 @@ public class BillSettingsFragment extends Fragment {
                     // Toast.makeText(getActivity(),R.string.ExportingToMail,Toast.LENGTH_LONG).show(); unnecessary for now - might be longer when .csv available.
 
                     //Uri uriToBillCSV = Uri.parse(""); //
-                    Uri uriToBillCSV = Uri.fromFile(new File(""));    //TODO: Insert link to Bar Bill CSV from Broberg
+                    Uri uriToBillCSV = Uri.fromFile(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),shoppingService.getCurrentRustur() +".csv"));
 
                     //Mail Intent connected to gmail:
                     //Mailaddress: Rus1.Barapp@gmail.com
@@ -116,14 +116,8 @@ public class BillSettingsFragment extends Fragment {
 
                     Intent mailIntent = new Intent();
                     mailIntent.setAction(Intent.ACTION_SEND);
-                    mailIntent.setType("text/plain");
-                    mailIntent.putExtra(Intent.EXTRA_EMAIL, getResources().getText(R.string.BarappRusMail));
-                    // Variations for later use (just remove // before line):
-                    //mailIntent.putExtra(Intent.EXTRA_CC, getResources().getText(R.string.BarRusMail));
-                    //mailIntent.putExtra(Intent.EXTRA_BCC, getResources().getText(R.string.KasserRusMail));
-                    //mailIntent.putExtra( name, name);
-
-                    //mailIntent.putExtra(Intent.EXTRA_EMAIL, name);
+                    mailIntent.setType("*/*");
+                    mailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {name,name});
 
                     mailIntent.putExtra(Intent.EXTRA_CC, getResources().getText(R.string.BarappRusMail));
                     mailIntent.putExtra(Intent.EXTRA_SUBJECT, "RUS-1 Bar Bill:");
