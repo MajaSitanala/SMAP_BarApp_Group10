@@ -28,6 +28,8 @@ import com.example.rus1_bar.Service.ShoppingService;
 import java.io.File;
 import java.net.URI;
 
+import static android.content.Intent.EXTRA_CC;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -38,6 +40,9 @@ public class BillSettingsFragment extends Fragment {
     Button sendBillBtn;
     Button exportBillBtn;
     Button cancelBtn;
+
+    String name = "Rus1.Barapp@gmail.com";
+
 
     private ShoppingService shoppingService;
     private View rootView;
@@ -76,12 +81,65 @@ public class BillSettingsFragment extends Fragment {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
 
-
             sendBillBtn = rootView.findViewById(R.id.billSettingsSendBillBtn);
             sendBillBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),"Comming soon.",Toast.LENGTH_LONG);
+
+                    // https://developer.android.com/training/sharing/send
+
+                    // Toast.makeText(getActivity(),R.string.ExportingToMail,Toast.LENGTH_LONG).show(); unnecessary for now - might be longer when .csv available.
+
+                    //Uri uriToBillCSV = Uri.parse(""); //
+                    Uri uriToBillCSV = Uri.fromFile(new File(""));    //TODO: Insert link to Bar Bill CSV from Broberg
+
+                    //Mail Intent connected to gmail:
+                    //Mailaddress: Rus1.Barapp@gmail.com
+                    //PW: #WomenzRulez
+
+                    /**
+                    //region Custom Uri solution //not working
+                    Uri uri = Uri.parse("mailto:"+ name)
+                            .buildUpon()
+                            .appendQueryParameter("subject", "RUS-1 Bar Bill:")
+                            .appendQueryParameter("body", "Sent from Android")
+                            .build();
+
+                    Intent mailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto" + name));
+                    startActivity(Intent.createChooser(mailIntent, "Chooser Title"));
+                    //endregion
+
+                     */
+
+
+                    //region Intent solution
+
+                    Intent mailIntent = new Intent();
+                    mailIntent.setAction(Intent.ACTION_SEND);
+                    mailIntent.setType("text/plain");
+                    mailIntent.putExtra(Intent.EXTRA_EMAIL, getResources().getText(R.string.BarappRusMail));
+                    // Variations for later use (just remove // before line):
+                    //mailIntent.putExtra(Intent.EXTRA_CC, getResources().getText(R.string.BarRusMail));
+                    //mailIntent.putExtra(Intent.EXTRA_BCC, getResources().getText(R.string.KasserRusMail));
+                    //mailIntent.putExtra( name, name);
+
+                    //mailIntent.putExtra(Intent.EXTRA_EMAIL, name);
+
+                    mailIntent.putExtra(Intent.EXTRA_CC, getResources().getText(R.string.BarappRusMail));
+                    mailIntent.putExtra(Intent.EXTRA_SUBJECT, "RUS-1 Bar Bill:");
+                    mailIntent.putExtra(Intent.EXTRA_TEXT, "Sent from Android");
+
+                    Intent attachIntent = new Intent();
+                    attachIntent.setAction(Intent.ACTION_SEND);
+                    attachIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // might not be necessary
+                    attachIntent.putExtra(Intent.EXTRA_STREAM, uriToBillCSV);
+                    attachIntent.setType("csv");
+                    startActivity(Intent.createChooser(mailIntent, getResources().getText(R.string.send_to)));
+
+                    //endregion
+
+                    Toast.makeText(getActivity(),R.string.youregood,Toast.LENGTH_LONG).show();
+
                 }
             });
 
@@ -99,34 +157,6 @@ public class BillSettingsFragment extends Fragment {
             cancelBtn = rootView.findViewById(R.id.billSettingsCancelBtn);
             cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_billSettingsFragment_to_settingsOverviewFragment));
 
-            sendBillBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    /** // https://developer.android.com/training/sharing/send
-
-                    Toast.makeText(getActivity(),R.string.ExportingToMail,Toast.LENGTH_LONG).show();
-
-                    //Uri uriToBillCSV = Uri.parse(""); //
-                    Uri uriToBillCSV = Uri.fromFile(new File(""));    //TODO: Insert link to Bar Bill CSV from Broberg
-
-                    Intent mailIntent = new Intent();
-                    mailIntent.setAction(Intent.ACTION_SEND);
-                    //mailIntent.putExtra(String, ); TODO: Might have to add string for certain mail applications (for extra mail recipients)
-                    mailIntent.putExtra(Intent.EXTRA_SUBJECT, "RUS-1 Bar Bill:");
-                    mailIntent.putExtra(Intent.EXTRA_TEXT, "Sent from Android");
-                    mailIntent.setType("text/plain");
-
-                    Intent attachIntent = new Intent();
-                    attachIntent.setAction(Intent.ACTION_SEND);
-                    attachIntent.putExtra(Intent.EXTRA_STREAM, uriToBillCSV);
-                    attachIntent.setType("csv");
-                    startActivity(Intent.createChooser(mailIntent, getResources().getText(R.string.send_to))); // TODO: send_to midlertidig mail - nemt at hardcode extra mailrecipients. måske også hente fra database?
-
-                    Toast.makeText(getActivity(),R.string.youregood,Toast.LENGTH_LONG).show(); */
-
-                }
-            });
         }
     }
 
