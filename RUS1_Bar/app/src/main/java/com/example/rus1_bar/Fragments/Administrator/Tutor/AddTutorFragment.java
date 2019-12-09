@@ -141,7 +141,7 @@ public class AddTutorFragment extends Fragment {
                         Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
                     else {
-                        /*
+
                         newTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
                         newTutor.setImagename(guid);
                         if (imageUri != null){
@@ -150,7 +150,7 @@ public class AddTutorFragment extends Fragment {
                         firebaseRepo.insertTutor(newTutor);
                         Navigation.findNavController(view).navigate(R.id.action_addTutorFragment_to_tutorSettingsFragment);
 
-                         */
+
                     }
                 }
             });
