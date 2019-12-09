@@ -88,6 +88,8 @@ public class TutorSettingsFragment extends Fragment {
     {
         if (getActivity()!=null)
         {
+            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
+
             addTutorBtn = rootView.findViewById(R.id.tutorAddBtn);
             cancelBtn = rootView.findViewById(R.id.tutorListCancel);
 
@@ -110,7 +112,6 @@ public class TutorSettingsFragment extends Fragment {
             tutorRecyclerView.setAdapter(tutorRecyclerAdapter);
 
             //Get categories from db
-            shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
             FireDB = shoppingService.getFirebaseDatabase_fromService();                                 //FirebaseDatabase.getInstance();
             databaseTutorDisplay = FireDB.getReference("tutors");
             databaseTutorDisplay.addValueEventListener(new ValueEventListener() {
