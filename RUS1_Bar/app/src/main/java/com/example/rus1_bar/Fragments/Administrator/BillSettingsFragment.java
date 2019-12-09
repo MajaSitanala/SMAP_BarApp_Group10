@@ -106,7 +106,7 @@ public class BillSettingsFragment extends Fragment {
                     attachIntent.setAction(Intent.ACTION_SEND);
                     attachIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // might not be necessary, as we call permission in manifest.
                     attachIntent.putExtra(Intent.EXTRA_STREAM, uriToBillCSV);
-                    attachIntent.setType("csv");
+                    attachIntent.setType("text/plain");
                     startActivity(Intent.createChooser(mailIntent, getResources().getText(R.string.send_to)));
 
                     //endregion
