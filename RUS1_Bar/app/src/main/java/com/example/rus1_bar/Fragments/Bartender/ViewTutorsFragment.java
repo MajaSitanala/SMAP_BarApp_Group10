@@ -1,31 +1,24 @@
 package com.example.rus1_bar.Fragments.Bartender;
 
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.MainActivity;
-import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Adapters.TutorRecyclerAdapter;
-import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
@@ -116,7 +109,7 @@ public class ViewTutorsFragment extends Fragment {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
             //Init Database ref
-            FireDB = shoppingService.getFirebaseDatabase_fromService();//FirebaseDatabase.getInstance();//shoppingService.getFirebaseDatabase_fromService();  //TODO: maybe get this from service?
+            FireDB = shoppingService.getFirebaseDatabase_fromService();//FirebaseDatabase.getInstance();//shoppingService.getFirebaseDatabase_fromService();
 
             databaseTutor = FireDB.getReference("tutors");
             databaseTutor.addValueEventListener(new ValueEventListener() {

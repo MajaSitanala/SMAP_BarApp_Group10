@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,17 +17,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-
-import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
-import com.example.rus1_bar.Adapters.TutorRecyclerAdapter;
 import com.example.rus1_bar.Models.Category;
-import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
 import com.google.firebase.database.DataSnapshot;

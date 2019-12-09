@@ -90,7 +90,6 @@ public class EditCategoryFragment extends Fragment {
         deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
         editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
 
-        //TODO: Need to implement getImageName in Category
         categoryImage = rootView.findViewById(R.id.editCategoryImage);
 
         categoryImage.setOnClickListener(new View.OnClickListener() {

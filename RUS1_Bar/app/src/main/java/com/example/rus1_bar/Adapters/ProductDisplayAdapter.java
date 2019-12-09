@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,8 +16,6 @@ import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rus1_bar.Activities.ShoppingActivity;
-import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
@@ -28,8 +25,6 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-//TODO: Needs to use the cardview_item_product_display layout - this needs to be completed first.
 
 public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAdapter.MyViewHolder>{
 
@@ -116,7 +111,6 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
             img_productImage = (ImageView) itemView.findViewById(R.id.img_productImage);
             cardViewProduct = (CardView) itemView.findViewById(R.id.cardview_product);
 
-            /*
             // https://stackoverflow.com/questions/19639691/android-getheight-and-getwidth
             DisplayMetrics viewMetrics = cardViewProduct.getResources().getDisplayMetrics();
             int displayWith = viewMetrics.widthPixels;
@@ -140,7 +134,6 @@ public class ProductDisplayAdapter extends RecyclerView.Adapter<ProductDisplayAd
                 img_productImage.requestLayout();
             }
 
-             */
         }
 
     }

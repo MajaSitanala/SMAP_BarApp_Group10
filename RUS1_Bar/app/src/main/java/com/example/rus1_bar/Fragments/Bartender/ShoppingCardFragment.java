@@ -6,21 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Models.Product;
@@ -64,15 +60,6 @@ public class ShoppingCardFragment extends Fragment{
                              Bundle savedInstanceState) {
         // rootView is needed when using fingViewById because otherwise the views have not been created by the time the views are called.
         rootView = inflater.inflate(R.layout.fragment_shopping_card, container, false);                                              //https://stackoverflow.com/questions/26621060/display-a-recyclerview-in-fragment
-
-
-        //Test data for the card view
-        //fillTestShoppingCardList();
-
-        // Getting data from the Activity.
-        // mProductList = listener.fromActivity_getShoppingProducts();
-
-
 
         // Inflate the layout for this fragment
         return rootView; // inflater.inflate(R.layout.fragment_view_tutors, container, false);

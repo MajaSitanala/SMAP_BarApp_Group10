@@ -8,14 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.rus1_bar.Activities.MainActivity;
-import com.example.rus1_bar.Adapters.CategoryRecyclerDisplayAdapter;
 import com.example.rus1_bar.Adapters.RusturRecycleAdapter;
-import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Rustur;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
@@ -100,8 +97,6 @@ public class RusturSettingsFragment extends Fragment
     {
         if (getActivity()!=null)
         {
-
-            //TODO: add logic for fragment here!
             //Init Service
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
@@ -109,7 +104,7 @@ public class RusturSettingsFragment extends Fragment
             cancelBtn = rootView.findViewById(R.id.rusturSettingsCancelBtn);
             cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_rusturSettingsFragment_to_settingsOverviewFragment));
 
-            //show toast, deleting collection is not available from client device TODO TOAST
+            //show toast, deleting collection is not available from client device
             removeBtn = rootView.findViewById(R.id.rusturSettingsRemoveRusturBtn);
             removeBtn.setOnClickListener(v -> {
                 Toast.makeText(this.getActivity(),R.string.rusturDeleteMsg, Toast.LENGTH_LONG).show();
@@ -140,7 +135,7 @@ public class RusturSettingsFragment extends Fragment
             });
 
 
-            //Set Rustur as currentRustur TODO: Toast og highlight den aktive rsutur
+            //Set Rustur as currentRustur
             setBtn = rootView.findViewById(R.id.rusturSettingsSetCurrentBtn);
             setBtn.setOnClickListener(v->Toast.makeText(this.getActivity(),R.string.rusturSetMsg,Toast.LENGTH_LONG).show());
 

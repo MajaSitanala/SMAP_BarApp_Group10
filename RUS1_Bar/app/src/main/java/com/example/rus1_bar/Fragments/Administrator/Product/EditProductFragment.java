@@ -9,12 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.rus1_bar.Activities.MainActivity;
 import com.example.rus1_bar.Models.Product;
@@ -101,7 +100,6 @@ public class EditProductFragment extends Fragment
         deleteBtn = rootView.findViewById(R.id.editProductDeleteBtn);
         editBtn = rootView.findViewById(R.id.editProductEditBtn);
 
-        //TODO: Need to implement getImageName in Category
         productImage = rootView.findViewById(R.id.editProductImage);
 
         productImage.setOnClickListener(new View.OnClickListener() {

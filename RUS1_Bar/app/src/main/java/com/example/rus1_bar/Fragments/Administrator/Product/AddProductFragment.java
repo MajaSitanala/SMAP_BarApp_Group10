@@ -2,13 +2,8 @@ package com.example.rus1_bar.Fragments.Administrator.Product;
 
 
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,21 +11,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.rus1_bar.Models.Product;
-import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.text.DecimalFormat;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
-import static android.widget.Toast.makeText;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -92,8 +85,6 @@ public class AddProductFragment extends Fragment {
                 openGallery();
             }
         });
-
-        //TODO: Add Button Missing, need to figure out the best way to do it
 
         return rootView;
     }

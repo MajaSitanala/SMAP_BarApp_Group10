@@ -1,8 +1,6 @@
 package com.example.rus1_bar.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,15 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
@@ -51,7 +46,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
         View view;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         view = mInflater.inflate(R.layout.cardwiev_item_category, parent, false);
-        //final NavController navController = Navigation.findNavController(ShoppingActivity.this, R.id.nav_host_fragment);
         return new CategoryRecyclerAdapter.MyViewHolder(view);
     }
 
@@ -67,14 +61,11 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
                     Picasso.with(mContext).load(uri).resize(600,600).centerInside().into(holder.img_categoryImage);
                 }
             });
-
         }
-        //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
 
         holder.cardViewCategory.setOnClickListener(view -> {
             Category t = mCategoryList.get(position);
-            //Toast.makeText(view.getContext(), "You clicked " + t.getCategoryName(), Toast.LENGTH_SHORT).show();
 
             Bundle bundle = new Bundle();
             bundle.putString("category",t.getCategoryName());

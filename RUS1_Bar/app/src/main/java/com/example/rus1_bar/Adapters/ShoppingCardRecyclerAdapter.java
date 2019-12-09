@@ -1,26 +1,19 @@
 package com.example.rus1_bar.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rus1_bar.Activities.ShoppingActivity;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCardRecyclerAdapter.MyViewHolder> {
@@ -64,18 +57,15 @@ public class ShoppingCardRecyclerAdapter extends RecyclerView.Adapter<ShoppingCa
         holder.txt_itemName.setText(mProductList.get(position).getProductName());
         holder.txt_itemPrice.setText(String.valueOf(mProductList.get(position).getPrice()));
 
-        //Picasso.with(mContext).load(mTutorList.get(position).getPicture()).fit().centerInside().into(holder.img_tutorImage);
 
         holder.btn_deleteButton.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            //Toast.makeText(view.getContext(), "You tried to delete " + t.getProductName(), Toast.LENGTH_SHORT).show();
             listener.onclickTrashRemoveProduct(t);
 
         });
 
         holder.cardViewShoppingCard.setOnClickListener(view -> {
             Product t = mProductList.get(position);
-            //Toast.makeText(view.getContext(), "You clicked " + t.getProductName(), Toast.LENGTH_SHORT).show();
         });
     }
 

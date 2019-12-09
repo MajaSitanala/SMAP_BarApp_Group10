@@ -1,38 +1,27 @@
 package com.example.rus1_bar.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
 import com.example.rus1_bar.Adapters.ShoppingCardRecyclerAdapter;
 import com.example.rus1_bar.Fragments.Bartender.ShoppingCardFragment;
-import com.example.rus1_bar.Fragments.Bartender.ViewCategoriesFragment;
-import com.example.rus1_bar.Fragments.Bartender.ViewProductsFragment;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.Models.Rustur;
@@ -41,9 +30,6 @@ import com.example.rus1_bar.Models.Tutor;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Service.ShoppingService;
 import com.facebook.stetho.Stetho;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ShoppingActivity extends AppCompatActivity implements ProductRecyclerAdapter.AdapterProductListner,
@@ -83,7 +69,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
         if(savedInstanceState != null)
         {
-            //shoppingViewModel = (ShoppingViewModel) savedInstanceState.getSerializable(getString(R.string.savedInstanceState_ShoppingActivity));
         }
 
         navController = Navigation.findNavController((this), R.id.nav_item_selection_fragment);
@@ -91,11 +76,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         //for debugging/viewing database
         enableStethos();
 
-        // Starting the service
-        //startService();
-
         // UI declarations
-        //currentTutor = findViewById(R.id.tutorlabel_id);
         textView_itemsInCart = findViewById(R.id.txt_items_in_cart);
         textView_totalSum = findViewById(R.id.txt_total_sum);
         updateCartUI(0, 0.0);
@@ -104,9 +85,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         Intent mainIntent = getIntent();
         currentTutorClicked = (Tutor) mainIntent.getSerializableExtra(TUTOR_OBJECT);
         currentTutorName = currentTutorClicked.getNickname();
-
-        //currentTutor.setText(currentTutorName);
-
 
         Toolbar shoppingToolbar = findViewById(R.id.MAtoolbar);
         setSupportActionBar(shoppingToolbar);
@@ -178,7 +156,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         // Shopping card fragment (not navigation componment)
         ShoppingCardFragment shoppingCardFragment = new ShoppingCardFragment();
 
-        getSupportFragmentManager().beginTransaction()                                                      //Inspiration and solution found https://codinginflow.com/tutorials/android/fragment-to-fragment-communication-with-shared-viewmodel
+        getSupportFragmentManager().beginTransaction()            //Inspiration and solution found https://codinginflow.com/tutorials/android/fragment-to-fragment-communication-with-shared-viewmodel
                 .add(R.id.nav_shopping_cart_fragment, shoppingCardFragment)// new ShoppingCardFragment())
                 .commit();
 
@@ -218,26 +196,9 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
         });
     }
 
-    /**
-     * Starts the service when called.
-     * Inspitation from Code in flow at https://codinginflow.com/tutorials/android/foreground-service
-     */
-    /*
-    public void startService() {
-        Intent serviceIntent = new Intent(this, ShoppingService.class);
-        //ContextCompat.startForegroundService(this, serviceIntent);
-        startService(serviceIntent);
-    }
-     */
-
-
-
     @Override
     public void onclickAddProduct(Product product)
     {
-        //mPurchace.addProductToPurchace(product);
-        //Toast.makeText(this,"FromonClickADD",Toast.LENGTH_SHORT).show();
-
         for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
         {
             if (p.getProductName().equals(product.getProductName()))
@@ -256,8 +217,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     public void onClickRemoveProduct(Product product)
     {
-        //mPurchace.removeProductToPurchace(product);
-
         for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
         {
             if (p.getProductName().equals(product.getProductName()) && p.getQuantity()>=2)

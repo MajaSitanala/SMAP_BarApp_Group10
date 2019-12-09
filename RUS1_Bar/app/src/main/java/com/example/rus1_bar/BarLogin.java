@@ -1,8 +1,8 @@
 package com.example.rus1_bar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BarLogin extends AppCompatActivity {
 

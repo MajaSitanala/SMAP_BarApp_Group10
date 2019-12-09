@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,16 +20,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.MainActivity;
-import com.example.rus1_bar.Adapters.CategoryRecyclerDisplayAdapter;
 import com.example.rus1_bar.Adapters.ProductDisplayAdapter;
-import com.example.rus1_bar.Adapters.ProductRecyclerAdapter;
-import com.example.rus1_bar.Adapters.ProductSettingsCategoryRecyclerAdapter;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Service.ShoppingService;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
@@ -38,9 +33,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -190,64 +182,4 @@ public class ProductSettingsFragment extends Fragment {
             initProductSettingsFragment();
         }
     };
-
-
-
-/*
-    public List<Product> getAllProductsInDatabase()
-    {
-        List<Category> allCategoriesInDatabase = new ArrayList<>();
-        List<Product> allProductsInDatabase = new ArrayList<>();
-
-        //Get categories from db
-        DatabaseReference databaseCategory = this.firebaseDatabase.getReference("categories");
-        databaseCategory.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.e("Category fromService ", "inside");
-                allCategoriesInDatabase.clear();
-                for (DataSnapshot categorySnapshot : dataSnapshot.getChildren())
-                {
-                    Category cat = categorySnapshot.getValue(Category.class);
-                    allCategoriesInDatabase.add(cat);
-
-                    //Init Database ref
-                    DatabaseReference databaseProduct = firebaseDatabase.getReference("categories").child(cat.getCategoryName());
-                    databaseProduct.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            allProductsInDatabase.clear();
-                            for (DataSnapshot productSnapshot : dataSnapshot.getChildren())
-                            {
-                                try {
-                                    Product product = productSnapshot.getValue(Product.class);
-                                    allProductsInDatabase.add(product);
-                                }
-                                catch (DatabaseException E)
-                                {
-                                    Log.e("DB x: " + E, "Error fom try catch.");
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError)
-                        {
-                            Log.e("PRODUCT fromService ", "Error did not load the products");
-                        }
-                    });
-
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
-                Log.e("Category fromService ", "Error did not load the categories");
-            }
-        });
-
-        return allProductsInDatabase;
-    }
-
- */
 }

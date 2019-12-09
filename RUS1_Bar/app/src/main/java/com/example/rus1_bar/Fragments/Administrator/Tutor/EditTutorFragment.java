@@ -189,7 +189,6 @@ public class EditTutorFragment extends Fragment {
                         {
                             currentTutor.setImagename(guid);
                             if (imageUri != null) {
-                                //TODO: maybe delete old picure before saving??????!?!?!?!
                                 firebaseRepo.saveTutorImage(currentTutor, cropResult.getUri());
                             }
                         }

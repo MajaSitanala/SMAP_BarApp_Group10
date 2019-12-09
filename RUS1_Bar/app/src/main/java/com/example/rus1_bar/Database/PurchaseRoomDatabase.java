@@ -2,7 +2,6 @@
 package com.example.rus1_bar.Database;
 
 
-
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -13,7 +12,6 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.rus1_bar.Models.Product;
-import com.example.rus1_bar.Models.Purchase;
 import com.example.rus1_bar.R;
 
 @Database(entities = Product.class, version = 2, exportSchema = false)
@@ -42,7 +40,6 @@ public abstract class PurchaseRoomDatabase extends androidx.room.RoomDatabase
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            //new PopulateDbAsyncTask(instance).execute();
         }
     };
 
