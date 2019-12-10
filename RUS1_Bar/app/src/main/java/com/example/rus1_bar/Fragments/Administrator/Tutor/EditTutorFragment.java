@@ -175,7 +175,6 @@ public class EditTutorFragment extends Fragment {
                     else {
 
                         Tutor oldTutor = currentTutor;
-                        firebaseRepo.deleteTutor(currentTutor);
 
                         currentTutor = new Tutor(editName.getText().toString(), editNick.getText().toString(), Integer.parseInt(editPhone.getText().toString()), editEmail.getText().toString());
 

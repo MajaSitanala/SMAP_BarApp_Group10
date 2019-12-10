@@ -180,6 +180,7 @@ public class AddTutorFragment extends Fragment {
             cropResult = CropImage.getActivityResult(data);
             if (cropResult != null) {
                 tutorImage.setImageURI(cropResult.getUri());
+
             } else {
                 Toast.makeText(getActivity(), R.string.cropCancel, Toast.LENGTH_LONG).show();
             }

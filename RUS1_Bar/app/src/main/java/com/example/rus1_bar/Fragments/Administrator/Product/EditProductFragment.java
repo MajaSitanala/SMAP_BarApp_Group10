@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -183,27 +184,23 @@ public class EditProductFragment extends Fragment
                                 Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                             }
                             else {
+
+
                                 Product oldProduct = currentProduct;
-                                firebaseRepo.deleteProduct(currentProduct, categoryName);
 
-                                currentProduct = new Product(editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
-
-                                if (newImageSat == false)
+                                currentProduct.setProductName(editName.getText().toString());
+                                try {
+                                    currentProduct.setPrice(Double.parseDouble(editPrice.getText().toString()));
+                                }catch (ParseException e)
                                 {
-                                    currentProduct = oldProduct;
-                                    currentProduct.setProductName(editName.getText().toString());
-                                }
-                                else
-                                {
-                                    currentProduct.setImageName(guid);
-                                    if (imageUri != null){
-                                        firebaseRepo.saveProductImage(currentProduct, cropResult.getUri());
-                                    }
+                                    Toast.makeText(getContext(),editPrice.getText().toString() + " Is not a valid price",Toast.LENGTH_LONG);
                                 }
 
-                                newImageSat = false;
-                                firebaseRepo.insertProduct(currentProduct, categoryName);
-                                Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_productSettingsFragment);
+                                if(currentProduct.getImageName()!= null){firebaseRepo.insertProduct(currentProduct, categoryName);
+                                    Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_productSettingsFragment);}
+                                else {
+                                    Toast.makeText(getContext(), "No image chosen",Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                         else
