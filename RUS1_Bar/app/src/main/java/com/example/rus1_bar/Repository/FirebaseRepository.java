@@ -111,7 +111,7 @@ public class FirebaseRepository {
 
     public void saveProductImage(Category category, Product product, Uri imageUri){
         if(product.getImageName()!= null){
-            StorageReference pic = ImageDB.child("categories/"+category.getCategoryName()+"/"+product.getProductName()+".png");
+            StorageReference pic = ImageDB.child("categories/"+category.getCategoryName()+"/"+product.getImageName()+".png");
             pic.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

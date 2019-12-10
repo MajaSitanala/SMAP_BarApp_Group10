@@ -161,7 +161,7 @@ public class AddProductFragment extends Fragment {
                         newProduct = new Product(editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
                         newProduct.setImageName(guid);
                         if (imageUri != null){
-                            firebaseRepo.saveProductImage(newProduct, cropResult.getUri());
+                            firebaseRepo.saveProductImage(new Category(editCategory.getText().toString()),newProduct,cropResult.getUri());
                         }
                         firebaseRepo.insertProduct(newProduct, editCategory.getText().toString());
                         Navigation.findNavController(view).navigate(R.id.action_addProductFragment_to_productSettingsFragment);
@@ -193,7 +193,12 @@ public class AddProductFragment extends Fragment {
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             cropResult = CropImage.getActivityResult(data);
-            productImage.setImageURI(cropResult.getUri());
+            if(cropResult!= null){
+                productImage.setImageURI(cropResult.getUri());
+            } else {
+                Toast.makeText(getActivity(), R.string.cropCancel, Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 

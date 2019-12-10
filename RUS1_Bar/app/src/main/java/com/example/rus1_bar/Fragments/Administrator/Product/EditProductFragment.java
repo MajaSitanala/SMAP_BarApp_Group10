@@ -197,7 +197,7 @@ public class EditProductFragment extends Fragment
                                 }
 
                                 if(currentProduct.getImageName()!= null){firebaseRepo.insertProduct(currentProduct, categoryName);
-                                    Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_productSettingsFragment);}
+                                    navController.navigate(R.id.action_editProductFragment_to_productSettingsFragment);}
                                 else {
                                     Toast.makeText(getContext(), "No image chosen",Toast.LENGTH_SHORT).show();
                                 }
