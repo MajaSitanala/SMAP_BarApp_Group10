@@ -165,7 +165,6 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
             @Override
             public void onClick(View v) {
                 shoppingViewModel.deleteAllProductsInPurchase();
-
                 finish();
             }
         });
@@ -179,10 +178,8 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
 
                 if (shoppingViewModel.getAllProductsinPurchase().getValue().size()!=0)
                 {
-                    for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
-                    {
-                        mPurchace.addProductToPurchace(p);
-                    }
+
+                    mPurchace.addProductListToPurchace(shoppingViewModel.getAllProductsinPurchase().getValue());
 
                     shoppingViewModel.insertPurchace_CloudFirestore(rustur, currentTutorClicked, mPurchace);
                     shoppingViewModel.deleteAllProductsInPurchase();
@@ -199,6 +196,7 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
     @Override
     public void onclickAddProduct(Product product)
     {
+        Product pr = product;
         for (Product p : shoppingViewModel.getAllProductsinPurchase().getValue())
         {
             if (p.getProductName().equals(product.getProductName()))
@@ -209,6 +207,10 @@ public class ShoppingActivity extends AppCompatActivity implements ProductRecycl
                 updateCartUI(intemsInCart+1, totalSum+product.getPrice());
                 return;
             }
+        }
+        if (product.getQuantity() == 0)
+        {
+            product.setQuantity(1);
         }
         shoppingViewModel.insertProductInPurchase(product);
         updateCartUI(intemsInCart+1, totalSum+product.getPrice());

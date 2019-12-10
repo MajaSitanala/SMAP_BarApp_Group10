@@ -34,56 +34,16 @@ public class Purchase {
         this.purchaseId = purchaseId;
     }
 
-    public void addProductToPurchace(Product product)
+    public void addProductListToPurchace(List<Product> productList)
     {
-        if(boughtProducts.size()!=0)
-        {
-            for(int i = 0; i<boughtProducts.size(); i++)
-            {
-                if (product.getProductName().equals(boughtProducts.get(i).getProductName()))
-                {
-                    boughtProducts.get(i).setQuantity(boughtProducts.get(i).getQuantity()+1);
-                    purchaseSum+=product.getPrice();
-                }
-                else
-                {
-                    boughtProducts.add(product);
-                    purchaseSum+=product.getPrice();
-                }
-            }
-        }
-        else
-        {
-            boughtProducts.add(product);
-            purchaseSum+=product.getPrice();
-        }
-    }
+        boughtProducts.clear();
+        purchaseSum = 0;
+        boughtProducts = productList;
 
-    public void removeProductToPurchace(Product product)
-    {
-/*
-
-        for(int i = 0; i<boughtProducts.size(); i++)
+        for(Product product : productList)
         {
-            if (product.getProductName().equals(boughtProducts.get(i).getProductName()))
-            {
-                if (boughtProducts.get(i).getQuantity()>=2)
-                {
-                    boughtProducts.get(i).setQuantity(boughtProducts.get(i).getQuantity()-1);
-                    purchaseSum-=product.getPrice();
-                }
-                else
-                {
-                    boughtProducts.remove(i);
-                }
-            }
-            else
-            {
-                Log.e("PURCHACE removeproduct:", "Nothing to remove");
-            }
+            purchaseSum = purchaseSum + product.getPrice();
         }
-
- */
     }
 
     public List<Product> getBoughtProducts() {
