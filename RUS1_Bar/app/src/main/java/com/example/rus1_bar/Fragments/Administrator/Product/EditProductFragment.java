@@ -142,7 +142,7 @@ public class EditProductFragment extends Fragment
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();
 
             if((currentProduct.getImageName() != null) && (newImageSat == false)){
-                firebaseRepo.getCategoryImage(currentProduct.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                firebaseRepo.getProductImage(currentProduct.getImageName(), categoryName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         Picasso.with(rootView.getContext()).load(uri).resize(600,600).centerInside().into(productImage);

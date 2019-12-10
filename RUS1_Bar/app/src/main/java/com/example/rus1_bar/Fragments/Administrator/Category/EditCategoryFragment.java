@@ -90,18 +90,6 @@ public class EditCategoryFragment extends Fragment {
         deleteBtn = rootView.findViewById(R.id.editCategoryDeleteBtn);
         editBtn = rootView.findViewById(R.id.editCategoryEditBtn);
 
-        categoryImage = rootView.findViewById(R.id.editCategoryImage);
-
-        categoryImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                newImageSat = true;
-                openGallery();
-            }
-        });
-
-
         return rootView;
     }
 
@@ -124,14 +112,26 @@ public class EditCategoryFragment extends Fragment {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();
 
-            if((currentCategory.getImageName() != null) && (newImageSat == false)){
-                firebaseRepo.getCategoryImage(currentCategory.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+            categoryImage = rootView.findViewById(R.id.editCategoryImage);
+            if ((currentCategory.getImageName() != null) && (newImageSat==false)) {
+                firebaseRepo.getTutorImage(currentCategory.getImageName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.with(rootView.getContext()).load(uri).resize(600,600).centerInside().into(categoryImage);
+
+                        Picasso.with(rootView.getContext()).load(uri).resize(600, 600).centerInside().into(categoryImage);
                     }
                 });
             }
+
+            categoryImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    newImageSat = true;
+                    openGallery();
+                }
+            });
 
             NavController navController = Navigation.findNavController((this.getActivity()), R.id.nav_host_fragment);
             cancelBtn.setOnClickListener(new View.OnClickListener() {

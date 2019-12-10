@@ -131,6 +131,7 @@ public class EditTutorFragment extends Fragment {
                     }
                 });
             }
+
             tutorImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view)
