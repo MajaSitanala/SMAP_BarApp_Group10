@@ -101,18 +101,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline183" />
 
         <EditText
-            android:id="@+id/addProductEditCategory"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/addProductsEditCategory"
-            app:layout_constraintBottom_toTopOf="@+id/guideline189"
-            app:layout_constraintEnd_toStartOf="@+id/guideline177"
-            app:layout_constraintStart_toStartOf="@+id/guideline187"
-            app:layout_constraintTop_toTopOf="@+id/guideline186" />
-
-        <EditText
             android:id="@+id/addProductEditPrice"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -269,5 +257,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.80" />
+
+        <Spinner
+            android:id="@+id/categoryNameSpinner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline191"
+            app:layout_constraintEnd_toStartOf="@+id/guideline177"
+            app:layout_constraintStart_toStartOf="@+id/guideline187"
+            app:layout_constraintTop_toTopOf="@+id/guideline190" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

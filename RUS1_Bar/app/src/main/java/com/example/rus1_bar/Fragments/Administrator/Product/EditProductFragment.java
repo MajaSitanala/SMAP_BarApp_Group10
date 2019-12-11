@@ -14,9 +14,11 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +27,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.rus1_bar.Activities.MainActivity;
+import com.example.rus1_bar.Adapters.CategorySpinnerAdapter;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
@@ -63,12 +66,15 @@ public class EditProductFragment extends Fragment
     private CropImage.ActivityResult cropResult;
     private String guid;
 
+
+    private CategorySpinnerAdapter sAdapter;
+
     private FirebaseRepository firebaseRepo;
     private Product currentProduct;
     private String categoryName;
 
     private EditText editName;
-    private EditText editCategoryOfproduct;
+    private Spinner categoryNameSpinner;
     private EditText editPrice;
 
     private AlertDialog diaBox;
@@ -99,8 +105,7 @@ public class EditProductFragment extends Fragment
 
         editName = rootView.findViewById(R.id.editProductEditName);
         editName.setText(currentProduct.getProductName());
-        editCategoryOfproduct = rootView.findViewById(R.id.editProductEditCategory);
-        editCategoryOfproduct.setText(categoryName);
+        categoryNameSpinner = rootView.findViewById(R.id.editCategorySpinner);
         editPrice = rootView.findViewById(R.id.editProductEditPrice);
         editPrice.setText(Double.toString(currentProduct.getPrice()));
 
@@ -170,16 +175,32 @@ public class EditProductFragment extends Fragment
                 }
             });
 
+            sAdapter = new CategorySpinnerAdapter(getContext(), (ArrayList<String>) mCategorynameList);
+
+            categoryNameSpinner.setAdapter(sAdapter);
+
+            categoryNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String clickedItem = (String) parent.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
             editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Error handling for empty fields.
                     for(String categoryName : mCategorynameList)
                     {
-                        if (editCategoryOfproduct.getText().toString().equals(categoryName))
+                        if (categoryNameSpinner.equals(categoryName))
                         {
                             categyNameCheck = true;
-                            if ((editName.getText().toString().equals("")) || (editCategoryOfproduct.getText().toString().equals("")) || (editPrice.getText().toString().equals("")))
+                            if ((editName.getText().toString().equals("")) || (categoryNameSpinner.getSelectedItem().toString().equals("")) || (editPrice.getText().toString().equals("")))
                             {
                                 Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                             }
@@ -210,7 +231,7 @@ public class EditProductFragment extends Fragment
                     }
                     if (categyNameCheck==false)
                     {
-                        Toast.makeText(getContext(), "No catagoty named "+editCategoryOfproduct.getText().toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "No catagoty named "+categoryNameSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });

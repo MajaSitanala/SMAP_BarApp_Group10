@@ -151,6 +151,7 @@
     <string name="KasserRusMail" translatable="false">Kasser@Rus1Katrinebjerg.dk</string>
     <string name="send_to" translatable="false">Mail</string>
     <string name="BarappRusMail" translatable="false">Rus1.Barapp@gmail.com</string>
+    <string name="spinnerCategoryName">Category Name</string>
 
 
 </resources>

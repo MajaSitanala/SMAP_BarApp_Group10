@@ -8,28 +8,44 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rus1_bar.Activities.MainActivity;
+import com.example.rus1_bar.Adapters.CategoryRecyclerAdapter;
+import com.example.rus1_bar.Adapters.CategorySpinnerAdapter;
 import com.example.rus1_bar.Models.Category;
 import com.example.rus1_bar.Models.Product;
 import com.example.rus1_bar.R;
 import com.example.rus1_bar.Repository.FirebaseRepository;
 import com.example.rus1_bar.Service.ShoppingService;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
@@ -46,25 +62,30 @@ public class AddProductFragment extends Fragment {
     private static final String SERVICE_CONNECTED_MAIN_ACTIVITY = "Service connected to the main Activity" ;
 
 
-    Button addBtn;
-    Button cancelBtn;
+    private Button addBtn;
+    private Button cancelBtn;
 
+    private EditText editName;
+    private EditText editPrice;
 
-    EditText editName;
-    EditText editCategory;
-    EditText editPrice;
+    private FirebaseRepository firebaseRepo;
+    private Product newProduct;
 
-    FirebaseRepository firebaseRepo;
-    Product newProduct;
+    private List<String> mCategoryStringList = new ArrayList<>();
+    private CategorySpinnerAdapter sAdapter;
 
     private static final int PICK_IMAGE = 102;
 
-    ImageView productImage;
-    Uri imageUri;
-    CropImage.ActivityResult cropResult;
+    // Database
+    private DatabaseReference databaseCategoryDisplay;
+    private FirebaseDatabase FireDB;
 
-    String guid;
+    private ImageView productImage;
+    private Uri imageUri;
+    private CropImage.ActivityResult cropResult;
 
+    private String guid;
+    private Spinner categoryNameSpinner;
 
     private ShoppingService shoppingService;
     private View rootView;
@@ -93,8 +114,9 @@ public class AddProductFragment extends Fragment {
         editName = rootView.findViewById(R.id.addProductEditName);
         editName.setText("");
 
-        editCategory = rootView.findViewById(R.id.addProductEditCategory);
-        editCategory.setText("");
+        mCategoryStringList = (ArrayList<String>) getArguments().getSerializable("category_name_list");
+
+        categoryNameSpinner = rootView.findViewById(R.id.categoryNameSpinner);
 
         editPrice = rootView.findViewById(R.id.addProductEditPrice);
         editPrice.setText("");
@@ -132,7 +154,24 @@ public class AddProductFragment extends Fragment {
         {
             shoppingService = ((MainActivity)getActivity()).getShoppingService_fromMainActivity();
 
+
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();//new FirebaseRepository();
+
+            sAdapter = new CategorySpinnerAdapter(getContext(), (ArrayList<String>) mCategoryStringList);
+
+            categoryNameSpinner.setAdapter(sAdapter);
+
+            categoryNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String clickedItem = (String) parent.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
 
             cancelBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,7 +190,7 @@ public class AddProductFragment extends Fragment {
                 public void onClick(View view) {
                     //Error handling for empty fields.
 
-                    if ((editName.getText().toString().equals("")) || (editCategory.getText().toString().equals("")) || (editPrice.getText().toString().equals("")))
+                    if ((editName.getText().toString().equals("")) || (categoryNameSpinner.getSelectedItem().toString().equals("")) || (editPrice.getText().toString().equals("")))
                     {
                         Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
                     }
@@ -161,9 +200,9 @@ public class AddProductFragment extends Fragment {
                         newProduct = new Product(editName.getText().toString(), Double.parseDouble(editPrice.getText().toString()));
                         newProduct.setImageName(guid);
                         if (imageUri != null){
-                            firebaseRepo.saveProductImage(new Category(editCategory.getText().toString()),newProduct,cropResult.getUri());
+                            firebaseRepo.saveProductImage(new Category(categoryNameSpinner.getSelectedItem().toString()),newProduct,cropResult.getUri());
                         }
-                        firebaseRepo.insertProduct(newProduct, editCategory.getText().toString());
+                        firebaseRepo.insertProduct(newProduct, categoryNameSpinner.getSelectedItem().toString());
                         Navigation.findNavController(view).navigate(R.id.action_addProductFragment_to_productSettingsFragment);
 
                     }
