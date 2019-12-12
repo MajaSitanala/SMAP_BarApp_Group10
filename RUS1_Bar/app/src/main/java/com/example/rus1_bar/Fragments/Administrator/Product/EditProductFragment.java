@@ -81,6 +81,7 @@ public class EditProductFragment extends Fragment
 
     ShoppingService shoppingService;
     private List<String> mCategorynameList = new ArrayList<String>();
+    ArrayList<String> shortSpinnerNameList = new ArrayList<>();
 
     private View rootView;
     private boolean newImageSat;
@@ -175,7 +176,16 @@ public class EditProductFragment extends Fragment
                 }
             });
 
-            sAdapter = new CategorySpinnerAdapter(getContext(), (ArrayList<String>) mCategorynameList);
+            shortSpinnerNameList.clear();
+            for(String string : mCategorynameList){
+                if (shortSpinnerNameList.contains(string)){
+                }
+                else
+                {
+                    shortSpinnerNameList.add(string);
+                }
+            }
+            sAdapter = new CategorySpinnerAdapter(getContext(), (ArrayList<String>) shortSpinnerNameList);
 
             categoryNameSpinner.setAdapter(sAdapter);
 
@@ -197,9 +207,9 @@ public class EditProductFragment extends Fragment
                     //Error handling for empty fields.
                     for(String categoryName : mCategorynameList)
                     {
-                        if (categoryNameSpinner.equals(categoryName))
+                        if (categoryNameSpinner.getSelectedItem().equals(categoryName))
                         {
-                            categyNameCheck = true;
+
                             if ((editName.getText().toString().equals("")) || (categoryNameSpinner.getSelectedItem().toString().equals("")) || (editPrice.getText().toString().equals("")))
                             {
                                 Toast.makeText(getContext(), "All fields must be filled out before proceeding.", Toast.LENGTH_LONG).show();
@@ -217,21 +227,18 @@ public class EditProductFragment extends Fragment
                                     Toast.makeText(getContext(),editPrice.getText().toString() + " Is not a valid price",Toast.LENGTH_LONG);
                                 }
 
-                                if(currentProduct.getImageName()!= null){firebaseRepo.insertProduct(currentProduct, categoryName);
-                                    navController.navigate(R.id.action_editProductFragment_to_productSettingsFragment);}
+                                if(currentProduct.getImageName()!= null){
+                                    firebaseRepo.insertProduct(currentProduct, categoryName);
+
+                                    //NavController navController = Navigation.findNavController((getActivity()), R.id.nav_host_fragment);
+                                    //navController.navigate(R.id.action_editProductFragment_to_productSettingsFragment);
+                                    Navigation.findNavController(view).navigate(R.id.productSettingsFragment);
+                                }
                                 else {
                                     Toast.makeText(getContext(), "No image chosen",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
-                        else
-                        {
-                            categyNameCheck = false;
-                        }
-                    }
-                    if (categyNameCheck==false)
-                    {
-                        Toast.makeText(getContext(), "No catagoty named "+categoryNameSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });

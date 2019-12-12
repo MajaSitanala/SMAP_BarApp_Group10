@@ -196,7 +196,7 @@ public class EditTutorFragment extends Fragment {
 
                         newImageSat = false;
                         firebaseRepo.insertTutor(currentTutor);
-                        Navigation.findNavController(view).navigate(R.id.action_editTutorFragment_to_tutorSettingsFragment);
+                        Navigation.findNavController(view).navigate(R.id.tutorSettingsFragment);
                     }
                 }
             });

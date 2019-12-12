@@ -72,6 +72,7 @@ public class AddProductFragment extends Fragment {
     private Product newProduct;
 
     private List<String> mCategoryStringList = new ArrayList<>();
+    ArrayList<String> shortSpinnerNameList = new ArrayList<>();
     private CategorySpinnerAdapter sAdapter;
 
     private static final int PICK_IMAGE = 102;
@@ -156,8 +157,17 @@ public class AddProductFragment extends Fragment {
 
 
             firebaseRepo = shoppingService.getFirebaseRepository_fromService();//new FirebaseRepository();
+            shortSpinnerNameList.clear();
+            for(String string : mCategoryStringList){
+                if (shortSpinnerNameList.contains(string)){
+                }
+                else
+                {
+                    shortSpinnerNameList.add(string);
+                }
+            }
 
-            sAdapter = new CategorySpinnerAdapter(getContext(), (ArrayList<String>) mCategoryStringList);
+            sAdapter = new CategorySpinnerAdapter(getContext(), (ArrayList<String>) shortSpinnerNameList);
 
             categoryNameSpinner.setAdapter(sAdapter);
 
